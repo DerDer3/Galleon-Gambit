@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Card
+public abstract class Card
 {
   string cardName;
   string cardRarity;
@@ -18,5 +18,8 @@ public class Card
   }
 
   public abstract void Play();
-  public abstract void Upgrade();
+  public void Upgrade()
+  {
+    this.cardLevel += 1;
+  }
 }
