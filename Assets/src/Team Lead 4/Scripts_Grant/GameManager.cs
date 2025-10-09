@@ -21,7 +21,7 @@ class StoryBlock{
     }
 }
 
-public class GameManager : MonoBehaviour
+public class GameStoryManager : MonoBehaviour
 {
     public Text mainText;
     public Button option1;
