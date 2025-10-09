@@ -6,22 +6,28 @@ public class Slash : Card
 
     Effect effect1 = new DamageEffect(5);
 
-    public override void Play()
+    public override void Play(GameState state)
     {
       Debug.Log("Played Slash");
-      effect1.Apply();
+      effect1.Apply(state);
+
+      int currentMana = state.mana.get_amount();
+      state.mana.set_amount(currentMana - 1);
     }
 }
 
-public class HealPotion : Card
+public class ShipRepair : Card
 {
-  public HealPotion() : base("HealPotion", "Common", 1, "Heal 5 player health", 1) { }
+  public ShipRepair() : base("Ship Repair", "Common", 1, "Heal 5 ship health", 1) { }
 
   Effect effect1 = new HealEffect(5);
 
-  public override void Play()
+  public override void Play(GameState state)
   {
-    Debug.Log("Played Heal Potion");
-    effect1.Apply();
+    Debug.Log("Played Ship Repair");
+    effect1.Apply(state);
+
+    int currentMana = state.mana.get_amount();
+    state.mana.set_amount(currentMana - 1);
   }
 }

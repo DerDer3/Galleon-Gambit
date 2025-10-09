@@ -18,7 +18,7 @@ public abstract class Card
     this.cardLevel = cardLevel;
   }
 
-  public abstract void Play();
+  public abstract void Play(GameState state);
   public void Upgrade()
   {
     this.cardLevel += 1;
