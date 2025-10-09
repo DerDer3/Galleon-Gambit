@@ -60,11 +60,15 @@
         "*.asset": "yaml",
         "*.meta": "yaml",
         "*.prefab": "yaml",
-        "*.unity": "yaml",
+        "*.unity": "yaml"
     },
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
-        "*.sln": "*.csproj",
+        "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Galleon Gambit.sln"
+<<<<<<< HEAD
+    "dotnet.defaultSolution": "GalleonGambit.sln"
+=======
+    "dotnet.defaultSolution": "Galleon-Gambit.sln"
+>>>>>>> origin/TeamL4
 }
