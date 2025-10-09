@@ -1,0 +1,10 @@
+I made a test battle scene, just to make things a bit easier for you. If you don't want to use it, then follow these steps:
+
+1. Drag Battle Canvas into Scene 
+2. Drag Battle System into Scene
+3. Go to Battle Canvas and find "EnemyHUD"
+4. Drag that into the Battle System's "Enemy HUD" Slot
+
+BattleSystem is just a GameObject that holds the "Create Enemy" Script, which is used to spawn the enemy in when the battle starts. The Create Enemy script 
+currently also holds the "Enemy Turn" function, that just has the enemy take damage and print if it's dead or not. This can be moved/removed
+while we wait for the player to actually work n junk. 
