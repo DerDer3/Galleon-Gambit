@@ -8,24 +8,26 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-      
-      mainGame.cards.Add(new Slash());
-      mainGame.cards.Add(new ShipRepair());
-      mainGame.cards.Add(new Slash());
-      mainGame.cards.Add(new ShipRepair());
-      mainGame.cards.Add(new Slash());
-      mainGame.cards.Add(new ShipRepair());
+      mainGame.mainDeck.AddCard(new Slash(), "Attack");
+      mainGame.mainDeck.AddCard(new Slash(), "Attack");
+      mainGame.mainDeck.AddCard(new Slash(), "Attack");
+      mainGame.mainDeck.AddCard(new Slash(), "Attack");
+      mainGame.mainDeck.AddCard(new Slash(), "Attack");
+      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
+      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
+      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
+      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
+      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
+
+      mainGame.mainDeck.Shuffle(mainGame.mainDeck);
 
       int index = 0;
-      int cardCount = mainGame.cards.Count;
-      foreach (var c in mainGame.cards)
+      for(int i = 0; i < 5; i++)
       {
-        Debug.Log("Creating Card: " + c.cardName);
         GameObject newCard = Instantiate(cardPrefab);
         CardObject cardObject = newCard.GetComponent<CardObject>();
-        cardObject.SetCard(c, mainGame);
-        cardObject.ChangeColor(index * 0.1f + 0.1f, index * 0.1f + 0.1f, index * 0.1f + 0.1f);
-        newCard.transform.localPosition = new Vector3((index * 2) -5, -3, 0);
+        cardObject.SetCard(mainGame.mainDeck.DrawCardWithReshuffle(), mainGame);
+        newCard.transform.localPosition = new Vector3((index * 2) -4, -3, 0);
         index += 1;
       }
     }
