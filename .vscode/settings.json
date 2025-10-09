@@ -66,9 +66,6 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-<<<<<<< HEAD
-    "dotnet.defaultSolution": "GalleonGambit.sln"
-=======
-    "dotnet.defaultSolution": "Galleon-Gambit.sln"
->>>>>>> origin/TeamL4
+    "GalleonGambit.sln=======dotnet.defaultSolution": "Galleon-Gambit.sln>>>>>>>origin/TeamL4",
+    "dotnet.defaultSolution": "Galleon Gambit.sln"
 }
