@@ -3,11 +3,11 @@ using UnityEngine;
 public abstract class Card
 {
   // Public here ensures they can all be read, but set is private
-  public string cardName { get; private set;}
-  public string cardRarity { get; private set;}
-  public int cardCost { get; private set;}
-  public string cardDescription { get; private set;}
-  public int cardLevel { get; private set;}
+  public string cardName { get; set;}
+  public string cardRarity { get;  set;}
+  public int cardCost { get;  set;}
+  public string cardDescription { get;  set;}
+  public int cardLevel { get;  set;}
 
   protected Card(string cardName, string cardRarity, int cardCost, string cardDescription, int cardLevel)
   {
