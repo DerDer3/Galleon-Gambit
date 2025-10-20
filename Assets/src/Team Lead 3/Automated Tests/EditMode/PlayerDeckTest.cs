@@ -18,7 +18,7 @@ public class PlayerDeckTests
         Object.DestroyImmediate(playerDeck.gameObject);
     }
 
-    //STRESS TEST: Add and draw a large number of cards (10,000)
+    //STRESS TEST: Add and draw a large number of cards
     [Test]
     public void StressTest_AddAndDrawManyCards()
     {
