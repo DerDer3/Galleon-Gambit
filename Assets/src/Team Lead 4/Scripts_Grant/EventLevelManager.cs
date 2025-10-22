@@ -21,11 +21,7 @@ class StoryBlock{
     }
 }
 
-<<<<<<< Updated upstream:Assets/src/Team Lead 4/Scripts_Grant/GameManager.cs
-public class GameManager : MonoBehaviour
-=======
 public class EventLevelManager : MonoBehaviour
->>>>>>> Stashed changes:Assets/src/Team Lead 4/Scripts_Grant/EventLevelManager.cs
 {
     public Text mainText;
     public Button option1;
