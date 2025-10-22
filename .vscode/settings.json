@@ -66,5 +66,9 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
+<<<<<<< Updated upstream
+=======
+    "Galleon-Gambit.sln>>>>>>>origin/TeamL4=======dotnet.defaultSolution": "Galleon-Gambit.sln>>>>>>>origin/TL5",
+>>>>>>> Stashed changes
     "dotnet.defaultSolution": "Galleon-Gambit.sln"
 }

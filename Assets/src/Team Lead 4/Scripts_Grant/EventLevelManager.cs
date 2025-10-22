@@ -21,7 +21,11 @@ class StoryBlock{
     }
 }
 
+<<<<<<< Updated upstream:Assets/src/Team Lead 4/Scripts_Grant/GameManager.cs
 public class GameManager : MonoBehaviour
+=======
+public class EventLevelManager : MonoBehaviour
+>>>>>>> Stashed changes:Assets/src/Team Lead 4/Scripts_Grant/EventLevelManager.cs
 {
     public Text mainText;
     public Button option1;
@@ -35,10 +39,6 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        //mainText.text = "Welcome to the game!";
-        //option1.GetComponentInChildren<Text>().text = "Hello";
-        //option2.GetComponentInChildren<Text>().text = "Goodbye";
-
         DisplayBlock(block1);
     }
 
@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
 
         currentBlock = block;
 
-         // Check if the current block is block2 or block3
     if (block == block2 || block == block3)
     {
         option1.gameObject.SetActive(false);
