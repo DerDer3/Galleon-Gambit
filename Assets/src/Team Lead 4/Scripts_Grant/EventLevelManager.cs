@@ -21,7 +21,7 @@ class StoryBlock{
     }
 }
 
-public class GameStoryManager : MonoBehaviour
+public class EventLevelManager : MonoBehaviour
 {
     public Text mainText;
     public Button option1;
@@ -35,11 +35,7 @@ public class GameStoryManager : MonoBehaviour
     
     void Start()
     {
-        //mainText.text = "Welcome to the game!";
-        //option1.GetComponentInChildren<Text>().text = "Hello";
-        //option2.GetComponentInChildren<Text>().text = "Goodbye";
-
-        DisplayBlock(block1);
+     DisplayBlock(block1);
     }
 
     void DisplayBlock(StoryBlock block){
@@ -49,7 +45,6 @@ public class GameStoryManager : MonoBehaviour
 
         currentBlock = block;
 
-         // Check if the current block is block2 or block3
     if (block == block2 || block == block3)
     {
         option1.gameObject.SetActive(false);
