@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 82bcfa2e6e1d6c64d8036690b11acae9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - enemyBattleLocation: {fileID: 32351627993521851, guid: 3d2ea871c20f0da4cac3c03642700634,
+      type: 3}
+  - EnemyPrefab: {fileID: 4371800162370274519, guid: 80c428802f7efa04292567a1f28071d5,
+      type: 3}
+  - enemyHUD: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
