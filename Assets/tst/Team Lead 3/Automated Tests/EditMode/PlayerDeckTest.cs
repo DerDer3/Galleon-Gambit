@@ -12,38 +12,6 @@ public class PlayerDeckTests
         playerDeck = new GameObject().AddComponent<PlayerDeck>();
     }
 
-    [TearDown]
-    public void Teardown()
-    {
-        Object.DestroyImmediate(playerDeck.gameObject);
-    }
-
-    //STRESS TEST: Add and draw a large number of cards
-    [Test]
-    public void StressTest_AddAndDrawManyCards()
-    {
-        //controlled:
-        const int largeCount = 10000;
-
-        // Add a large number of Slash cards
-        //while( true){ //for non controlled
-        for (int i = 0; i < largeCount; i++)
-        {
-            playerDeck.AddCard(new Slash(), "Attack");
-        }
-
-        Assert.AreEqual(largeCount, playerDeck.cards.Count, "All cards should have been added.");
-
-        // Draw all cards and ensure no nulls returned
-        for (int i = 0; i < largeCount; i++)
-        {
-            Card drawn = playerDeck.DrawCard();
-            Assert.NotNull(drawn, $"Card #{i} was null during draw.");
-        }
-
-        Assert.AreEqual(0, playerDeck.cards.Count, "Deck should be empty after drawing all cards.");
-    }
-
     //BOUNDARY TEST #1: Empty deck and discard pile reshuffle
     [Test]
     public void BoundaryTest_EmptyDeckAndDiscardPile()

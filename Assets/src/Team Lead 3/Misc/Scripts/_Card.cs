@@ -10,11 +10,11 @@ namespace GallionGambit
 
         public List<CardType> cardType;
 
-        public Sprite cardDesign;
-
         public int damage;
 
         public int heal;
+
+        public int manaCost;
 
         public List<CardEffect> effect;
 
