@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour
                 Console.WriteLine("Play Music");
                 break;
         }
-        
+
     }
 
     public void playSFX(SoundEffects title)
@@ -34,5 +34,15 @@ public class SoundManager : MonoBehaviour
                 Console.WriteLine("Play SFX");
                 break;
         }
+    }
+
+    public void SetChannelVolume()
+    {
+        Console.WriteLine("Setting Channel Volume");
+    }
+
+    public void SetChannelMute()
+    {
+        Console.WriteLine("Muting Channel");
     }
 }
