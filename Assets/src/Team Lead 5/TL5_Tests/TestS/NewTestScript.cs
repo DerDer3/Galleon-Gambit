@@ -1,38 +1,43 @@
 using System.Collections;
 using NUnit.Framework;
-using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using UnityEngine.TestRunner;
 
-public class EnemySpawnTesting
+public class NewTestScript
 {
-
     private CreateEnemy _spawner;
     private GameObject prefab;
 
     [UnitySetUp]
     public IEnumerator LoadScene()
     {
-        SceneManager.LoadScene("DemoBattleScene", LoadSceneMode.Single);
-        yield return null;
+        var op = SceneManager.LoadSceneAsync("DemoBattleScene");
+        while (!op.isDone)
+            yield return null;
     }
 
     [SetUp]
     public void SetUp()
     {
         _spawner = new GameObject("Spawner").AddComponent<CreateEnemy>();
+        _spawner.enemyBattleLocation = new GameObject("EnemySpawn");
+        _spawner.EnemyPrefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        _spawner.EnemyPrefab.AddComponent<Enemy>();
+        _spawner.enemyHUD = new GameObject("HUD").AddComponent<EnemyHUD>();
         prefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
     }
 
     [UnityTest]
     public IEnumerator StressSpawn_Prefabs_Continuous()
     {
-        yield return null;
         int spawnCount = 0;
-        while (spawnCount < 10)
+
+        int i = 0, max = 1000;
+        yield return null;
+        while (spawnCount < max)
         {
+            i++;
             spawnCount++;
             _spawner.onBattleStart();
 
@@ -40,11 +45,10 @@ public class EnemySpawnTesting
             {
                 Debug.Log(spawnCount);
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         
         
     }
-
 }

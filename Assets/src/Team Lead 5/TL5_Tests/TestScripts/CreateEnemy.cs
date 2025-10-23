@@ -11,8 +11,10 @@ public class CreateEnemy : MonoBehaviour
 
     void Start()
     {
-        // can move this to wherever we put 'battle start'
-        onBattleStart();
+        if (EnemyPrefab != null && enemyBattleLocation != null)
+        {
+            onBattleStart();
+        }
     }
 
     // Update is called once per frame
@@ -24,6 +26,18 @@ public class CreateEnemy : MonoBehaviour
 
     public void onBattleStart()
     {
+
+        if (enemyHUD != null)
+        {
+            try
+            {
+                enemyHUD.SetHUD(currentEnemy);
+            }
+            catch (System.NullReferenceException)
+            {
+                Debug.LogWarning("EnemyHUD missing UI references — skipping HUD update in test.");
+            }
+        }
 
         GameObject enemySpawn = Instantiate(EnemyPrefab, enemyBattleLocation.transform.position, Quaternion.identity);
         currentEnemy = enemySpawn.GetComponent<Enemy>();

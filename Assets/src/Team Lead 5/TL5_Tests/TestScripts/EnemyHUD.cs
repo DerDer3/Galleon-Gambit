@@ -3,15 +3,29 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EnemyHUD : MonoBehaviour
 {
-    public string enemyName = "james"; //will be text in the future
+    public string enemyName; //will be text in the future
     public Slider hpSlider;
 
 
     public void SetHUD(Enemy enemy)
     {
-        //enemyName.text = enemy.enemyName;
-        hpSlider.maxValue = enemy.maxHealth;
-        hpSlider.value = enemy.currentHealth;
+        if (enemy == null) return;
+
+        if (enemyName != null)
+            //string
+            enemyName = "james";
+        else
+            //Debug.LogWarning("EnemyHUD.nameText not assigned.");
+
+        if (hpSlider != null)
+        {
+            hpSlider.maxValue = enemy.maxHealth;
+            hpSlider.value = enemy.currentHealth;
+        }
+        else
+        {
+            //Debug.LogWarning("EnemyHUD.healthSlider not assigned.");
+        }
 
     }
 
