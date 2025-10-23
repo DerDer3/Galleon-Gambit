@@ -9,42 +9,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      
-      mainGame.cards.Add(new Slash());
-      mainGame.cards.Add(new ShipRepair());
-      mainGame.cards.Add(new Slash());
-      mainGame.cards.Add(new ShipRepair());
-      mainGame.cards.Add(new Slash());
-      mainGame.cards.Add(new ShipRepair());
-=======
-      mainGame.mainDeck.AddCard(new Slash(), "Attack");
-      mainGame.mainDeck.AddCard(new Slash(), "Attack");
-      mainGame.mainDeck.AddCard(new Slash(), "Attack");
-      mainGame.mainDeck.AddCard(new Slash(), "Attack");
-      mainGame.mainDeck.AddCard(new Slash(), "Attack");
-      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
-      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
-      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
-      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
-      mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
-
-      mainGame.mainDeck.Shuffle(mainGame.mainDeck);
->>>>>>> 246c58e50b236f02eb53e0e308c5adfe1d16faa3
-
-      int index = 0;
-      for(int i = 0; i < 5; i++)
-      {
-        GameObject newCard = Instantiate(cardPrefab);
-        CardObject cardObject = newCard.GetComponent<CardObject>();
-        cardObject.SetCard(mainGame.mainDeck.DrawCardWithReshuffle(), mainGame);
-        newCard.transform.localPosition = new Vector3((index * 2) -4, -3, 0);
-        index += 1;
-=======
-=======
->>>>>>> Stashed changes
       for(int i = 0; i < 10000; i++)
       {
         mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
@@ -56,10 +20,6 @@ public class GameManager : MonoBehaviour
       {
         DrawHandCard();
         UpdateHandLayout();
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
       }
     }
 
