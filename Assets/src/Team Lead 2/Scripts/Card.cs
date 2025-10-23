@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Card
 {
+
   // Public here ensures they can all be read, but set is private
   public string cardName { get; private set;}
   public string cardRarity { get; private set;}
