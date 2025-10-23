@@ -1,24 +1,36 @@
-using System.Collections;
 using NUnit.Framework;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-public class StressTest
+public class PlayerDeckStressTests : MonoBehaviour
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void StressTestSimplePasses()
+    private PlayerDeck playerDeck;
+
+    [UnitySetUp]
+    public IEnumerator SetUp()
     {
-        // Use the Assert class to test conditions
+        SceneManager.LoadScene("SampleScene");
+        playerDeck = new PlayerDeck();
+        yield return null;
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
+    // PLAYMODE STRESS TEST
     [UnityTest]
-    public IEnumerator StressTestWithEnumeratorPasses()
+    public IEnumerator StressTest_AddAndDrawManyCards()
     {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        int largeCount = 0; 
+        while(true)
+        {
+            largeCount++;
+            playerDeck.AddCard(new Slash(), "Attack");
+            playerDeck.DrawCard();
+
+            Debug.Log($"Added and drew {largeCount} cards.");
+
+            yield return null;
+        }
+
     }
 }
