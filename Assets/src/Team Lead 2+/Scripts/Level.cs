@@ -25,9 +25,14 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     {
         if (isHovering && !IsDone)
         {
-            print("TODO: set scene and change level");
             IsDone = true;
+            SelectLevel();
         }
+    }
+
+    public void SelectLevel()
+    {
+        MapTransitions.Instance.TransitionLevel(this);
     }
 
     public void AddNextLevel(GameObject level)
