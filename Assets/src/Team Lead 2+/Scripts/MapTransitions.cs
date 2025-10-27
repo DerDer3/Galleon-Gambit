@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,11 +8,14 @@ public class MapTransitions : MonoBehaviour
 {
     public static MapTransitions Instance { get; private set; }
 
+    public ScreenTransition ScreenTransition;
     public string MapScene;
     private Scene mapScene;
     public string GameScene;
     private Scene gameScene;
-    private bool hasLoadedGame;
+
+    private SceneTransitions scenes;
+    private string transitioningToScene;
 
     private void Awake()
     {
@@ -23,44 +26,91 @@ public class MapTransitions : MonoBehaviour
         else
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+
+        scenes = new();
 
         mapScene = SceneManager.GetSceneByName(MapScene);
         Assert.IsNotNull(mapScene);
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        Assert.IsNotNull(ScreenTransition);
+    }
+
+    public bool Transitioning()
+    {
+        return transitioningToScene != "";
+    }
+
+    public void TransitionToMap()
+    {
+        ScreenTransition.ShowTransition();
+        transitioningToScene = MapScene;
     }
 
     public void TransitionLevel(Level level)
     {
-        if (!hasLoadedGame)
-        {
-            SceneManager.LoadScene(GameScene, LoadSceneMode.Additive);
-            hasLoadedGame = true;
-        }
-        else
-        {
-            EnableScene(gameScene);
-            SceneManager.SetActiveScene(gameScene);
-        }
+        ScreenTransition.ShowTransition();
+        transitioningToScene = GameScene;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (scene.name == GameScene)
-        {
-            DisableScene(mapScene);
-            gameScene = scene;
-            SceneManager.SetActiveScene(gameScene);
-        }
-    }
-
-    private static void SetSceneActive(Scene scene, bool active)
+    public void OnTransitionComplete()
     {
-        if (scene == null) return;
-        foreach (var obj in scene.GetRootGameObjects())
-        {
-            obj.SetActive(active);
-        }
+        scenes.LoadInAdditionAndSetActive(transitioningToScene);
+        transitioningToScene = "";
     }
-    private static void DisableScene(Scene scene) => SetSceneActive(scene, false);
-    private static void EnableScene(Scene scene) => SetSceneActive(scene, true);
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == GameScene)
+            gameScene = scene;
+    }
+
+    /// <summary>Scene adding/switching functionality. Maintains scene state between transitions.</summary>
+    private class SceneTransitions
+    {
+        private Dictionary<string, Scene> loadedScenes = new();
+
+        public SceneTransitions()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        public void LoadInAdditionAndSetActive(string sceneName)
+        {
+            if (!loadedScenes.ContainsKey(sceneName))
+            {
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+            }
+            else
+            {
+                var scene = loadedScenes[sceneName];
+                Disable(SceneManager.GetActiveScene());
+                SceneManager.SetActiveScene(scene);
+                Enable(scene);
+            }
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            loadedScenes.Add(scene.name, scene);
+            if (loadedScenes.Count > 1)
+            {
+                Disable(SceneManager.GetActiveScene());
+                SceneManager.SetActiveScene(scene);
+            }
+        }
+
+        private static void SetObjectsActive(Scene scene, bool active)
+        {
+            if (scene == null) return;
+            foreach (var obj in scene.GetRootGameObjects())
+            {
+                obj.SetActive(active);
+            }
+        }
+        private static void Disable(Scene scene) => SetObjectsActive(scene, false);
+        private static void Enable(Scene scene) => SetObjectsActive(scene, true);
+    }
 }
