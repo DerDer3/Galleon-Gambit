@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
         //Singleton Pattern
-        /*if (Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
@@ -33,7 +33,7 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-        }*/
+        }
 
 
         /*if (audioSource == null)
