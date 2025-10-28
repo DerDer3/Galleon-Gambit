@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class GameOver : MonoBehaviour
 {
-    public void PlayGame()
+    public void Restart()
     {
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void QuitGame()
