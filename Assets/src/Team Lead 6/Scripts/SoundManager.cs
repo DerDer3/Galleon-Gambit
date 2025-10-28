@@ -3,19 +3,72 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    public enum MusicTracks
+    
+    public static SoundManager Instance;
+    public AudioClip clip;
+    private AudioSource audioSource;
+
+    void Awake()
     {
-        test
+        audioSource = GetComponent<AudioSource>();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            PlayBackgroundMusic();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        //Singleton Pattern
+        /*if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }*/
+
+
+        /*if (audioSource == null)
+        {
+            Debug.LogError("SoundManager requires an AudioSource component");
+        }*/
     }
 
-    public enum SoundEffects
+    private void PlayBackgroundMusic()
     {
-        test
+        if (audioSource != null && clip != null && !audioSource.isPlaying)
+        {
+            audioSource.clip = clip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Background music is missing or already playing");
+        }
     }
 
-    public void playMusic(MusicTracks title)
+    public void PlayOneShotSound()
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+            Debug.Log("Playing " + clip.name);
+        }
+        else
+        {
+            Debug.LogWarning("SoundClip or AudioSource is missing!");
+        }
+    }
+    public void play(MusicTracks title)
     {
         switch (title)
         {
@@ -26,7 +79,7 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    public void playSFX(SoundEffects title)
+    public void play(SoundEffects title)
     {
         switch (title)
         {
@@ -35,6 +88,8 @@ public class SoundManager : MonoBehaviour
                 break;
         }
     }
+
+
 
     public void SetChannelVolume()
     {

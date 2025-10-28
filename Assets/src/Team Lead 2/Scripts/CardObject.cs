@@ -17,6 +17,9 @@ public class CardObject : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         linkedState = state;
         cardName.text = linkedCard.cardName;
         manaAmount.text = "" + linkedCard.cardCost;
+
+        float randomGrayValue = Random.Range(0.2f, 0.8f);
+        this.ChangeColor(randomGrayValue, randomGrayValue, randomGrayValue);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -24,6 +27,8 @@ public class CardObject : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
       if(linkedState.turn == false)
       {
         linkedCard.Play(linkedState);
+        linkedState.mainDeck.DiscardCard(linkedCard);
+        SetCard(linkedState.mainDeck.DrawCardWithReshuffle(), linkedState);
       }
     }
 

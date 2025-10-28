@@ -3,7 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SoundCue : MonoBehaviour
+public class SoundCue
 {
     AudioClip clip;
     float volume;
