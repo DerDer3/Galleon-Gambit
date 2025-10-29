@@ -8,34 +8,10 @@ public class test : MonoBehaviour
     {
         if (SoundManager.Instance != null)
         {
-            if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
-            {
-                SoundManager.Instance.PlayOneShotSound();
-            }
+            //MusicTracks.[] determines what background music plays
+            //Try "Main" or "battle"
+            SoundManager.Instance.play(MusicTracks.Battle);
         }
     }
-    /*private Mouse mouse;
-
-    void OnEnable()
-    {
-        mouse = Mouse.current;
-        if (mouse != null)
-        {
-            mouse.rightButton.wasPressedThisFrame.performed += OnRightClick;
-        }
-    }
-    void OnDisable()
-    {
-        if (mouse != null)
-        {
-            mouse.rightButton.wasPressedThisFrame.performed -= OnRightClick;
-        }
-    }
-    private void OnRightClick(InputAction.CallbackContext context)
-    {
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.PlayOneShotSound();
-        }
-    }*/
+    
 }

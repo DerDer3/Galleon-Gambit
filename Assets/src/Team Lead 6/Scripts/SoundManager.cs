@@ -2,81 +2,76 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic; //Required for List<>
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    
-    public static SoundManager Instance;
-    public AudioClip clip;
-    private AudioSource audioSource;
+
+    public static SoundManager Instance; //{ get; private set; }
+    public AudioSource musicSource;
+
+    [Header("Audio Library Mapping")]
+    public List<MusicTrackData> musicLibrary = new List<MusicTrackData>();
+
+    //private SoundChannel Music;
+    //private SoundChannel SFX;
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        //Singleton Pattern
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            PlayBackgroundMusic();
+
+            if (musicSource == null)
+            {
+                musicSource = GetComponent<AudioSource>();
+            }
+            if(musicSource == null)
+            {
+                Debug.LogError("FATAL: Music Source not assigned in the Inspector!");
+            }
+            //play(MusicTracks.Main);
         }
         else
         {
             Destroy(gameObject);
+            return;
         }
-        //Singleton Pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-
-
-        /*if (audioSource == null)
-        {
-            Debug.LogError("SoundManager requires an AudioSource component");
-        }*/
+       
     }
+    
 
-    private void PlayBackgroundMusic()
-    {
-        if (audioSource != null && clip != null && !audioSource.isPlaying)
-        {
-            audioSource.clip = clip;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("Background music is missing or already playing");
-        }
-    }
 
-    public void PlayOneShotSound()
-    {
-        if (clip != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(clip);
-            Debug.Log("Playing " + clip.name);
-        }
-        else
-        {
-            Debug.LogWarning("SoundClip or AudioSource is missing!");
-        }
-    }
+    
     public void play(MusicTracks title)
     {
-        switch (title)
+        if (musicSource == null) return;
+
+        AudioClip newClip = GetMusic(title);
+
+        if (newClip == null)
         {
-            case MusicTracks.test:
-                Console.WriteLine("Play Music");
-                break;
+            Debug.LogWarning($"Music Track '{title}' not found in the library. Cannot play.");
+            return;
         }
 
+        //Optimization
+        if (musicSource.clip == newClip && musicSource.isPlaying)
+        {
+            return;
+        }
+
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+        }
+
+        musicSource.clip = newClip;
+        musicSource.loop = true;
+        musicSource.Play();
     }
 
     public void play(SoundEffects title)
@@ -89,9 +84,19 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private AudioClip GetMusic(MusicTracks title)
+    {
+        foreach (MusicTrackData data in musicLibrary)
+        {
+            if (data.track == title)
+            {
+                return data.clip;
+            }
+        }
+        return null;
+    }
 
-
-    public void SetChannelVolume()
+    /*public void SetChannelVolume()
     {
         Console.WriteLine("Setting Channel Volume");
     }
@@ -99,5 +104,5 @@ public class SoundManager : MonoBehaviour
     public void SetChannelMute()
     {
         Console.WriteLine("Muting Channel");
-    }
+    }*/
 }
