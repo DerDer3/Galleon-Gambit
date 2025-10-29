@@ -1,4 +1,4 @@
 public enum SoundEffects
 {
-    test
+    sword
 }
