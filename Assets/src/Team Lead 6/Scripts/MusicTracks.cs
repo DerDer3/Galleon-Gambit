@@ -1,5 +1,5 @@
 public enum MusicTracks
 {
-    test,
-    Main
+    Main,
+    Battle
 }
