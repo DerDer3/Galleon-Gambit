@@ -10,9 +10,13 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager Instance; //{ get; private set; }
     public AudioSource musicSource;
+    public AudioSource sfxSource;
 
     [Header("Audio Library Mapping")]
     public List<MusicTrackData> musicLibrary = new List<MusicTrackData>();
+
+    [Header("SFX Library Mapping")]
+    public List<SFXTrackData> sfxLibrary = new List<SFXTrackData>();
 
     //private SoundChannel Music;
     //private SoundChannel SFX;
@@ -29,9 +33,17 @@ public class SoundManager : MonoBehaviour
             {
                 musicSource = GetComponent<AudioSource>();
             }
-            if(musicSource == null)
+            if (musicSource == null)
             {
                 Debug.LogError("FATAL: Music Source not assigned in the Inspector!");
+            }
+            if (sfxSource == null)
+            {
+                sfxSource = GetComponent<AudioSource>();
+            }
+            if(sfxSource == null)
+            {
+                Debug.LogError("FATAL: SFX Source not assigned in the Inspector!");
             }
             //play(MusicTracks.Main);
         }
@@ -76,12 +88,22 @@ public class SoundManager : MonoBehaviour
 
     public void play(SoundEffects title)
     {
-        switch (title)
+        if (sfxSource == null)
         {
-            case SoundEffects.test:
-                Console.WriteLine("Play SFX");
-                break;
+            Debug.LogError("FATAL: SFX Source is not assigned");
+            return;
         }
+        AudioClip sfxClip = GetSFX(title);
+
+        if(sfxClip == null)
+        {
+            Debug.LogWarning($"Sound Effect '{title}' not found in the library. Cannot play.");
+            return;
+        }
+
+        sfxSource.PlayOneShot(sfxClip);
+
+        Debug.Log($"Playing SFX: {title}");
     }
 
     private AudioClip GetMusic(MusicTracks title)
@@ -89,6 +111,18 @@ public class SoundManager : MonoBehaviour
         foreach (MusicTrackData data in musicLibrary)
         {
             if (data.track == title)
+            {
+                return data.clip;
+            }
+        }
+        return null;
+    }
+
+    private AudioClip GetSFX(SoundEffects title)
+    {
+        foreach (SFXTrackData data in sfxLibrary)
+        {
+            if (data.effect == title)
             {
                 return data.clip;
             }

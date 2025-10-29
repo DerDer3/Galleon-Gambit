@@ -1,5 +1,7 @@
 public enum MusicTracks
 {
     Main,
-    Battle
+    Battle,
+    Island,
+    Boss
 }
