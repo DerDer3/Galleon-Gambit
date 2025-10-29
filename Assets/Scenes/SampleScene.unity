@@ -1544,6 +1544,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: cf9dcd9c7b587bb4e87f97c543a4e396, type: 3}
   - track: 1
     clip: {fileID: 8300000, guid: 45b1cd39c120fbd4cb082c6e5ff29c66, type: 3}
+  - track: 2
+    clip: {fileID: 8300000, guid: e1cfe0a911e762d4f91685f9ee6a1964, type: 3}
+  - track: 3
+    clip: {fileID: 8300000, guid: 215ee773f8e6cdd45b1063926d5dcbfb, type: 3}
   sfxLibrary:
   - effect: 0
     clip: {fileID: 8300000, guid: 8ee2aad57da5d4c489672d5db6e67162, type: 3}

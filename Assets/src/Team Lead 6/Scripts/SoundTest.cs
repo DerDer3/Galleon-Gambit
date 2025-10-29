@@ -10,8 +10,8 @@ public class test : MonoBehaviour
         if (SoundManager.Instance != null)
         {
             //MusicTracks.[] determines what background music plays
-            //Try "Main" or "battle"
-            SoundManager.Instance.play(MusicTracks.Battle);
+            //Try "Main", "Battle", "Island", or "Boss"
+            SoundManager.Instance.play(MusicTracks.Boss);
         }
 
         if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
