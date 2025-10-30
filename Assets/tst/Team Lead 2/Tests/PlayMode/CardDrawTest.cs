@@ -27,7 +27,7 @@ public class GameManagerStressTests
             gm.SendMessage("DrawHandCard");
             gm.SendMessage("UpdateHandLayout");
         }
-        Assert.Pass("No crash after 500 draws!");
+        Assert.Pass("No crash after 500 draws");
         yield return null;
     }
 }
