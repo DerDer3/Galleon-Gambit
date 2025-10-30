@@ -224,8 +224,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
+  m_sharedMaterial: {fileID: -2307297028499637102, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -878,8 +878,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
+  m_sharedMaterial: {fileID: -2307297028499637102, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1014,8 +1014,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
+  m_sharedMaterial: {fileID: -2307297028499637102, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e747baadd827e263af22102e33ffd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  cardPrefab: {fileID: 3819948590552443159, guid: 1bdfc87ada8409e009c24915de514ef7, type: 3}
+  cardPrefab: {fileID: 3897994148469069111, guid: 40d8402279986774fa87a886b039a6b6, type: 3}
   mainGame: {fileID: 887453513}
 --- !u!1 &1501789359
 GameObject:
