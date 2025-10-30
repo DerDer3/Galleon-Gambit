@@ -14,17 +14,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(mainGame.mana.get_amount() == 0)
-       {
-         mainGame.turn = true;
-         int currentHealth = mainGame.mainPlayer.get_health();
-         mainGame.mainPlayer.set_health(currentHealth - 10);
-         mainGame.mana.set_amount(3);
-       }
-       else
-       {
-         mainGame.turn = false;
-       }
     }
 
     void DrawHandCard()
