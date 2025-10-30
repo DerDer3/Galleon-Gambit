@@ -1,5 +1,5 @@
 {
-    "name": "TL2_Test",
+    "name": "TL2Plus_Test",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
