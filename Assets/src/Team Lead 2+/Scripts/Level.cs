@@ -10,6 +10,7 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     public bool IsSelectable = true;
     public bool IsDone { set => SetIsDone(value); get => isDone; }
     public GameObject LevelConnectionPrefab;
+    public Info info;
 
     private List<GameObject> nextLevels = new();
     private bool isDone;
@@ -89,6 +90,8 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     public class Info
     {
+        public Info(int levelId) => LevelId = levelId;
+
         public int LevelId { get; private set; }
 
         public string Name() => GetType().Name;
@@ -97,6 +100,8 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     public class Battle : Info
     {
+        public Battle(int levelId) : base(levelId) { }
+
         // Overshadowed method to show dynamic/static binding.
         public new string Name() => "Fight";
         public override string Description() => "There be scallywags to plunder.";
@@ -104,21 +109,25 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     public class Shop : Info
     {
+        public Shop(int levelId) : base(levelId) { }
         public override string Description() => "Bargain ye treasures.";
     }
 
     public class Boss : Info
     {
+        public Boss(int levelId) : base(levelId) { }
         public override string Description() => "There be a captain!";
     }
 
     public class Treasure : Info
     {
+        public Treasure(int levelId) : base(levelId) { }
         public override string Description() => "A bounteous booty.";
     }
 
     public class Unknown : Info
     {
+        public Unknown(int levelId) : base(levelId) { }
         public override string Description() => "Uncharted land for lootin'?";
     }
 }
