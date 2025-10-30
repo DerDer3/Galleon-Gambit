@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,34 +9,20 @@ public class test : MonoBehaviour
     {
         if (SoundManager.Instance != null)
         {
-            if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
-            {
-                SoundManager.Instance.PlayOneShotSound();
-            }
+            //MusicTracks.[] determines what background music plays
+            //Try "Main", "Battle", "Island", or "Boss"
+            SoundManager.Instance.play(MusicTracks.Boss);
         }
-    }
-    /*private Mouse mouse;
 
-    void OnEnable()
-    {
-        mouse = Mouse.current;
-        if (mouse != null)
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            mouse.rightButton.wasPressedThisFrame.performed += OnRightClick;
+            // 3. Play the sound effect using your mapped enum
+            SoundManager.Instance.play(SoundEffects.sword);
+            
+            // Optional: Change/start music here if needed
+            // SoundManager.Instance.play(MusicTracks.Battle);
         }
+
     }
-    void OnDisable()
-    {
-        if (mouse != null)
-        {
-            mouse.rightButton.wasPressedThisFrame.performed -= OnRightClick;
-        }
-    }
-    private void OnRightClick(InputAction.CallbackContext context)
-    {
-        if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.PlayOneShotSound();
-        }
-    }*/
+    
 }
