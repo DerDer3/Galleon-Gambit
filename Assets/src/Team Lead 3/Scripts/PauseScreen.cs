@@ -16,6 +16,8 @@ public class PauseScreen : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+
+
     }
     public void QuitGame()
     {
@@ -28,9 +30,7 @@ public class PauseScreen : MonoBehaviour
         resumeGame = !resumeGame;
         if (resumeGame)
         {
-            //unrender pause screen 
             pauseGame();
         }
-        //SceneManager.LoadScene("MenuScene");
     }
 }
