@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5365799686103696451}
   - component: {fileID: 7033244875882312116}
   - component: {fileID: 2232182644321255113}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 110003221810327577}
   - component: {fileID: 2276051788675752857}
   - component: {fileID: 4981771202215057862}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 2865259247381036728}
   - component: {fileID: 8258307939640787678}
   - component: {fileID: 2917261516110377773}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: cardPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,6 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardDisplay
   cardName: {fileID: 2232182644321255113}
   manaAmount: {fileID: 6523720711146261584}
+  pauseObject: {fileID: 8741048600535713431, guid: 22e0cff656b48ff40b7d8424ce2e3f86, type: 3}
 --- !u!1 &7924833591295403699
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +404,7 @@ GameObject:
   - component: {fileID: 2736629307209952923}
   - component: {fileID: 3656753663577822607}
   - component: {fileID: 6523720711146261584}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Mana
   m_TagString: Untagged
   m_Icon: {fileID: 0}

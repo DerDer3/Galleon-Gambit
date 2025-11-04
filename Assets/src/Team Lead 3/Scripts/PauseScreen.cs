@@ -22,7 +22,8 @@ public class PauseScreen : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Game quit!");
-        Application.Quit();
+        //Application.Quit();
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void ResumeGame()
