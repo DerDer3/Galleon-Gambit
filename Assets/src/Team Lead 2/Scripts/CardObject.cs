@@ -34,7 +34,7 @@ public class CardObject : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-      transform.position += Vector3.up;
+      transform.position += new Vector3(0, 50, 0);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
