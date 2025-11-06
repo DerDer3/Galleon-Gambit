@@ -21,6 +21,12 @@ public class EnemyLoader : MonoBehaviour
 {
     public EnemyHUD enemyHUDPrefab;  // Assign your EnemyHUD prefab
     public Transform uiParent;
+
+    private EnemyObject currentEnemy;
+    public EnemyObject CurrentEnemy
+    {
+        get { return currentEnemy; }
+    }
     public void LoadEnemy()
     {
 
@@ -42,18 +48,19 @@ public class EnemyLoader : MonoBehaviour
         */
         //Which we don't want... maybe for testing tho ;)
     
-        EnemyObject enemy = CreateEnemyFromData(enemies.enemies[0]);
+        currentEnemy = CreateEnemyFromData(enemies.enemies[0]);
         EnemyHUD ui = Instantiate(enemyHUDPrefab, uiParent);
         if (ui != null)
         {
             ui.SetUp(enemies.enemies[0]);
-            ui.SetHUD(enemy);
+            ui.SetHUD(currentEnemy);
         }
 
 
     }
 
-    private EnemyObject CreateEnemyFromData(EnemyData data){
+    private EnemyObject CreateEnemyFromData(EnemyData data)
+    {
         switch (data.type)
         {
             case "minor":
@@ -63,6 +70,15 @@ public class EnemyLoader : MonoBehaviour
             default:
                 Debug.Log("Nope!");
                 return new MinorEnemy(data); //fallback enemy spawning
+        }
+    }
+    
+
+    public void DamageEnemy(int amount)
+    {
+        if (currentEnemy != null)
+        {
+            currentEnemy.TakeDamage(amount);
         }
     }
         

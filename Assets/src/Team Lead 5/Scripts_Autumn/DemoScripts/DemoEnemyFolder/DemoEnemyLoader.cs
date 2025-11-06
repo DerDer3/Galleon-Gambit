@@ -21,6 +21,11 @@ public class DemoEnemyLoader : MonoBehaviour
 {
     public DemoEnemyHUD enemyHUDPrefab;  // Assign your EnemyHUD prefab
     public Transform uiParent;
+    private DemoEnemyObject currentEnemy;
+    public DemoEnemyObject CurrentEnemy
+    {
+        get { return currentEnemy; }
+    }
     public void LoadEnemy()
     {
 
@@ -47,15 +52,16 @@ public class DemoEnemyLoader : MonoBehaviour
         }
         */
         //Which we don't want... maybe for testing tho ;)
-    
-        DemoEnemyObject enemy = CreateEnemyFromData(enemies.enemies[0]);
+
+        currentEnemy = CreateEnemyFromData(enemies.enemies[0]);
+        currentEnemy.OnDeath += HandleEnemyDeath;
         DemoEnemyHUD ui = Instantiate(enemyHUDPrefab, uiParent);
         if (ui != null)
         {
              ui.transform.localPosition = Vector3.zero; // center under parent
             ui.transform.localScale = Vector3.one; // reset scale
             ui.SetUp(enemies.enemies[0]);
-            ui.SetHUD(enemy);
+            ui.SetHUD(currentEnemy);
             Debug.Log("HUD position: " + ui.transform.position);
             Debug.Log("Enemy Loaded");
            
@@ -68,18 +74,38 @@ public class DemoEnemyLoader : MonoBehaviour
 
     }
 
-    private DemoEnemyObject CreateEnemyFromData(DemoEnemyData data){
+    private DemoEnemyObject CreateEnemyFromData(DemoEnemyData data)
+    {
         switch (data.type)
         {
             case "minor":
                 return new DemoMinorEnemy(data);
             case "boss":
-                return new DemoBossEnemy(data);
+                return new DemoBossEnemy();
             default:
                 Debug.Log("Nope!");
                 return new DemoMinorEnemy(data); //fallback enemy spawning
         }
     }
+
+    public void DamageEnemy(int amount)
+    {
+        if (currentEnemy != null)
+        {
+            currentEnemy.TakeDamage(amount);
+        }
+    }
+    
+    private void HandleEnemyDeath(DemoEnemyObject deadEnemy)
+    {
+        Debug.Log($"EnemyLoader detected {deadEnemy.enemyName} died!");
+        foreach (Transform child in uiParent)
+        {
+            Destroy(child.gameObject);
+        }
+    
+    }
+        
         
 }
 

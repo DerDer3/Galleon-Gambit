@@ -18,8 +18,32 @@ public abstract class DemoEnemyObject
 
     public void TakeDamage(int amt)
     {
-        maxHealth -= amt;
+        currentHealth -= amt;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
         Debug.Log("Enemy took damage!");
-    } 
+    }
 
+    public virtual int DealDamage()
+    {
+        return 2;
+    }
+
+
+    /*
+    public int DealDamage()
+    {
+        return 2;
+    }
+    */
+
+    public void Die()
+    {
+        Debug.Log("Enemy Died");
+        OnDeath?.Invoke(this);
+    }
+
+    public event Action<DemoEnemyObject> OnDeath;
 }

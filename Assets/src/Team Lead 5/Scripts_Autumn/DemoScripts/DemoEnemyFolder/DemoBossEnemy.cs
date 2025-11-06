@@ -3,13 +3,17 @@ using System;
 public class DemoBossEnemy : DemoEnemyObject
 {
 
-    public DemoBossEnemy(DemoEnemyData data)
+    public override int DealDamage()
     {
-        attackDMG = data.attack;
+        return 10;
     }
-    public override void Attack()
+    
+    /*
+    public new int DealDamage()
     {
-        Debug.Log($"Player took {attackDMG}");
+        return 10;
     }
+    */
+ 
 
 }
