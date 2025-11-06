@@ -1,0 +1,7 @@
+{
+"enemies":
+[
+    {"type": "minor", "enemyName" : "Ghost", "enemyTitle": "Spirit of the Undead", "health": 20, "attack": 5, "imagePath" : "EnemyImages/MinorEnemy" },
+    {"type": "boss", "enemyName" : "Cthlulu", "enemyTitle": "Good Luck Dawg", "health": 100, "attack": 10, "imagePath" : "EnemyImages/BossEnemy" }
+]
+}
