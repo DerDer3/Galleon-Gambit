@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     {
       for(int i = 0; i < 10; i++)
       {
-        mainGame.mainDeck.AddCard(new ShipRepair(), "Repair");
+        mainGame.mainDeck.AddCard(CardCreator.CreateRandomCard(), "Test");
         DrawHandCard();
         UpdateHandLayout();
       }
