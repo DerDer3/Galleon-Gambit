@@ -2510,7 +2510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e747baadd827e263af22102e33ffd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  cardCanvas: {fileID: 0}
   cardPrefab: {fileID: 3897994148469069111, guid: 40d8402279986774fa87a886b039a6b6, type: 3}
   mainGame: {fileID: 887453513}
 --- !u!1 &1277816056
@@ -3790,7 +3789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1897117340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3823,14 +3822,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.509434, g: 0.18022428, b: 0.416921, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8282541fb57468640bf85c7b86951f62, type: 3}
+  m_Sprite: {fileID: -2132438694969420018, guid: 1e7b16362203eb44eaae53c71ab20bbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

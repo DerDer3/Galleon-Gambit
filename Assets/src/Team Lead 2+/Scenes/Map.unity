@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   MapScene: Map
-  GameScene: SampleScene
+  GameScene: TL3_SampleScene
 --- !u!1 &811671831
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +557,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86262a15376f6d94cabf44115e031669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  musicSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  musicLibrary: []
+  sfxLibrary: []
 --- !u!4 &1344644157
 Transform:
   m_ObjectHideFlags: 0
