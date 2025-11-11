@@ -18,6 +18,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text damageText;
 
     public Image[] typeImages;
+    //0 - Heal; 1 - Mana; 2 - Damage;
 
     private Color[] typeColors =
     {
@@ -36,18 +37,50 @@ public class CardDisplay : MonoBehaviour
         cardImage.color = typeColors[(int)cardData.cardType[0]];
 
         nameText.text = cardData.cardName;
-        healthText.text = cardData.ToString();
-        damageText.text = cardData.ToString();
-        manaText.text = cardData.ToString();
 
-        for (int i = 0; i < typeImages.Length; i++)
+        if (cardData.heal == 0) { healthText.text = " "; } 
+        else {
+            healthText.text = cardData.heal.ToString();
+            activateImages(0);
+        }
+
+        if (cardData.damage == 0) { damageText.text = " "; } 
+        else {
+            activateImages(1);
+            damageText.text = cardData.damage.ToString();
+        }
+
+        if (cardData.mana == 0) { manaText.text = " "; } 
+        else {
+            manaText.text = cardData.mana.ToString();
+            if(cardData.mana > 0) { activateImages(2);}
+        }
+        
+    }
+    
+    public void activateImages(int img)
+    { //TypeImages: 0 - Heal; 1 - Mana; 2 - Damage;
+
+        switch (img)
         {
-            if (i < cardData.cardType.Count)
-            {
-                typeImages[i].gameObject.SetActive(true);
-            }
+            case 0://Heal
+                typeImages[0].gameObject.SetActive(true);
+                typeImages[1].gameObject.SetActive(false);
+                typeImages[2].gameObject.SetActive(false);
+                break;
+            case 1://Damage
+                typeImages[0].gameObject.SetActive(false);
+                typeImages[1].gameObject.SetActive(false);
+                typeImages[2].gameObject.SetActive(true);
+                break;
+            case 2://Mana
+                typeImages[0].gameObject.SetActive(false);
+                typeImages[1].gameObject.SetActive(true);
+                typeImages[2].gameObject.SetActive(false);
+                break;
         }
     }
+
 
 
 }
