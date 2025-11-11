@@ -1425,7 +1425,7 @@ RectTransform:
   m_GameObject: {fileID: 8645683859982182512}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1.7075}
+  m_LocalScale: {x: 25, y: 25, z: 1.7075}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3542872676602781385}
@@ -1518,7 +1518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardMovement
   rootCanvas: {fileID: 8926685303585600937}
   selectScale: 1.1
-  glowEffect: {fileID: 4469668748531368192}
-  playArrow: {fileID: 375191447048443833}
   playThresholdY: 100
   potentialPlayPosition: {x: -600, y: 400, z: 0}
+  glowEffect: {fileID: 4469668748531368192}
+  playArrow: {fileID: 375191447048443833}
