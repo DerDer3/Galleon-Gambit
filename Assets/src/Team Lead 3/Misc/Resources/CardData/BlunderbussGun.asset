@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1f8d7911811b1f4f90f37a6c22d79b3, type: 3}
-  m_Name: CulverinCannon
+  m_Name: BlunderbussGun
   m_EditorClassIdentifier: Assembly-CSharp::GallionGambit.NewCard
-  cardName: Culverin
+  cardName: Blunderbuss
   cardType: 01000000
   damage: 5
   heal: 0
