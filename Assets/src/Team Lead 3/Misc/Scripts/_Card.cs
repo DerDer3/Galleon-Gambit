@@ -10,26 +10,19 @@ namespace GallionGambit
 
         public List<CardType> cardType;
 
-        public Sprite cardDesign;
-
         public int damage;
 
         public int heal;
 
-        public List<CardEffect> effect;
+        public int mana;
 
         public enum CardType
         {
+            //These are hear for potential later use. may change later.
             Heal,
             Damage,
-            other
+            Mana
         }
 
-        public enum CardEffect
-        {
-            effect1,
-            effect2,
-            effect3
-        }
     }
 }
