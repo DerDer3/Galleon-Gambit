@@ -25,6 +25,13 @@ public class DeckManager : MonoBehaviour
 
         totalCards.AddRange(cards);
 
+        //Update this to the newer version of this commad:
+        HandManager hand = FindObjectOfType<HandManager>();
+        for (int i = 0; i < 5; i++)
+        {
+            DrawCard(hand);
+        }
+
     }
 
 }
