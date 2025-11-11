@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-
 public class DiscardDeck : CardDeck
 {
     // Move a played or discarded card into this discard pile

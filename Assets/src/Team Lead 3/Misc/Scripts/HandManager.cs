@@ -23,7 +23,38 @@ public class HandManager : MonoBehaviour
 
     public int maxHand = 5;
 
-     
+    public void PlayCard(GameObject playedCardObject)
+    {
+
+        if (cardsInHand.Contains(playedCardObject))
+        {
+            // 1. Get the card data before destroying the GameObject
+            NewCard cardData = playedCardObject.GetComponent<CardDisplay>().cardData;
+
+            // 2. Remove the card from the hand list and destroy the GameObject
+            cardsInHand.Remove(playedCardObject);
+            Destroy(playedCardObject);
+
+            // 3. Move the card data to the Discard Pile
+            if (deckManager != null)
+            {
+                deckManager.DiscardDeck.cards.Add(cardData);
+                Debug.Log($"Discarded card: {cardData.cardName}. Discard Pile size: {deckManager.DiscardDeck.cards.Count}");
+
+                // 4. Immediately refill the hand by drawing a card
+                if (cardsInHand.Count < maxHand)
+                {
+                    deckManager.DrawCardToHand();
+                    Debug.Log("Card Play Cycle Initiated");
+                }
+            }
+
+            // 5. Update visuals to close the gap
+            updateHandVisuals();
+        }
+    }
+
+   
     public void AddToHand(NewCard cardData)
     {
         if(cardsInHand.Count < maxHand)
@@ -47,7 +78,7 @@ public class HandManager : MonoBehaviour
     {
         int cardCount = cardsInHand.Count;
 
-        if(cardCount == 1)
+        if (cardCount == 1)
         {
             cardsInHand[0].transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             cardsInHand[0].transform.localPosition = new Vector3(0f, 0f, 0f);
@@ -57,12 +88,12 @@ public class HandManager : MonoBehaviour
         for (int i = 0; i < cardCount; i++)
         {
             float rotationangle = (fanSpread * (i - (cardCount - 1) / 2f));
-            cardsInHand[i].transform.localRotation = Quaternion.Euler(0f,0f, rotationangle);
+            cardsInHand[i].transform.localRotation = Quaternion.Euler(0f, 0f, rotationangle);
 
             float horizontalOffset = (cardspacing * (i - (cardCount - 1) / 2f));
 
             float normalizedPosition = (2f * i / (cardCount - 1) - 1f);
-            float verticalOffset = verticalspacing * (1-normalizedPosition * normalizedPosition);
+            float verticalOffset = verticalspacing * (1 - normalizedPosition * normalizedPosition);
 
             cardsInHand[i].transform.localPosition = new Vector3(horizontalOffset, verticalOffset, 0f);
         }

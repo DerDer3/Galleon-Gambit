@@ -555,6 +555,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeckManager
   totalCards: []
+  CardDatabase: []
+  handManager: {fileID: 1176416751}
 --- !u!1 &309968834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,7 +2126,7 @@ GameObject:
   - component: {fileID: 1176416750}
   - component: {fileID: 1176416749}
   - component: {fileID: 1176416748}
-  - component: {fileID: 1176416747}
+  - component: {fileID: 1176416751}
   m_Layer: 5
   m_Name: HandManager
   m_TagString: Untagged
@@ -2151,26 +2153,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1176416747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1176416745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6cdd05da25125844a2f75613e9bb56d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HandManager
-  deckManager: {fileID: 178062459}
-  cardPrefab: {fileID: 8645683859982182512, guid: c50256a498953d048b918c425cd7d5d1, type: 3}
-  handTransform: {fileID: 1122465051}
-  fanSpread: 7.5
-  cardspacing: -105
-  verticalspacing: 30
-  cardsInHand: []
-  maxHand: 5
 --- !u!114 &1176416748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2234,6 +2216,26 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1176416751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176416745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cdd05da25125844a2f75613e9bb56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandManager
+  deckManager: {fileID: 178062459}
+  cardPrefab: {fileID: 8645683859982182512, guid: c50256a498953d048b918c425cd7d5d1, type: 3}
+  handTransform: {fileID: 1122465051}
+  fanSpread: 2
+  cardspacing: -105
+  verticalspacing: 30
+  cardsInHand: []
+  maxHand: 5
 --- !u!1 &1180070411
 GameObject:
   m_ObjectHideFlags: 0

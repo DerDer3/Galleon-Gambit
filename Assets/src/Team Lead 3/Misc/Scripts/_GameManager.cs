@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/*
 public class GameManager2 : MonoBehaviour
 {
     public GameObject cardPrefab;
@@ -44,3 +44,4 @@ public class GameManager2 : MonoBehaviour
        }
     }
 }
+*/

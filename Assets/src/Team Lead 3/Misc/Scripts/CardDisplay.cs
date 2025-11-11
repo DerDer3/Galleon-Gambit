@@ -80,7 +80,4 @@ public class CardDisplay : MonoBehaviour
                 break;
         }
     }
-
-
-
 }
