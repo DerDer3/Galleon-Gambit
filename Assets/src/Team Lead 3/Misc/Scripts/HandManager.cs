@@ -40,10 +40,10 @@ public class HandManager : MonoBehaviour
     private void Update()
     {
         //ADD TO GAME MANAGER
-       // updateHandVisuals();
+       updateHandVisuals();
     }
 
-    private void updateHandVisuals()
+    public void updateHandVisuals()
     {
         int cardCount = cardsInHand.Count;
 

@@ -2167,7 +2167,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 8645683859982182512, guid: c50256a498953d048b918c425cd7d5d1, type: 3}
   handTransform: {fileID: 1122465051}
   fanSpread: 7.5
-  cardspacing: -100
+  cardspacing: -105
   verticalspacing: 30
   cardsInHand: []
   maxHand: 5

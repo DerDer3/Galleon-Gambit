@@ -1,0 +1,46 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager2 : MonoBehaviour
+{
+    public GameObject cardPrefab;
+    public GameState mainGame;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+      
+
+      int index = 0;
+      for(int i = 0; i < 5; i++)
+      {
+        GameObject newCard = Instantiate(cardPrefab);
+        CardObject cardObject = newCard.GetComponent<CardObject>();
+        cardObject.SetCard(mainGame.mainDeck.DrawCardWithReshuffle(), mainGame);
+        newCard.transform.localPosition = new Vector3((index * 2) -4, -3, 0);
+        index += 1;
+      }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (mainGame.mainPlayer.get_health() <= 0)
+        {
+            Debug.Log("Gameover");
+            SceneManager.LoadScene("GameOverScene");
+        }
+       if(mainGame.mana.get_amount() == 0)
+       {
+         mainGame.turn = true;
+         int currentHealth = mainGame.mainPlayer.get_health();
+         mainGame.mainPlayer.set_health(currentHealth - 10);
+         mainGame.mana.set_amount(3);
+       }
+       else
+       {
+         mainGame.turn = false;
+       }
+    }
+}
