@@ -10,7 +10,8 @@ public class GameOver : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Request to quit succesful.");
-        Application.Quit();
+        Debug.Log("Game quit!");
+        //Application.Quit();
+        SceneManager.LoadScene("MenuScene");
     }
 }

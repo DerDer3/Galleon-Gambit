@@ -8,3 +8,16 @@ I made a test battle scene, just to make things a bit easier for you. If you don
 BattleSystem is just a GameObject that holds the "Create Enemy" Script, which is used to spawn the enemy in when the battle starts. The Create Enemy script 
 currently also holds the "Enemy Turn" function, that just has the enemy take damage and print if it's dead or not. This can be moved/removed
 while we wait for the player to actually work n junk. 
+
+
+
+
+Create (or use) your Canvas.
+
+Create an Empty GameObject inside it → name it EnemyList or similar.
+
+Add a Vertical Layout Group to it (so enemies stack automatically).
+
+Assign that object as uiParent in the EnemyLoader.
+
+Drag your EnemyUI prefab (the one you already built) into enemyUIPrefab.
