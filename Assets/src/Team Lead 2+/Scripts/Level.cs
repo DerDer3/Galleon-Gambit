@@ -1,17 +1,23 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 /// <summary>Information about a level on the map.</summary>
 public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    public List<LevelSprite> LevelSprites;
     public GameObject Checkmark;
     public List<GameObject> NextLevels { get => nextLevels; private set => nextLevels = value; }
     public bool IsSelectable = true;
     public bool IsDone { set => SetIsDone(value); get => isDone; }
     public GameObject LevelConnectionPrefab;
-    public Info info;
+    public Info Information { set => SetInfo(value); get => info; }
+    public UnityEvent<Level> HoverEntered;
+    public UnityEvent HoverExited;
 
+    private Info info;
     private List<GameObject> nextLevels = new();
     private bool isDone;
     private bool isHovering;
@@ -19,8 +25,33 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     private Vector3 hoverScale;
     private readonly float scaleSpeed = 10f;
 
-    public void OnPointerEnter(PointerEventData eventData) => isHovering = true;
-    public void OnPointerExit(PointerEventData eventData) => isHovering = false;
+    private void SetInfo(Info value)
+    {
+        info = value;
+        var sprite = GetSpriteForLevelType(info);
+        if (sprite != null) {
+            GetComponent<SpriteRenderer>().sprite = sprite;
+        }
+    }
+    
+    private Sprite GetSpriteForLevelType(Info i)
+    {
+        foreach (var spr in LevelSprites)
+            if (spr.Name == i.Name())
+                return spr.Sprite;
+        return null;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        HoverEntered.Invoke(this);
+        isHovering = true;
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        HoverExited.Invoke();
+        isHovering = false;
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -41,7 +72,7 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         NextLevels.Add(level);
         CreateLevelConnection(level);
     }
-    
+
     private void CreateLevelConnection(GameObject level)
     {
         var connection = Instantiate(LevelConnectionPrefab).GetComponent<LevelConnection>();
@@ -76,7 +107,7 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         var targetScale = (isHovering && !IsDone) ? hoverScale : initialScale;
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
     }
-    
+
     private void UpdateSelectableAnimation()
     {
         if (IsSelectable && !IsDone)
@@ -84,6 +115,13 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
             float angle = Mathf.Sin(Time.time) * 15f;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
+    }
+
+    [Serializable]
+    public struct LevelSprite
+    {
+        public string Name;
+        public Sprite Sprite;
     }
 
     // ============================== Level Types ==============================
