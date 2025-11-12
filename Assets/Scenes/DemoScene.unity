@@ -144,7 +144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65935393}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75e97b5d1717c60993a429e2f0097df, type: 3}
   m_Name: 
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8cdd3ac75a9b74c9919b088adf7a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DemoPlayer
-  healthText: {fileID: 382305752}
+  healthText: {fileID: 894663154}
 --- !u!1 &123507076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,6 +2106,7 @@ GameObject:
   - component: {fileID: 1240081240}
   - component: {fileID: 1240081241}
   - component: {fileID: 1240081242}
+  - component: {fileID: 1240081243}
   m_Layer: 5
   m_Name: DemoGameManager
   m_TagString: Untagged
@@ -2155,6 +2156,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DemoGameManager
   cardPrefab: {fileID: 3897994148469069111, guid: e1826f5a7c9d8714c9f19f136a7d48b5, type: 3}
+  loader: {fileID: 1339991273}
+  mainGame: {fileID: 887453515}
+--- !u!114 &1240081243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240081238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ba2a4231b56b04f8889dfcb903d153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Binding
   loader: {fileID: 1339991273}
   mainGame: {fileID: 887453515}
 --- !u!1 &1277816056
