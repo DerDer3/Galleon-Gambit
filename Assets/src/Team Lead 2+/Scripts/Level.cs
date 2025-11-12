@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -7,6 +9,8 @@ using UnityEngine.EventSystems;
 /// <summary>Information about a level on the map.</summary>
 public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    public TextMeshProUGUI LevelNameText;
+    public TextMeshProUGUI LevelDescriptionText;
     public List<LevelSprite> LevelSprites;
     public GameObject Checkmark;
     public List<GameObject> NextLevels { get => nextLevels; private set => nextLevels = value; }
@@ -24,12 +28,30 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     private Vector3 initialScale;
     private Vector3 hoverScale;
     private readonly float scaleSpeed = 10f;
+    private readonly float textAppearSpeed = 10f;
+
+    private void Awake()
+    {
+        // Make transparent
+        LevelNameText.color -= new Color(0f, 0f, 0f, 1f);
+        LevelDescriptionText.color = LevelNameText.color;
+    }
+
+    private void Start()
+    {
+        initialScale = transform.localScale;
+        hoverScale = initialScale * 1.25f;
+    }
 
     private void SetInfo(Info value)
     {
         info = value;
+        LevelNameText.text = (info is Battle battleInfo) ? battleInfo.Name() : info.Name();
+        LevelDescriptionText.text = info.Description();
+
         var sprite = GetSpriteForLevelType(info);
-        if (sprite != null) {
+        if (sprite != null)
+        {
             GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
@@ -90,15 +112,10 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         }
     }
 
-    private void Start()
-    {
-        initialScale = transform.localScale;
-        hoverScale = initialScale * 1.25f;
-    }
-
     private void Update()
     {
         UpdateScaleAnimation();
+        UpdateTextAppearAnimation();
         UpdateSelectableAnimation();
     }
 
@@ -106,6 +123,15 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     {
         var targetScale = (isHovering && !IsDone) ? hoverScale : initialScale;
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
+    }
+
+    private void UpdateTextAppearAnimation()
+    {
+        float target = (isHovering && !IsDone) ? 1f : 0f;
+        Color color = LevelNameText.color;
+        color.a = Mathf.Lerp(color.a, target, Time.deltaTime * textAppearSpeed);
+        LevelDescriptionText.color = color;
+        LevelNameText.color = color;
     }
 
     private void UpdateSelectableAnimation()
