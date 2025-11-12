@@ -18,7 +18,7 @@ namespace GallionGambit
 
         public enum CardType
         {
-            //These are hear for potential later use. may change later.
+            //Used for trait design uses mainly. For battling may come into use as well.
             Heal,
             Damage,
             Mana

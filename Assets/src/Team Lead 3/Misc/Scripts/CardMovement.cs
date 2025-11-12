@@ -71,8 +71,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
     }
 
-    // --- State Transition ---
-
     private void TransitionToState(CardState newState)
     {
         if (currentState == newState) return;
