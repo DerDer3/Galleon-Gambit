@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ff6014b49b46ac4408cd5f9a5e0b0081
+guid: 9a367488d74404b4a94fa3e6ea66da16
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2675149267659966489
-    second: LevelBattler_0
+      213: -5450077334664863548
+    second: LevelBoss_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LevelBattler_0
+      name: LevelBoss_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7e73bf32ae5ffdad0800000000000000
-      internalID: -2675149267659966489
+      spriteID: 4c0a4e43a8f6d54b0800000000000000
+      internalID: -5450077334664863548
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      LevelBattler_0: -2675149267659966489
+      LevelBoss_0: -5450077334664863548
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
