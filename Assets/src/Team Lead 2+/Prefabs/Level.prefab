@@ -394,7 +394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: D
+  m_text: e
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
   m_sharedMaterial: {fileID: -2307297028499637102, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
@@ -513,6 +513,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8967ae7e231312c41ac4edd751f67561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Level
+  LevelConnectionPrefab: {fileID: 8368187959311912114, guid: a387e61a399285d468dcd17509d28228, type: 3}
+  nextLevels: []
+  isSelectable: 1
   LevelNameText: {fileID: 8385795483705592187}
   LevelDescriptionText: {fileID: 8662319306769346629}
   LevelSprites:
@@ -525,8 +528,6 @@ MonoBehaviour:
   - Name: Treasure
     Sprite: {fileID: 2486739436921386866, guid: d462084f2444b664295bce70167450d9, type: 3}
   Checkmark: {fileID: 1462113099325877836}
-  IsSelectable: 1
-  LevelConnectionPrefab: {fileID: 8368187959311912114, guid: a387e61a399285d468dcd17509d28228, type: 3}
   HoverEntered:
     m_PersistentCalls:
       m_Calls: []
