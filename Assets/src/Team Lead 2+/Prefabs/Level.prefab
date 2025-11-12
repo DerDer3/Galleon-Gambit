@@ -522,6 +522,8 @@ MonoBehaviour:
     Sprite: {fileID: 371794147950899044, guid: 45364879d3519da4a9db19ce04284d46, type: 3}
   - Name: Boss
     Sprite: {fileID: -5450077334664863548, guid: 9a367488d74404b4a94fa3e6ea66da16, type: 3}
+  - Name: Treasure
+    Sprite: {fileID: 2486739436921386866, guid: d462084f2444b664295bce70167450d9, type: 3}
   Checkmark: {fileID: 1462113099325877836}
   IsSelectable: 1
   LevelConnectionPrefab: {fileID: 8368187959311912114, guid: a387e61a399285d468dcd17509d28228, type: 3}

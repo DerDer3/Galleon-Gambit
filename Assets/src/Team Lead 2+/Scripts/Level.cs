@@ -95,6 +95,11 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         CreateLevelConnection(level);
     }
 
+    public bool HasNextLevel()
+    {
+        return nextLevels.Count != 0;
+    }
+
     private void CreateLevelConnection(GameObject level)
     {
         var connection = Instantiate(LevelConnectionPrefab).GetComponent<LevelConnection>();

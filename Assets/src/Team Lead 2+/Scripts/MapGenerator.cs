@@ -33,7 +33,7 @@ public class MapGenerator : MonoBehaviour
             {
                 var x = j * separation.x - (cols - 1) * separation.x / 2f;
                 var level = CreateLevel(x + Variation(), currentY + Variation());
-                if (i % 2 == 0)
+                if (i == 0)
                     level.Information = new Level.Battle(0);
                 else level.RandomizeInformation();
                 next.Add(level);
@@ -44,9 +44,17 @@ public class MapGenerator : MonoBehaviour
             {
                 foreach (var level in next)
                 {
-                    var pre = previous[Random.Range(0, previous.Count)];
-                    pre.AddNextLevel(level.GameObject());
-                    // level.AddNextLevel(next[Random.Range(0, next.Count)].GameObject());
+                    var lvl = previous[Random.Range(0, previous.Count)];
+                    lvl.AddNextLevel(level.GameObject());
+                }
+
+                foreach (var level in previous)
+                {
+                    if (!level.HasNextLevel())
+                    {
+                        var lvl = next[Random.Range(0, next.Count)];
+                        level.AddNextLevel(lvl.GameObject());
+                    }
                 }
             }
 
@@ -57,35 +65,11 @@ public class MapGenerator : MonoBehaviour
         var boss = CreateLevel(0f, currentY);
         boss.Information = new Level.Boss(0);
 
-        // Connect previous levels (previous row)
+        // Connect previous levels to boss
         foreach (var level in previous)
         {
             level.AddNextLevel(boss.GameObject());
         }
-
-        // var rows = Random.Range(3, 6);
-        // var currentY = separation.y * (rows - 1);
-        // var boss = CreateLevel(0f, separation.y * rows);
-        // boss.Information = new Level.Boss(0);
-        // var roots = new List<Level> { boss };
-
-        // for (int i = 0; i < rows; i++)
-        // {
-        //     var next = new List<Level>();
-
-        //     var cols = Random.Range(1, 4);
-        //     for (int j = 0; j < cols; j++)
-        //     {
-        //         var x = j * separation.x - (cols-1) * separation.x / 2f;
-        //         var level = CreateLevel(x + Variation(), currentY + Variation());
-        //         if (i % 2 == 0)
-        //             level.Information = new Level.Battle(0);
-        //         else level.RandomizeInformation();
-        //         next.Add(level);
-        //     }
-
-        //     currentY -= separation.y;
-        // }
     }
 
     private float Variation()
