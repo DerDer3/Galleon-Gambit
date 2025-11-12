@@ -157,7 +157,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     //=========================================================================================================================
-    // On States: 
+    // States: 
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -207,7 +207,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         if (currentState == CardState.PotentialPlay)
         {
             PlayCardEffect();
-            // Since PlayCardEffect destroys this object, no further code runs here.
         }
         else if (currentState == CardState.Dragging)
         {
