@@ -58,7 +58,7 @@ public class DemoEnemyLoader : MonoBehaviour
         DemoEnemyHUD ui = Instantiate(enemyHUDPrefab, uiParent);
         if (ui != null)
         {
-             ui.transform.localPosition = Vector3.zero; // center under parent
+            ui.transform.localPosition = Vector3.zero; // center under parent
             ui.transform.localScale = Vector3.one; // reset scale
             ui.SetUp(enemies.enemies[0]);
             ui.SetHUD(currentEnemy);

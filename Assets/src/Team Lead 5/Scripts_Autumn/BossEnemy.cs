@@ -3,7 +3,7 @@ using System;
 public class BossEnemy : EnemyObject
 {
 
-    public BossEnemy(EnemyData data)
+    public BossEnemy(EnemyData data) : base(data)
     {
         attackDMG = data.attack;
     }
