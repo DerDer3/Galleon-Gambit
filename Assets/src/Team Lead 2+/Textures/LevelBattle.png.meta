@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2512a8cd8ec0c144cb4562b3d47ce573
+guid: ff6014b49b46ac4408cd5f9a5e0b0081
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -618651414948744686
-    second: LevelBattle_0
+      213: -2675149267659966489
+    second: LevelBattler_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LevelBattle_0
+      name: LevelBattler_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 212ff2cd0db1a67f0800000000000000
-      internalID: -618651414948744686
+      spriteID: 7e73bf32ae5ffdad0800000000000000
+      internalID: -2675149267659966489
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      LevelBattle_0: -618651414948744686
+      LevelBattler_0: -2675149267659966489
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

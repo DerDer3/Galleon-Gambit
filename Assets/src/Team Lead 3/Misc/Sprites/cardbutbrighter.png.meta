@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/src/Team Lead 3/Misc/Sprites/cardbutbrighter.png.meta
 guid: f570b6734bae88241bef3d895589213e
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 2046601412057352270
     second: cardbutbrighter_0
-=======
-guid: ff6014b49b46ac4408cd5f9a5e0b0081
-TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -2675149267659966489
-    second: LevelBattler_0
->>>>>>> tl2+:Assets/src/Team Lead 2+/Textures/LevelBattle.png.meta
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,11 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD:Assets/src/Team Lead 3/Misc/Sprites/cardbutbrighter.png.meta
   spritePixelsToUnits: 256
-=======
-  spritePixelsToUnits: 200
->>>>>>> tl2+:Assets/src/Team Lead 2+/Textures/LevelBattle.png.meta
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -107,44 +94,19 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
-<<<<<<< HEAD:Assets/src/Team Lead 3/Misc/Sprites/cardbutbrighter.png.meta
-=======
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
->>>>>>> tl2+:Assets/src/Team Lead 2+/Textures/LevelBattle.png.meta
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-<<<<<<< HEAD:Assets/src/Team Lead 3/Misc/Sprites/cardbutbrighter.png.meta
       name: cardbutbrighter_0
-=======
-      name: LevelBattler_0
->>>>>>> tl2+:Assets/src/Team Lead 2+/Textures/LevelBattle.png.meta
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-<<<<<<< HEAD:Assets/src/Team Lead 3/Misc/Sprites/cardbutbrighter.png.meta
         width: 656
         height: 918
-=======
-        width: 256
-        height: 256
->>>>>>> tl2+:Assets/src/Team Lead 2+/Textures/LevelBattle.png.meta
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,13 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-<<<<<<< HEAD:Assets/src/Team Lead 3/Misc/Sprites/cardbutbrighter.png.meta
       spriteID: e48cd72142df66c10800000000000000
       internalID: 2046601412057352270
-=======
-      spriteID: 7e73bf32ae5ffdad0800000000000000
-      internalID: -2675149267659966489
->>>>>>> tl2+:Assets/src/Team Lead 2+/Textures/LevelBattle.png.meta
       vertices: []
       indices: 
       edges: []
@@ -168,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -178,11 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-<<<<<<< HEAD:Assets/src/Team Lead 3/Misc/Sprites/cardbutbrighter.png.meta
       cardbutbrighter_0: 2046601412057352270
-=======
-      LevelBattler_0: -2675149267659966489
->>>>>>> tl2+:Assets/src/Team Lead 2+/Textures/LevelBattle.png.meta
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

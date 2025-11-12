@@ -251,5 +251,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   ScreenTransition: {fileID: 3128973485804841427}
+  MenuScene: MenuScene
   MapScene: Map
-  GameScene: SampleScene
+  GameScene: Gameplay

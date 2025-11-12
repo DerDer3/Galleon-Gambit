@@ -1160,6 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   LevelPrefab: {fileID: 7721170189910374307, guid: 480fb9b806310a94492d9b723f704a00, type: 3}
+  cam: {fileID: 1578461015}
   LevelNameText: {fileID: 1770923326}
 --- !u!4 &1867987699
 Transform:
@@ -1259,10 +1260,6 @@ PrefabInstance:
     - target: {fileID: 5199378051514559870, guid: 64e634fe298c7f44b87ac3852d189d9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8434987845981098988, guid: 64e634fe298c7f44b87ac3852d189d9c, type: 3}
-      propertyPath: GameScene
-      value: Gameplay
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

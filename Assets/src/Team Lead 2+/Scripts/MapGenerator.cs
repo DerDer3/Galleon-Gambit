@@ -6,11 +6,16 @@ using UnityEngine;
 /// <summary>Generates the main game map.</summary>
 public class MapGenerator : MonoBehaviour
 {
-    public GameObject LevelPrefab;
-   //public MapCamera cam;
-    public TextMeshProUGUI LevelNameText;
+    /// <summary>The prefab object for each level in the map.</summary>
+    [SerializeField] private GameObject LevelPrefab;
+    /// <summary>The map camera.</summary>
+    [SerializeField] private MapCamera cam;
+    /// <summary>The text that displays the currently focused level.</summary>
+    [SerializeField] private TextMeshProUGUI LevelNameText;
 
+    /// <summary>The separation between level rows and columsn.</summary>
     private readonly Vector2 separation = new(3f, 4f);
+    /// <summary>The random variation of position (for x and y) for each level.</summary>
     private readonly float variation = 0.25f;
 
     void Start()
@@ -18,6 +23,7 @@ public class MapGenerator : MonoBehaviour
         GenerateMap();
     }
 
+    /// <summary>Generates the game map by creating levels and connecting them.</summary>
     private void GenerateMap()
     {
         var currentY = 0f;
@@ -72,19 +78,18 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    private float Variation()
-    {
-        return Random.Range(-variation, variation);
-    }
+    private float Variation() => Random.Range(-variation, variation);
 
+    /// <summary>Updates the min and max for the camera position to ensure the entire map may be seen.</summary>
     private void UpdateCameraBounds(float ypos)
     {
-       /* if (ypos > cam.YMax)
+        if (ypos > cam.YMax)
             cam.YMax = ypos;
         else if (ypos < cam.YMin)
-            cam.YMin = ypos;*/
+            cam.YMin = ypos;
     }
 
+    /// <summary>Returns a newly created level with the specified position.</summary>
     private Level CreateLevel(float x, float y)
     {
         UpdateCameraBounds(y);
