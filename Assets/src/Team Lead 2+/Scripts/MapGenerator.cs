@@ -7,7 +7,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public GameObject LevelPrefab;
-    public MapCamera cam;
+   //public MapCamera cam;
     public TextMeshProUGUI LevelNameText;
 
     private readonly Vector2 separation = new(3f, 4f);
@@ -79,10 +79,10 @@ public class MapGenerator : MonoBehaviour
 
     private void UpdateCameraBounds(float ypos)
     {
-        if (ypos > cam.YMax)
+       /* if (ypos > cam.YMax)
             cam.YMax = ypos;
         else if (ypos < cam.YMin)
-            cam.YMin = ypos;
+            cam.YMin = ypos;*/
     }
 
     private Level CreateLevel(float x, float y)
