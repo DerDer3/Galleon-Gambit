@@ -1448,7 +1448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2eab4677e08d3409f13ded68eec641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDisplay
-  cardData: {fileID: 11400000, guid: 75a7abc13df777d4e8fe818b77185efd, type: 2}
+  cardData: {fileID: 0}
   cardImage: {fileID: 5327962315989358335}
   nameText: {fileID: 2920122574596791727}
   healthText: {fileID: 1258795568613994572}
@@ -1519,6 +1519,8 @@ MonoBehaviour:
   rootCanvas: {fileID: 8926685303585600937}
   selectScale: 1.1
   playThresholdY: 100
-  potentialPlayPosition: {x: -600, y: 400, z: 0}
+  potentialPlayPosition: {x: 0, y: 0, z: 0}
+  cardPlay: {x: 0, y: 0}
+  lerpFactor: 0
   glowEffect: {fileID: 4469668748531368192}
   playArrow: {fileID: 375191447048443833}

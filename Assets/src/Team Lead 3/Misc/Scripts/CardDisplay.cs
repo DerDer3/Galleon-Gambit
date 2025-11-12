@@ -32,6 +32,43 @@ public class CardDisplay : MonoBehaviour
         UpdateCardDisplay();
     }
 
+    public void ApplyCardEffects()
+    {
+        if (cardData == null)
+        {
+            Debug.LogError("Card data is missing!");
+            return;
+        }
+
+        // Apply Damage to the enemy
+        if (cardData.damage > 0)
+        {
+            if (GameManager2.Instance.EnemyManager != null)
+            {
+                GameManager2.Instance.EnemyManager.TakeDamage(cardData.damage);
+            }
+            else
+            {
+                Debug.LogWarning("EnemyManager not available to take damage.");
+            }
+        }
+
+        // Apply Heal to the player (assuming Player_health property)
+        if (cardData.heal > 0)
+        {
+            GameManager2.Instance.Player_health += cardData.heal;
+            Debug.Log($"Player Healed for {cardData.heal}. New Health: {GameManager2.Instance.Player_health}");
+        }
+
+        // Apply Mana effect
+        if (cardData.mana != 0)
+        {
+            GameManager2.Instance.Player_mana += cardData.mana;
+            Debug.Log($"Player Mana changed by {cardData.mana}. New Mana: {GameManager2.Instance.Player_mana}");
+        }
+
+    }
+
     public void UpdateCardDisplay()
     {
         cardImage.color = typeColors[(int)cardData.cardType[0]];

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using System.Collections.Generic;
+using System.Collections;
+using System;
+using System.Runtime.CompilerServices;
 public enum CardState
 {
     Default = 0,
@@ -16,9 +19,10 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private RectTransform rTrans;
     [SerializeField] private Canvas rootCanvas;
 
-    private HandManager handManager; // <--- NEW: Reference to the HandManager
+    private HandManager handManager;
 
     private Vector2 originalLocalPointerPosition;
+    private Vector3 originalPanelLocalPosition;
     private Vector3 originalLocalPosition;
     private Vector3 originalScale;
     private Quaternion originalRotation;
@@ -29,6 +33,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     [SerializeField] private float selectScale = 1.1f;
     [SerializeField] private float playThresholdY = 100f;
     [SerializeField] private Vector3 potentialPlayPosition;
+    [SerializeField] private Vector2 cardPlay;
+    [SerializeField] private float lerpFactor = 0.1f;
 
     [SerializeField] private GameObject glowEffect;
     [SerializeField] private GameObject playArrow;
@@ -78,15 +84,20 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 rTrans.localScale = originalScale;
                 rTrans.localRotation = originalRotation;
                 rTrans.localPosition = originalLocalPosition;
-                // If HandManager is found, it will update the hand visuals, 
-                // which re-sets the position and rotation if in hand.
+
+
                 if (handManager != null) { handManager.updateHandVisuals(); }
                 glowEffect.SetActive(false);
                 playArrow.SetActive(false);
                 break;
 
             case CardState.Hovered:
+            //HandleHoverState();
+
+            //break;
             case CardState.Dragging:
+                HandleDragState();
+
                 glowEffect.SetActive(true);
                 playArrow.SetActive(false);
                 rTrans.localRotation = Quaternion.identity;
@@ -100,9 +111,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 break;
 
             case CardState.Played:
-                // This state is now managed externally by the PlayCardEffect method, 
-                // which destroys the GameObject. We keep the case block empty for safety 
-                // but the object should be destroyed before this runs.
+
+                HandlePlayState();
+
+                if (!Input.GetMouseButton(0))
+                {
+                    TransitionToState(CardState.Default);
+                }
                 glowEffect.SetActive(false);
                 playArrow.SetActive(false);
                 break;
@@ -111,7 +126,34 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         currentState = newState;
     }
 
-    // --- Play Card Helper Method ---
+    //=========================================================================================================================
+    //Card States
+
+    private void HandleHoverState()
+    {
+        glowEffect.SetActive(true);
+        rTrans.localScale = originalScale * selectScale;
+
+    }
+
+    private void HandleDragState()
+    {
+        rTrans.localRotation = Quaternion.identity;
+
+
+    }
+
+    private void HandlePlayState()
+    {
+        rTrans.localPosition = potentialPlayPosition;
+        rTrans.localRotation = Quaternion.identity;
+
+        if (Input.mousePosition.y < cardPlay.y)
+        {
+            currentState = CardState.Dragging;
+            playArrow.SetActive(false);
+        }
+    }
 
     private void PlayCardEffect()
     {
@@ -127,7 +169,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
     }
 
-    // --- Pointer Handlers ---
+    //=========================================================================================================================
+    // On States: 
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -135,7 +178,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         if (currentState == CardState.Default)
         {
             originalLocalPosition = rTrans.localPosition;
-            TransitionToState(CardState.Hovered);
+            originalRotation = rTrans.localRotation;
+            originalScale = rTrans.localScale;
+            currentState = CardState.Hovered;
         }
     }
 
@@ -158,8 +203,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 out originalLocalPointerPosition))
             {
                 originalLocalPosition = rTrans.localPosition;
-                // Set the card's parent transform to the canvas root while dragging 
-                // so it always renders on top of the hand.
+
                 rTrans.SetParent(rootCanvas.transform, true);
                 TransitionToState(CardState.Dragging);
             }
@@ -184,7 +228,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (currentState == CardState.Dragging || currentState == CardState.PotentialPlay)
+        if (currentState == CardState.Dragging)
         {
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 rootCanvas.GetComponent<RectTransform>(),
@@ -192,19 +236,21 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 eventData.pressEventCamera,
                 out Vector2 localPointerPosition))
             {
-                Vector2 localPoint = localPointerPosition / rootCanvas.scaleFactor;
-                Vector3 offsetToOriginal = localPoint - originalLocalPointerPosition;
-                rTrans.localPosition = originalLocalPosition + offsetToOriginal;
+                Vector2 localPoint = localPointerPosition / rootCanvas.scaleFactor; // This line seems missing/incorrect in your current OnDrag
+                Vector3 offsetToOrgin = localPoint - originalLocalPointerPosition;
+                rTrans.localPosition = originalLocalPosition + offsetToOrgin; // Use the stored starting position + offset
 
-                if (rTrans.localPosition.y > playThresholdY)
+                // To incorporate your Lerp, you need to use the calculated drag position:
+                Vector3 targetPosition = originalLocalPosition + offsetToOrgin;
+                rTrans.localPosition = Vector3.Lerp(rTrans.localPosition, targetPosition, lerpFactor);
+
+                if (rTrans.localPosition.y > cardPlay.y)
                 {
-                    TransitionToState(CardState.PotentialPlay);
-                }
-                else
-                {
-                    TransitionToState(CardState.Dragging);
+                    currentState = CardState.PotentialPlay;
+                    playArrow.SetActive(true);
+                    rTrans.localPosition = Vector3.Lerp(rTrans.position, potentialPlayPosition, lerpFactor);
                 }
             }
-        }
-    }
+        }//end of if
+    }//End of on drag
 }

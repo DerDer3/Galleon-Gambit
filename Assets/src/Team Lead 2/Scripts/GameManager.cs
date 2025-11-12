@@ -37,11 +37,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mainGame.mainPlayer.get_health() <= 0)
-        {
-            Debug.Log("Gameover");
-            SceneManager.LoadScene("GameOverScene");
-        }
        if(mainGame.mana.get_amount() == 0)
        {
          mainGame.turn = true;

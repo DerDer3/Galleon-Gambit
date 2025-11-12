@@ -19,6 +19,7 @@ public class GameManager2 : MonoBehaviour
     private int diff = 5;
 
     public DeckManager DeckManager { get; private set; }
+    public EnemyManager EnemyManager { get; private set; }
 
     //For Kevin:
     // public AudioManager AudioManager {get; private set;}
@@ -42,7 +43,9 @@ public class GameManager2 : MonoBehaviour
         DeckManager = GetComponentInChildren<DeckManager>();
         //AudioManager = GetComponentInChildren<DeckManager>();
 
-        if(DeckManager == null)
+        EnemyManager = FindObjectOfType<EnemyManager>();
+
+        if (DeckManager == null)
         {
             GameObject prefab = Resources.Load<GameObject>("Prefab/DeckManager");
             if(prefab == null)

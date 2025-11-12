@@ -454,13 +454,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1465,13 +1465,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1601,13 +1601,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6cdd05da25125844a2f75613e9bb56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandManager
-  deckManager: {fileID: 0}
+  deckManager: {fileID: 1512522916}
   cardPrefab: {fileID: 8645683859982182512, guid: c50256a498953d048b918c425cd7d5d1, type: 3}
   handTransform: {fileID: 1122465051}
   fanSpread: 5
@@ -2270,8 +2270,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9021147}
   m_AnchorMax: {x: 0.06946413, y: 1}
-  m_AnchoredPosition: {x: 29, y: -102}
-  m_SizeDelta: {x: 180.8012, y: 191.724}
+  m_AnchoredPosition: {x: 15, y: -78}
+  m_SizeDelta: {x: 114.5704, y: 113.3285}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180070413
 MonoBehaviour:
@@ -3079,6 +3079,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8586123572602442164, guid: 629b4271a7d78ac4798cd7b4d51004ec, type: 3}
   m_PrefabInstance: {fileID: 2093301691}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1512522916 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4340672423325276675, guid: 629b4271a7d78ac4798cd7b4d51004ec, type: 3}
+  m_PrefabInstance: {fileID: 2093301691}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb580fe40d633a47a233d48fd584f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeckManager
 --- !u!1 &1519521250
 GameObject:
   m_ObjectHideFlags: 0
@@ -3463,7 +3474,6 @@ RectTransform:
   - {fileID: 1337283952}
   - {fileID: 1501789362}
   - {fileID: 1978861933}
-  - {fileID: 2142132424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4054,14 +4064,14 @@ Transform:
   m_GameObject: {fileID: 2142132423}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 337.59558, y: 80.54689, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1259.4445, y: 521.5338, z: 0}
+  m_LocalScale: {x: 1.7075, y: 1.7075, z: 1.7075}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2019166990}
   - {fileID: 1519521251}
   - {fileID: 1184122986}
-  m_Father: {fileID: 1896065193}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2142132425
 MonoBehaviour:
@@ -4082,3 +4092,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1896065193}
+  - {fileID: 2142132424}
