@@ -180,7 +180,7 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
         // Overshadowed method to show dynamic/static binding.
         public new string Name() => "Fight";
-        public override string Description() => "There be scallywags to plunder.";
+        public override string Description() => "There be scallywags to plunder!";
     }
 
     // Shops Were Removed
