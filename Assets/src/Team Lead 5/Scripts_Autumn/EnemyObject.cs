@@ -1,34 +1,4 @@
 using UnityEngine;
-<<<<<<< HEAD
-
-public class EnemyObject : MonoBehaviour
-{
-    public string enemyName;
-    public int unitLevel;
-    public int damage;
-    public int maxHealth;
-
-    public int currentHealth;
-
-
-    public bool TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public int get_health() { return currentHealth; }
-    public void set_health(int x) { currentHealth = x; }
-
-}
-=======
 using TMPro;
 using System;
 using Unity.IO.LowLevel.Unsafe;
@@ -65,4 +35,3 @@ public abstract class EnemyObject
     public event Action<EnemyObject> OnDeath;
 
 }
->>>>>>> 373c74afd004e1123c18fa3e3863f14566d8cd9f

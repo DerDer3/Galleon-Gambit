@@ -28,9 +28,9 @@ public class CreateEnemy : MonoBehaviour
         GameObject enemySpawn = Instantiate(EnemyPrefab, enemyBattleLocation.transform.position, Quaternion.identity);
         currentEnemy = enemySpawn.GetComponent<EnemyObject>();
         currentEnemy.maxHealth = 10;
-        currentEnemy.enemyName = "James";
+        currentEnemy.enemyName.text = "James";
         currentEnemy.currentHealth = 10;
-        currentEnemy.damage = 1;
+        //currentEnemy.damage = 1;
         enemyHUD.SetHUD(currentEnemy);
         Debug.Log("Enemy Spawned~");
 
@@ -39,8 +39,9 @@ public class CreateEnemy : MonoBehaviour
     void EnemyTurn()
     {
         //in player attack script, can do bool isDead = currentEnemy.TakeDamage([player_attack])
-        bool isDead = currentEnemy.TakeDamage(1);
-        enemyHUD.UpdateHealth(currentEnemy.currentHealth);
+        //bool isDead = currentEnemy.TakeDamage(1);
+        //enemyHUD.UpdateHealth(currentEnemy.currentHealth);
+        /*
         if (isDead)
         {
             //end battle
@@ -53,6 +54,7 @@ public class CreateEnemy : MonoBehaviour
             Debug.Log("enemy attack");
         
         }
+        */
     }
     
     
