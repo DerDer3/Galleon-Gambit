@@ -188,7 +188,7 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     public class Boss : Info
     {
         public Boss(int levelId) : base(levelId) { }
-        public override string Description() => "There be a captain!";
+        public override string Description() => "A vessel approaches...";
     }
 
     public class Treasure : Info
