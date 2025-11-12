@@ -9,20 +9,14 @@ public class GameManager2 : MonoBehaviour
     //Singleton pattern
     public static GameManager2 Instance { get; private set; }
 
-    private int player_health;
-
-    private int player_mana;
-
-    private int player_xp;
-
-    //Subject to change
-    private int diff = 5;
-
     public DeckManager DeckManager { get; private set; }
-    public EnemyManager EnemyManager { get; private set; }
+    public HandManager HandManager { get; private set; }
 
-    //For Kevin:
-    // public AudioManager AudioManager {get; private set;}
+
+    private int player_health = 100;
+    private int player_mana = 0;
+
+    private bool isGameReady = false;
 
     private void Awake()
     {
@@ -30,6 +24,7 @@ public class GameManager2 : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
             InitializeManagers();
         }
         else if (Instance != this)
@@ -38,17 +33,43 @@ public class GameManager2 : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (DeckManager != null)
+        {
+            // Call the DeckManager's initialization logic (renamed from startup() for clarity)
+            DeckManager.InitializeDeckAndDrawHand();
+            isGameReady = true;
+        }
+        else
+        {
+            Debug.LogError("DeckManager is NULL. Game cannot start properly.");
+        }
+
+    }
+
+
+    public void Update()
+    {
+        // Only run update logic if the game has finished its setup (isGameReady)
+        if (!isGameReady) return;
+
+        // Centralized Update calls for continuous tasks
+        if (HandManager != null)
+        {
+            HandManager.updateHandVisuals();
+        }
+    }
+
     private void InitializeManagers()
     {
+        // Initialize DeckManager (as a child/prefab)
         DeckManager = GetComponentInChildren<DeckManager>();
-        //AudioManager = GetComponentInChildren<DeckManager>();
-
-        EnemyManager = FindObjectOfType<EnemyManager>();
-
         if (DeckManager == null)
         {
+            // Existing prefab loading logic for DeckManager
             GameObject prefab = Resources.Load<GameObject>("Prefab/DeckManager");
-            if(prefab == null)
+            if (prefab == null)
             {
                 Debug.Log($"DeckManager Prefab not found.");
             }
@@ -58,12 +79,27 @@ public class GameManager2 : MonoBehaviour
                 DeckManager = GetComponentInChildren<DeckManager>();
             }
         }
+
+        HandManager = FindObjectOfType<HandManager>();
+        if (HandManager == null)
+        {
+            Debug.LogError("HandManager not found in scene! Drawing cards will fail.");
+        }
+        else
+        {
+            HandManager.deckManager = DeckManager;
+        }
+
+        if (DeckManager != null)
+        {
+            DeckManager.SetHandManager(HandManager);
+        }
     }
 
     public int Player_health
     {
         get { return player_health; }
-        set {  player_health= value; }
+        set { player_health = value; }
     }
 
     public int Player_mana
@@ -71,17 +107,4 @@ public class GameManager2 : MonoBehaviour
         get { return player_mana; }
         set { player_mana = value; }
     }
-
-    public int Player_xp
-    {
-        get { return player_xp; }
-        set { player_xp = value; }
-    }
-
-    public int Diff
-    {
-        get { return diff; }
-        set { diff = value; }
-    }
-
 }

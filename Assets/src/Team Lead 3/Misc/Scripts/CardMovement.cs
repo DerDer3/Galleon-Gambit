@@ -22,7 +22,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private HandManager handManager;
 
     private Vector2 originalLocalPointerPosition;
-    private Vector3 originalPanelLocalPosition;
     private Vector3 originalLocalPosition;
     private Vector3 originalScale;
     private Quaternion originalRotation;
@@ -31,13 +30,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private CardState currentState = CardState.Default;
 
     [SerializeField] private float selectScale = 1.1f;
-    [SerializeField] private float playThresholdY = 100f;
     [SerializeField] private Vector3 potentialPlayPosition;
     [SerializeField] private Vector2 cardPlay;
     [SerializeField] private float lerpFactor = 0.1f;
 
     [SerializeField] private GameObject glowEffect;
     [SerializeField] private GameObject playArrow;
+
 
     void Awake()
     {
@@ -92,9 +91,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 break;
 
             case CardState.Hovered:
-            //HandleHoverState();
-
-            //break;
             case CardState.Dragging:
                 HandleDragState();
 
@@ -128,13 +124,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     //=========================================================================================================================
     //Card States
-
-    private void HandleHoverState()
-    {
-        glowEffect.SetActive(true);
-        rTrans.localScale = originalScale * selectScale;
-
-    }
 
     private void HandleDragState()
     {
@@ -174,13 +163,16 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Prevent hover effects if we are currently dragging a different card
         if (currentState == CardState.Default)
         {
             originalLocalPosition = rTrans.localPosition;
             originalRotation = rTrans.localRotation;
             originalScale = rTrans.localScale;
             currentState = CardState.Hovered;
+
+            rTrans.SetAsLastSibling(); 
+    
+            TransitionToState(CardState.Hovered);
         }
     }
 
@@ -202,6 +194,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 eventData.pressEventCamera,
                 out originalLocalPointerPosition))
             {
+                originalLocalPointerPosition /= rootCanvas.scaleFactor;
+
                 originalLocalPosition = rTrans.localPosition;
 
                 rTrans.SetParent(rootCanvas.transform, true);
@@ -236,9 +230,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 eventData.pressEventCamera,
                 out Vector2 localPointerPosition))
             {
-                Vector2 localPoint = localPointerPosition / rootCanvas.scaleFactor; // This line seems missing/incorrect in your current OnDrag
+                Vector2 localPoint = localPointerPosition / rootCanvas.scaleFactor;
                 Vector3 offsetToOrgin = localPoint - originalLocalPointerPosition;
-                rTrans.localPosition = originalLocalPosition + offsetToOrgin; // Use the stored starting position + offset
+                Vector3 targetPistion = originalLocalPosition + offsetToOrgin;
 
                 // To incorporate your Lerp, you need to use the calculated drag position:
                 Vector3 targetPosition = originalLocalPosition + offsetToOrgin;
@@ -246,9 +240,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
                 if (rTrans.localPosition.y > cardPlay.y)
                 {
-                    currentState = CardState.PotentialPlay;
-                    playArrow.SetActive(true);
-                    rTrans.localPosition = Vector3.Lerp(rTrans.position, potentialPlayPosition, lerpFactor);
+                    TransitionToState(CardState.PotentialPlay);
+                }
+                else
+                {
+                    TransitionToState(CardState.Dragging);
                 }
             }
         }//end of if

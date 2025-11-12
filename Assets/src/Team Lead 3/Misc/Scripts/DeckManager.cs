@@ -17,17 +17,33 @@ public class DeckManager : MonoBehaviour
 
     private int index = 0;
 
-    public void DrawCard(HandManager handManager)
+    public void SetHandManager(HandManager manager)
     {
-        if (totalCards.Count == 0) {  return; }
-
-        NewCard nextCard = totalCards[index];
-        handManager.AddToHand(nextCard);
-        index = (index+1) % totalCards.Count;
-
+        handManager = manager;
     }
 
-    private void Start()
+    public void InitializeDeckAndDrawHand()
+    {
+        if (handManager == null)
+        {
+            Debug.LogError("DeckManager cannot initialize: HandManager reference is missing.");
+            return;
+        }
+
+        NewCard[] cards = Resources.LoadAll<NewCard>("CardData");
+        CardDatabase.AddRange(cards);
+
+        //Initial deck is manually populated.
+        InitializeStartingDeck();
+
+        // Draw initial hand
+        for (int i = 0; i < handManager.maxHand; i++)
+        {
+            DrawCardToHand();
+        }
+    }
+
+    public void startup()
     {
         NewCard[] cards = Resources.LoadAll<NewCard>("CardData");
         CardDatabase.AddRange(cards);
@@ -63,10 +79,10 @@ public class DeckManager : MonoBehaviour
 
     public void DrawCardToHand()
     {
-        // 1. Try to draw a card
+        //Try to draw a card
         NewCard drawnCard = PlayerDeck.DrawCard();
 
-        // 2. Check if a card was drawn, and if not, reshuffle
+        // Check if a card was drawn, and if not, reshuffle
         if (drawnCard == null)
         {
             Debug.Log("Player Deck empty. Checking Discard Pile...");
@@ -88,7 +104,7 @@ public class DeckManager : MonoBehaviour
             }
         }
 
-        // 3. Add the drawn card to the hand
+        // Add the drawn card to the hand
         if (drawnCard != null && handManager != null)
         {
             handManager.AddToHand(drawnCard);

@@ -27,30 +27,12 @@ public class CardDisplay : MonoBehaviour
         Color.blue //Mana
     };
 
-    private void Start()
-    {//UPDATE THIS TO BE ON GAME MANAGER
-        UpdateCardDisplay();
-    }
-
     public void ApplyCardEffects()
     {
         if (cardData == null)
         {
             Debug.LogError("Card data is missing!");
             return;
-        }
-
-        // Apply Damage to the enemy
-        if (cardData.damage > 0)
-        {
-            if (GameManager2.Instance.EnemyManager != null)
-            {
-                GameManager2.Instance.EnemyManager.TakeDamage(cardData.damage);
-            }
-            else
-            {
-                Debug.LogWarning("EnemyManager not available to take damage.");
-            }
         }
 
         // Apply Heal to the player (assuming Player_health property)

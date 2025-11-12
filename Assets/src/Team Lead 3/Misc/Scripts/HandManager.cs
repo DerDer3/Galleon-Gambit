@@ -7,7 +7,7 @@ using System;
 
 public class HandManager : MonoBehaviour
 {
-    public DeckManager deckManager;
+    [HideInInspector] public DeckManager deckManager;
 
     public GameObject cardPrefab;
 
@@ -23,25 +23,26 @@ public class HandManager : MonoBehaviour
 
     public int maxHand = 5;
 
+
+
     public void PlayCard(GameObject playedCardObject)
     {
 
         if (cardsInHand.Contains(playedCardObject))
         {
-            // 1. Get the card data before destroying the GameObject
+            //Get the card data before destroying the GameObject
             NewCard cardData = playedCardObject.GetComponent<CardDisplay>().cardData;
 
-            // 2. Remove the card from the hand list and destroy the GameObject
+            // Remove the card from the hand list and destroy the GameObject
             cardsInHand.Remove(playedCardObject);
             Destroy(playedCardObject);
 
-            // 3. Move the card data to the Discard Pile
+            // Move the card data to the Discard Pile
             if (deckManager != null)
             {
                 deckManager.DiscardDeck.cards.Add(cardData);
                 Debug.Log($"Discarded card: {cardData.cardName}. Discard Pile size: {deckManager.DiscardDeck.cards.Count}");
 
-                // 4. Immediately refill the hand by drawing a card
                 if (cardsInHand.Count < maxHand)
                 {
                     deckManager.DrawCardToHand();
@@ -49,29 +50,24 @@ public class HandManager : MonoBehaviour
                 }
             }
 
-            // 5. Update visuals to close the gap
             updateHandVisuals();
         }
     }
 
-   
+
     public void AddToHand(NewCard cardData)
     {
-        if(cardsInHand.Count < maxHand)
+        if (cardsInHand.Count < maxHand)
         {
             GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
             cardsInHand.Add(newCard);
 
-            newCard.GetComponent<CardDisplay>().cardData = cardData;
+            CardDisplay display = newCard.GetComponent<CardDisplay>();
+            display.cardData = cardData;
+            display.UpdateCardDisplay();
         }
-        
-        updateHandVisuals();
-    }
 
-    private void Update()
-    {
-        //ADD TO GAME MANAGER
-       updateHandVisuals();
+        updateHandVisuals();
     }
 
     public void updateHandVisuals()
