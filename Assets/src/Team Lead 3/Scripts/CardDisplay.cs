@@ -35,7 +35,7 @@ public class CardDisplay : MonoBehaviour
             return;
         }
 
-        // Apply Heal to the player (assuming Player_health property)
+        // Apply Heal to the player
         if (cardData.heal > 0)
         {
             GameManager2.Instance.Player_health += cardData.heal;
