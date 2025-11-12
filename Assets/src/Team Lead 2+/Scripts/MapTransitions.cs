@@ -9,6 +9,8 @@ public class MapTransitions : MonoBehaviour
     public static MapTransitions Instance { get; private set; }
 
     public ScreenTransition ScreenTransition;
+    public string MenuScene;
+    private Scene menuScene;
     public string MapScene;
     private Scene mapScene;
     public string GameScene;
@@ -41,6 +43,12 @@ public class MapTransitions : MonoBehaviour
     public bool Transitioning()
     {
         return transitioningToScene != "";
+    }
+
+    public void TransitionToMenu()
+    {
+        ScreenTransition.ShowTransition();
+        transitioningToScene = MenuScene;
     }
 
     public void TransitionToMap()
