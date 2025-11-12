@@ -238,7 +238,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
                 if (rTrans.localPosition.y > cardPlay.y-1)//End cards wouldn't work unless I added the -1.
                 {
-                    Debug.Log(cardPlay.y);
                     TransitionToState(CardState.PotentialPlay);
                 }
                 else
