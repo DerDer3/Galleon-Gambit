@@ -55,7 +55,7 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
             GetComponent<SpriteRenderer>().sprite = sprite;
         }
     }
-    
+
     private Sprite GetSpriteForLevelType(Info i)
     {
         foreach (var spr in LevelSprites)
@@ -143,6 +143,13 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         }
     }
 
+    public void RandomizeInformation()
+    {
+        var types = new[] { typeof(Battle), typeof(Treasure), typeof(Unknown) };
+        var type = types[UnityEngine.Random.Range(0, types.Length)];
+        Information = type.Instantiate(true, 0) as Info;
+    }
+
     [Serializable]
     public struct LevelSprite
     {
@@ -171,11 +178,12 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         public override string Description() => "There be scallywags to plunder.";
     }
 
-    public class Shop : Info
-    {
-        public Shop(int levelId) : base(levelId) { }
-        public override string Description() => "Bargain ye treasures.";
-    }
+    // Shops Were Removed
+    // public class Shop : Info
+    // {
+    //     public Shop(int levelId) : base(levelId) { }
+    //     public override string Description() => "Bargain ye treasures.";
+    // }
 
     public class Boss : Info
     {
