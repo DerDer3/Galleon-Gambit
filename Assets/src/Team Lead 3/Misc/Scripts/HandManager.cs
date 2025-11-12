@@ -13,11 +13,11 @@ public class HandManager : MonoBehaviour
 
     public Transform handTransform;
      
-    public float fanSpread = 12f;
+    public float fanSpread = 7.5f;
 
-    public float cardspacing = -105;
+    public float cardspacing = 100f;
 
-    public float verticalspacing = 30f;
+    public float verticalspacing = 100f;
 
     public List<GameObject> cardsInHand = new List<GameObject>();
 
@@ -50,7 +50,7 @@ public class HandManager : MonoBehaviour
                 }
             }
 
-            updateHandVisuals();
+            UpdateHandVisuals();
         }
     }
 
@@ -67,10 +67,10 @@ public class HandManager : MonoBehaviour
             display.UpdateCardDisplay();
         }
 
-        updateHandVisuals();
+        UpdateHandVisuals();
     }
 
-    public void updateHandVisuals()
+    public void UpdateHandVisuals()
     {
         int cardCount = cardsInHand.Count;
 
@@ -83,14 +83,15 @@ public class HandManager : MonoBehaviour
 
         for (int i = 0; i < cardCount; i++)
         {
-            float rotationangle = (fanSpread * (i - (cardCount - 1) / 2f));
-            cardsInHand[i].transform.localRotation = Quaternion.Euler(0f, 0f, rotationangle);
+            float rotationAngle = (fanSpread * (i - (cardCount - 1) / 2f));
+            cardsInHand[i].transform.localRotation = Quaternion.Euler(0f, 0f, rotationAngle);
 
             float horizontalOffset = (cardspacing * (i - (cardCount - 1) / 2f));
 
-            float normalizedPosition = (2f * i / (cardCount - 1) - 1f);
+            float normalizedPosition = (2f * i / (cardCount - 1) - 1f); 
             float verticalOffset = verticalspacing * (1 - normalizedPosition * normalizedPosition);
 
+            //Set card position
             cardsInHand[i].transform.localPosition = new Vector3(horizontalOffset, verticalOffset, 0f);
         }
     }

@@ -85,7 +85,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 rTrans.localPosition = originalLocalPosition;
 
 
-                if (handManager != null) { handManager.updateHandVisuals(); }
+                if (handManager != null) { handManager.UpdateHandVisuals(); }
                 glowEffect.SetActive(false);
                 playArrow.SetActive(false);
                 break;
@@ -208,7 +208,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     {
         if (currentState == CardState.PotentialPlay)
         {
-            // CRITICAL: Play the card effect if released in the play zone
             PlayCardEffect();
             // Since PlayCardEffect destroys this object, no further code runs here.
         }
@@ -234,12 +233,12 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 Vector3 offsetToOrgin = localPoint - originalLocalPointerPosition;
                 Vector3 targetPistion = originalLocalPosition + offsetToOrgin;
 
-                // To incorporate your Lerp, you need to use the calculated drag position:
                 Vector3 targetPosition = originalLocalPosition + offsetToOrgin;
                 rTrans.localPosition = Vector3.Lerp(rTrans.localPosition, targetPosition, lerpFactor);
 
-                if (rTrans.localPosition.y > cardPlay.y)
+                if (rTrans.localPosition.y > cardPlay.y-1)//End cards wouldn't work unless I added the -1.
                 {
+                    Debug.Log(cardPlay.y);
                     TransitionToState(CardState.PotentialPlay);
                 }
                 else

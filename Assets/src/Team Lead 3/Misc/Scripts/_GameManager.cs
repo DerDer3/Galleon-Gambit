@@ -57,7 +57,7 @@ public class GameManager2 : MonoBehaviour
         // Centralized Update calls for continuous tasks
         if (HandManager != null)
         {
-            HandManager.updateHandVisuals();
+            HandManager.UpdateHandVisuals();
         }
     }
 
