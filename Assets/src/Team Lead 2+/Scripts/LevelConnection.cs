@@ -4,8 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class LevelConnection : MonoBehaviour
 {
-    public GameObject FromLevel;
-    public GameObject ToLevel;
+    /// <summary>The level where this connection starts.</summary>
+    public GameObject FromLevel { set; private get; }
+    /// <summary>The level where this connection ends.</summary>
+    public GameObject ToLevel { set; private get; }
 
     private LineRenderer line;
 

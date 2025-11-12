@@ -5,8 +5,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Camera))]
 public class MapCamera : MonoBehaviour
 {
-    public float ScrollSpeed = 15f;
+    /// <summary>The speed at which scrolling moves the camera.</summary>
+    [SerializeField] private float ScrollSpeed = 15f;
+    /// <summary>The minimum y position the camera may not surpass.</summary>
     public float YMin;
+    /// <summary>The maximum y position the camera may not surpass.</summary>
     public float YMax;
 
     private Camera cam;
@@ -26,6 +29,7 @@ public class MapCamera : MonoBehaviour
         ClampPosition();
     }
 
+    /// <summary>Ensure the y-position lands within the `YMin` and `YMax` range.</summary>
     private void ClampPosition()
     {
         transform.position = new Vector3(
@@ -35,6 +39,7 @@ public class MapCamera : MonoBehaviour
         );
     }
 
+    /// <summary>Updates map panning.</summary>
     private void UpdateDrag()
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
@@ -53,6 +58,7 @@ public class MapCamera : MonoBehaviour
         }
     }
 
+    /// <summary>Updates map scrolling.</summary>
     private void UpdateScroll()
     {
         float scroll = Mouse.current.scroll.ReadValue().y;
@@ -63,6 +69,7 @@ public class MapCamera : MonoBehaviour
         }
     }
 
+    /// <summary>Returns the mouse position in world coordinates.</summary>
     private Vector3 MouseWorldPosition()
     {
         var pos = Mouse.current.position.ReadValue();

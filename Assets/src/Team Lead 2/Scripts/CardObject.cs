@@ -11,6 +11,8 @@ public class CardObject : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public TextMeshProUGUI manaAmount;
     Vector3 currentPos;
 
+    //public GameObject pauseObject;
+
     public void SetCard(Card card, GameState state)
     {
         linkedCard = card;
@@ -24,36 +26,61 @@ public class CardObject : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-      if(linkedState.turn == false)
-      {
-        linkedCard.Play(linkedState);
-        linkedState.mainDeck.DiscardCard(linkedCard);
-        SetCard(linkedState.mainDeck.DrawCardWithReshuffle(), linkedState);
-      }
+        if (linkedState.turn == false)
+        {
+            linkedCard.Play(linkedState);
+            linkedState.mainDeck.DiscardCard(linkedCard);
+            SetCard(linkedState.mainDeck.DrawCardWithReshuffle(), linkedState);
+        }
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-      transform.position += Vector3.up;
+        if (!checkPause())
+        {
+            transform.position += Vector3.up;
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-      transform.position = currentPos;
+        transform.position = currentPos;
     }
 
     public void ChangeColor(float r, float g, float b)
     {
-      spriteRenderer = GetComponent<SpriteRenderer>();
-      spriteRenderer.color = new Color(r, g, b, 1); 
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(r, g, b, 1);
     }
 
     void Start()
     {
-      currentPos = transform.position;
+        currentPos = transform.position;
     }
 
-    void Update()
-    {
+    public bool checkPause()
+    {  /*
+        if(pauseObject != null)
+        {
+            if (pauseObject.activeSelf)
+            {
+                return true;
+            }
+            else if (pauseObject.activeInHierarchy)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }*/
+        return false;
+        //Eventually will update to work correctly again.
     }
 }

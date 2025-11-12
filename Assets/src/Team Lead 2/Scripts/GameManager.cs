@@ -1,10 +1,12 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject cardPrefab;
     public GameState mainGame;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
