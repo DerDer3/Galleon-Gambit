@@ -200,7 +200,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65935395}
-  - component: {fileID: 65935394}
   m_Layer: 0
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -208,18 +207,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &65935394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65935393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75e97b5d1717c60993a429e2f0097df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!4 &65935395
 Transform:
   m_ObjectHideFlags: 0
@@ -381,7 +368,7 @@ GameObject:
   - component: {fileID: 175301586}
   - component: {fileID: 175301585}
   m_Layer: 5
-  m_Name: HealthValue
+  m_Name: ManaValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1217,7 +1204,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &678400140
+--- !u!1 &628420572
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1225,22 +1212,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 678400141}
-  - component: {fileID: 678400142}
+  - component: {fileID: 628420574}
+  - component: {fileID: 628420573}
   m_Layer: 0
-  m_Name: Mana
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &678400141
+--- !u!114 &628420573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628420572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6f5d0ecb77cf24e83a236b6fad9ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerClass
+  healthText: {fileID: 894663154}
+--- !u!4 &628420574
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678400140}
+  m_GameObject: {fileID: 628420572}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -29.793983, y: 30.957674, z: 0}
@@ -1249,19 +1249,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1896065193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &678400142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678400140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee157341422d2334f9d78eeb4b05e820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ManaClass
-  manaText: {fileID: 175301585}
 --- !u!1 &831662606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1258,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831662609}
-  - component: {fileID: 831662607}
   m_Layer: 0
   m_Name: EnemyHealth
   m_TagString: Untagged
@@ -1279,18 +1265,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &831662607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831662606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 280da3ea859ec69dabfb90f97d306914, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
 --- !u!4 &831662609
 Transform:
   m_ObjectHideFlags: 0
@@ -1838,8 +1812,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager2
   DeckManager: {fileID: 1512522916}
   HandManager: {fileID: 1176416751}
-  MainPlayer: {fileID: 1208225332}
-  PlayerMana: {fileID: 678400142}
+  MainPlayer: {fileID: 628420573}
+  PlayerMana: {fileID: 997227116}
 --- !u!1 &992255682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,6 +1916,51 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &997227115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 997227117}
+  - component: {fileID: 997227116}
+  m_Layer: 0
+  m_Name: Mana
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &997227116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997227115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee157341422d2334f9d78eeb4b05e820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ManaClass
+  manaText: {fileID: 175301585}
+--- !u!4 &997227117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997227115}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -29.793983, y: 30.957674, z: 0}
+  m_LocalScale: {x: 0.5856515, y: 0.5856515, z: 0.5856515}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1896065193}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1030315106
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,51 +2476,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2142132424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1208225330
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1208225331}
-  - component: {fileID: 1208225332}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1208225331
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1208225330}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.793983, y: 30.957674, z: 0}
-  m_LocalScale: {x: 0.5856515, y: 0.5856515, z: 0.5856515}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1896065193}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1208225332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1208225330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6f5d0ecb77cf24e83a236b6fad9ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerClass
-  healthText: {fileID: 894663154}
 --- !u!1 &1277816056
 GameObject:
   m_ObjectHideFlags: 0
@@ -3567,8 +3541,8 @@ RectTransform:
   - {fileID: 1337283952}
   - {fileID: 1501789362}
   - {fileID: 1978861933}
-  - {fileID: 1208225331}
-  - {fileID: 678400141}
+  - {fileID: 628420574}
+  - {fileID: 997227117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3927,7 +3901,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2015942425}
-  - component: {fileID: 2015942424}
   m_Layer: 0
   m_Name: ManaAmount
   m_TagString: Untagged
@@ -3935,18 +3908,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2015942424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015942423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aaf5b069f735c8c3b9841f643cb6e1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mana
 --- !u!4 &2015942425
 Transform:
   m_ObjectHideFlags: 0

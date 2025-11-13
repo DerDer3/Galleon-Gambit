@@ -79,8 +79,6 @@ public class GameManager2 : MonoBehaviour
         MainPlayer = FindObjectOfType<PlayerClass>();
         PlayerMana = FindObjectOfType<ManaClass>();
 
-        if (MainPlayer == null) Debug.LogError("Player (TL2_Player.cs) not found in scene.");
-        if (PlayerMana == null) Debug.LogError("Mana (TL2_Mana.cs) not found in scene.");
     }
 
     // --- Turn Management Functions ---

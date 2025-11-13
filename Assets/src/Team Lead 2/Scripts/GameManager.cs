@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject cardPrefab;
     public GameState mainGame;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+  /*  // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
       mainGame.mainDeck.AddCard(new Slash(), "Attack");
@@ -48,5 +48,5 @@ public class GameManager : MonoBehaviour
        {
          mainGame.turn = false;
        }
-    }
+    }*/
 }
