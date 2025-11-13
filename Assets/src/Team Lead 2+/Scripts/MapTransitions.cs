@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
+// using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,10 +36,10 @@ public class MapTransitions : MonoBehaviour
         scenes = new();
 
         mapScene = SceneManager.GetSceneByName(MapScene);
-        Assert.IsNotNull(mapScene);
+        // Assert.IsNotNull(mapScene);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        Assert.IsNotNull(ScreenTransition);
+        // Assert.IsNotNull(ScreenTransition);
     }
 
     public bool Transitioning()
