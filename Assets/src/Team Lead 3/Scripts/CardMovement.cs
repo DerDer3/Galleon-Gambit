@@ -22,6 +22,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     [SerializeField] private Canvas rootCanvas;
 
     private HandManager handManager;
+    private CardDisplay cardDisplay; // ADDED: Reference to CardDisplay
 
     private Vector2 originalLocalPointerPosition;
     private Vector3 originalLocalPosition;
@@ -43,6 +44,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     void Awake()
     {
         rTrans = GetComponent<RectTransform>();
+
+        // Get CardDisplay component to access the loaded card's data
+        cardDisplay = GetComponent<CardDisplay>();
+        if (cardDisplay == null)
+            Debug.LogError("CardMovement requires a CardDisplay component to access card data!");
 
         if (rootCanvas == null)
         {
@@ -87,24 +93,25 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
 
                 if (handManager != null) { handManager.UpdateHandVisuals(); }
-                glowEffect.SetActive(false);
-                playArrow.SetActive(false);
+                // Check if components exist before accessing
+                if (glowEffect != null) glowEffect.SetActive(false);
+                if (playArrow != null) playArrow.SetActive(false);
                 break;
 
             case CardState.Hovered:
             case CardState.Dragging:
                 HandleDragState();
 
-                glowEffect.SetActive(true);
-                playArrow.SetActive(false);
+                if (glowEffect != null) glowEffect.SetActive(true);
+                if (playArrow != null) playArrow.SetActive(false);
                 rTrans.localRotation = Quaternion.identity;
                 break;
 
             case CardState.PotentialPlay:
                 rTrans.localPosition = potentialPlayPosition;
                 rTrans.localRotation = Quaternion.identity;
-                glowEffect.SetActive(true);
-                playArrow.SetActive(true);
+                if (glowEffect != null) glowEffect.SetActive(true);
+                if (playArrow != null) playArrow.SetActive(true);
                 break;
 
             case CardState.Played:
@@ -115,8 +122,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 {
                     TransitionToState(CardState.Default);
                 }
-                glowEffect.SetActive(false);
-                playArrow.SetActive(false);
+                if (glowEffect != null) glowEffect.SetActive(false);
+                if (playArrow != null) playArrow.SetActive(false);
                 break;
         }
 
@@ -139,7 +146,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         if (Input.mousePosition.y < cardPlay.y)
         {
             currentState = CardState.Dragging;
-            playArrow.SetActive(false);
+            if (playArrow != null) playArrow.SetActive(false);
         }
     }
 
@@ -152,18 +159,39 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             return;
         }
 
-        // --- NEW LOGIC: Check Mana & Deduct Cost ---
-        // ASSUMPTION: CardObject.CardData has a public 'ManaCost' property/field. Using 1 for now.
-        int manaCost = 1; // Placeholder: Replace with actual CardObject data reference later (e.g., cardObject.CardData.ManaCost)
-
-        if (GameManager2.Instance.TryPlayCard(manaCost))
+        if (cardDisplay == null || cardDisplay.cardData == null)
         {
-            Debug.Log($"Card Played: {gameObject.name}. Mana remaining: {GameManager2.Instance.PlayerMana.get_amount()}");
+            Debug.LogError("Card is missing CardDisplay component or cardData to determine cost/effect.");
+            rTrans.SetParent(handManager.handTransform, true);
+            TransitionToState(CardState.Default);
+            return;
+        }
 
-            // 1. Execute the card's effect here (e.g., GameManager2.Instance.MainPlayer.set_health(damage))
-            // This is where your card's unique logic (Attack, Defense, etc.) would execute.
+        CardStats stats = cardDisplay.GetCardStats();
 
-            // 2. Add card to discard pile via HandManager
+        if (GameManager2.Instance.TryPlayCard(stats.ManaCost))
+        {
+            PlayerClass player = GameManager2.Instance.MainPlayer;
+            ManaClass playerMana = GameManager2.Instance.PlayerMana;
+            //EnemyClass enemy = GameManager2.Instance.CurrentEnemy;
+
+            // Apply HEAL effect (affects Player Health)
+            if (stats.Heal > 0)
+            {
+                int newHealth = player.get_health() + stats.Heal;
+                player.set_health(newHealth);
+                Debug.Log($"Card applied {stats.Heal} HEAL. Player Health now: {newHealth}");
+            }
+
+            // Apply MANA gain (for cards that generate more than they cost)
+            if (stats.ManaGain > 0)
+            {
+                int newMana = playerMana.get_amount() + stats.ManaGain;
+                playerMana.set_amount(newMana);
+                Debug.Log($"Card applied {stats.ManaGain} MANA gain. Player Mana now: {newMana}");
+            }
+
+            //  Discard Card
             if (handManager != null)
             {
                 handManager.PlayCard(this.gameObject);
@@ -171,7 +199,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
         else
         {
-            Debug.LogWarning($"Cannot play card: Insufficient Mana ({manaCost}).");
+            Debug.LogWarning($"Cannot play card: Insufficient Mana. Required: {stats.ManaCost}, Available: {GameManager2.Instance.PlayerMana.get_amount()}.");
             // Return card to hand if play failed
             rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
@@ -232,7 +260,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         if (currentState == CardState.PotentialPlay)
         {
             PlayCardEffect();
-            // Transition is handled inside PlayCardEffect now (Default on success, or stays in hand on fail)
         }
         else if (currentState == CardState.Dragging)
         {

@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75e97b5d1717c60993a429e2f0097df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  healthText: {fileID: 894663154}
 --- !u!4 &65935395
 Transform:
   m_ObjectHideFlags: 0
@@ -1292,7 +1291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280da3ea859ec69dabfb90f97d306914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  healthText: {fileID: 967157471}
 --- !u!4 &831662609
 Transform:
   m_ObjectHideFlags: 0
@@ -1840,8 +1838,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager2
   DeckManager: {fileID: 1512522916}
   HandManager: {fileID: 1176416751}
-  MainPlayer: {fileID: 0}
-  PlayerMana: {fileID: 0}
+  MainPlayer: {fileID: 1208225332}
+  PlayerMana: {fileID: 678400142}
 --- !u!1 &992255682
 GameObject:
   m_ObjectHideFlags: 0
@@ -3949,7 +3947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aaf5b069f735c8c3b9841f643cb6e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mana
-  manaText: {fileID: 175301585}
 --- !u!4 &2015942425
 Transform:
   m_ObjectHideFlags: 0

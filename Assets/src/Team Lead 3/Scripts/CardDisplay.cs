@@ -76,4 +76,19 @@ public class CardDisplay : MonoBehaviour
                 break;
         }
     }
+
+    public CardStats GetCardStats()
+    {
+        if (cardData == null)
+        {
+            Debug.LogError("CardData is missing on CardDisplay.");
+            // Return a default struct to prevent crash
+            return new CardStats();
+        }
+
+        // This is where we create the structure containing all necessary information
+        return new CardStats(cardData);
+    }
 }
+
+

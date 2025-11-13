@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro; // Needed for referencing TextMeshProUGUI in the Mana/Player components
 
 // This replaces both _GameManager.cs and TL2_GameManager.cs
 public class GameManager2 : MonoBehaviour
@@ -20,14 +17,13 @@ public class GameManager2 : MonoBehaviour
 
     // Core Game State variables
     private bool isGameReady = false;
-    public bool IsPlayerTurn { get; set; } = false; // Player starts turn 0 (false) or maybe needs a StartGame call
+    public bool IsPlayerTurn { get; set; } = false; // Player starts turn 0 (false) or maybe needs a StartGame call; still in development/
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            // Removed DontDestroyOnLoad as this is likely a single scene game state manager
             InitializeManagersAndState();
         }
         else if (Instance != this)
@@ -96,8 +92,6 @@ public class GameManager2 : MonoBehaviour
         PlayerMana.set_amount(PlayerMana.get_max_amount()); // Assuming starting mana is max mana (e.g. 3)
         Debug.Log($"Player Turn started. Mana restored to {PlayerMana.get_amount()}.");
 
-        // Example: Draw one card at the start of the turn
-        // DeckManager.DrawCardToHand();
     }
 
     public void EndPlayerTurn()
@@ -107,8 +101,6 @@ public class GameManager2 : MonoBehaviour
         IsPlayerTurn = false;
         Debug.Log("Player Turn ended. Starting Enemy Turn.");
 
-        // Optional: Discard hand, trigger enemy action, etc.
-        // For now, immediately start the next player turn for testing cycle
         Invoke(nameof(StartEnemyTurn), 1.0f); // Wait 1 second before enemy turn
     }
 
@@ -146,6 +138,4 @@ public class GameManager2 : MonoBehaviour
         // You would also check for Win condition here (e.g., currentEnemy is defeated)
     }
 
-    // You can remove the old Player_health and Player_mana properties from the old _GameManager.cs
-    // The player state is now managed by the Player and Mana classes.
 }

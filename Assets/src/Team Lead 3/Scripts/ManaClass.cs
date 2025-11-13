@@ -1,11 +1,9 @@
 using UnityEngine;
 using TMPro;
 
-// Renamed Mana (from TL2_Mana.cs)
 public class ManaClass : MonoBehaviour
 {
-    // Changed to private fields with properties/getters for controlled access
-    private int maxMana = 3;
+    private int maxMana = 100;
     private int manaAmount = 3;
 
     public TextMeshProUGUI manaText;
@@ -13,7 +11,6 @@ public class ManaClass : MonoBehaviour
     public int get_amount() { return manaAmount; }
     public int get_max_amount() { return maxMana; }
 
-    // Use PascalCase for public methods in C# convention
     public void set_amount(int x)
     {
         manaAmount = x;

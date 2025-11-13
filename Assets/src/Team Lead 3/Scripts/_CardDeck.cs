@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-// Renamed from _CardDeck.cs
 public class Deck
 {
     // The actual list of cards in this deck (e.g., Draw Pile or Discard Pile)
