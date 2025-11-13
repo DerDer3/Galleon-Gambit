@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using System.Runtime.CompilerServices;
+using GallionGambit;
+
 public enum CardState
 {
     Default = 0,
@@ -41,6 +43,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     void Awake()
     {
         rTrans = GetComponent<RectTransform>();
+
         if (rootCanvas == null)
         {
             rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
@@ -126,8 +129,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private void HandleDragState()
     {
         rTrans.localRotation = Quaternion.identity;
-
-
     }
 
     private void HandlePlayState()
@@ -144,14 +145,35 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     private void PlayCardEffect()
     {
-        if (handManager != null)
+        if (GameManager2.Instance == null)
         {
-            Debug.Log($"Card Played: {gameObject.name}");
-            handManager.PlayCard(this.gameObject);
+            Debug.LogError("Cannot play card: GameManager2 not initialized.");
+            TransitionToState(CardState.Default);
+            return;
+        }
+
+        // --- NEW LOGIC: Check Mana & Deduct Cost ---
+        // ASSUMPTION: CardObject.CardData has a public 'ManaCost' property/field. Using 1 for now.
+        int manaCost = 1; // Placeholder: Replace with actual CardObject data reference later (e.g., cardObject.CardData.ManaCost)
+
+        if (GameManager2.Instance.TryPlayCard(manaCost))
+        {
+            Debug.Log($"Card Played: {gameObject.name}. Mana remaining: {GameManager2.Instance.PlayerMana.get_amount()}");
+
+            // 1. Execute the card's effect here (e.g., GameManager2.Instance.MainPlayer.set_health(damage))
+            // This is where your card's unique logic (Attack, Defense, etc.) would execute.
+
+            // 2. Add card to discard pile via HandManager
+            if (handManager != null)
+            {
+                handManager.PlayCard(this.gameObject);
+            }
         }
         else
         {
-            Debug.LogError("Cannot play card, HandManager reference is missing.");
+            Debug.LogWarning($"Cannot play card: Insufficient Mana ({manaCost}).");
+            // Return card to hand if play failed
+            rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
         }
     }
@@ -168,8 +190,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             originalScale = rTrans.localScale;
             currentState = CardState.Hovered;
 
-            rTrans.SetAsLastSibling(); 
-    
+            rTrans.SetAsLastSibling();
+
             TransitionToState(CardState.Hovered);
         }
     }
@@ -184,6 +206,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        // Only allow picking up the card if it's the player's turn
+        if (GameManager2.Instance != null && !GameManager2.Instance.IsPlayerTurn) return;
+
         if (currentState == CardState.Hovered || currentState == CardState.Default)
         {
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -207,6 +232,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         if (currentState == CardState.PotentialPlay)
         {
             PlayCardEffect();
+            // Transition is handled inside PlayCardEffect now (Default on success, or stays in hand on fail)
         }
         else if (currentState == CardState.Dragging)
         {
@@ -218,6 +244,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnDrag(PointerEventData eventData)
     {
+        // Only allow dragging if it's the player's turn
+        if (GameManager2.Instance != null && !GameManager2.Instance.IsPlayerTurn) return;
+
         if (currentState == CardState.Dragging)
         {
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -228,12 +257,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             {
                 Vector2 localPoint = localPointerPosition / rootCanvas.scaleFactor;
                 Vector3 offsetToOrgin = localPoint - originalLocalPointerPosition;
-                Vector3 targetPistion = originalLocalPosition + offsetToOrgin;
-
                 Vector3 targetPosition = originalLocalPosition + offsetToOrgin;
+
                 rTrans.localPosition = Vector3.Lerp(rTrans.localPosition, targetPosition, lerpFactor);
 
-                if (rTrans.localPosition.y > cardPlay.y-1)//End cards wouldn't work unless I added the -1.
+                if (rTrans.localPosition.y > cardPlay.y - 1)//End cards wouldn't work unless I added the -1.
                 {
                     TransitionToState(CardState.PotentialPlay);
                 }
