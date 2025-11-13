@@ -40,11 +40,6 @@ public class GameManager2 : MonoBehaviour
     {
         if (DeckManager != null && MainPlayer != null && PlayerMana != null)
         {
-<<<<<<< Updated upstream
-            // Call the DeckManager's initialization logic (draw initial hand)
-=======
-            // Call the DeckManager's initialization logic
->>>>>>> Stashed changes
             DeckManager.InitializeDeckAndDrawHand();
             isGameReady = true;
             Debug.Log("Game initialized. Starting turn setup.");
