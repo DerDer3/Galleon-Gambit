@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EnemyHUD : MonoBehaviour
 {
+    private EnemyObject enemyObj;
     public TextMeshProUGUI enemyName;
     public TextMeshProUGUI enemyTitle;
     public Slider hpSlider;
@@ -13,8 +14,7 @@ public class EnemyHUD : MonoBehaviour
 
     public void SetHUD(EnemyObject enemy)
     {
-       
-        hpSlider.maxValue = enemy.maxHealth;
+        enemyObj = enemy;
         hpSlider.value = enemy.currentHealth;
     }
 
@@ -24,6 +24,7 @@ public class EnemyHUD : MonoBehaviour
         enemyTitle.text = data.enemyTitle;
         hpSlider.maxValue = data.health;
         hpSlider.value = data.health;
+        Debug.Log($"Enemy Health:{data.health} ");
         
         if (!string.IsNullOrEmpty(data.imagePath))
         {
@@ -36,8 +37,11 @@ public class EnemyHUD : MonoBehaviour
 
     }
 
-    public void UpdateHealth(int health)
+    public void UpdateHealth()
     {
-        hpSlider.value = health;
+        if (enemyObj != null)
+        {
+            hpSlider.value = enemyObj.currentHealth;
+        }
     }
 }

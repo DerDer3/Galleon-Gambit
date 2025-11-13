@@ -12,13 +12,15 @@ public class EnemyData
     public string imagePath;
 }
 [System.Serializable]
-class EnemyArray
+public class EnemyArray
 {
     public EnemyData[] enemies;
 
 }
 public class EnemyLoader : MonoBehaviour
 {
+
+    
     public EnemyHUD enemyHUDPrefab;  // Assign your EnemyHUD prefab
     public Transform uiParent;
 
@@ -32,6 +34,19 @@ public class EnemyLoader : MonoBehaviour
 
         TextAsset file = Resources.Load("enemies") as TextAsset;
         EnemyArray enemies = JsonUtility.FromJson<EnemyArray>(file.text);
+        
+
+            if (enemies == null)
+            {
+                Debug.LogError("EnemyArray failed to deserialize!");
+                return;
+            }
+
+            if (enemies.enemies == null || enemies.enemies.Length == 0)
+            {
+                Debug.LogError("No enemies found in JSON!");
+                return;
+            }
 
         //will spawn all enemies at once
         /*
@@ -72,16 +87,19 @@ public class EnemyLoader : MonoBehaviour
                 return new MinorEnemy(data); //fallback enemy spawning
         }
     }
-    
 
-    public void DamageEnemy(int amount)
+    public void DamageEnemy(int amt)
     {
         if (currentEnemy != null)
         {
-            currentEnemy.TakeDamage(amount);
+            currentEnemy.TakeDamage(amt);
+            EnemyHUD hud = uiParent.GetComponentInChildren<EnemyHUD>();
+            if (hud != null)
+                hud.UpdateHealth();
+            
         }
     }
-        
+    
 }
 
 

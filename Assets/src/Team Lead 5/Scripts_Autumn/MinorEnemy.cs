@@ -3,7 +3,7 @@ using System;
 
 public class MinorEnemy : EnemyObject
 {
-    public MinorEnemy(EnemyData data)
+    public MinorEnemy(EnemyData data) : base(data)
     {
         attackDMG = data.attack;
 
