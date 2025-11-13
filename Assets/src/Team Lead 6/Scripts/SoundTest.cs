@@ -14,7 +14,7 @@ public class test : MonoBehaviour
             SoundManager.Instance.play(MusicTracks.Boss);
         }
 
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             // 3. Play the sound effect using your mapped enum
             SoundManager.Instance.play(SoundEffects.sword);
