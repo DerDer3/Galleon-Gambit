@@ -1,31 +1,30 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-
+// This replaces both _GameManager.cs and TL2_GameManager.cs
 public class GameManager2 : MonoBehaviour
 {
-    //Singleton pattern
+    // Singleton Pattern for easy access
     public static GameManager2 Instance { get; private set; }
 
-    public DeckManager DeckManager { get; private set; }
-    public HandManager HandManager { get; private set; }
+    [Header("Managers")]
+    public DeckManager DeckManager;
+    public HandManager HandManager;
 
+    // Player and Mana Objects (TL2's responsibilities, now accessible centrally)
+    [Header("Game State References")]
+    public PlayerClass MainPlayer;
+    public ManaClass PlayerMana;
 
-    private int player_health = 100;
-    private int player_mana = 0;
-
+    // Core Game State variables
     private bool isGameReady = false;
+    public bool IsPlayerTurn { get; set; } = false; // Player starts turn 0 (false) or maybe needs a StartGame call; still in development/
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            InitializeManagers();
+            InitializeManagersAndState();
         }
         else if (Instance != this)
         {
@@ -35,76 +34,106 @@ public class GameManager2 : MonoBehaviour
 
     private void Start()
     {
-        if (DeckManager != null)
+        if (DeckManager != null && MainPlayer != null && PlayerMana != null)
         {
-            // Call the DeckManager's initialization logic (renamed from startup() for clarity)
             DeckManager.InitializeDeckAndDrawHand();
             isGameReady = true;
+            Debug.Log("Game initialized. Starting turn setup.");
+
+            // Start the first turn
+            StartPlayerTurn();
         }
         else
         {
-            Debug.LogError("DeckManager is NULL. Game cannot start properly.");
+            Debug.LogError("GameManager missing critical references (DeckManager, Player, or Mana). Game cannot start.");
         }
-
     }
-
 
     public void Update()
     {
-        // Only run update logic if the game has finished its setup (isGameReady)
         if (!isGameReady) return;
 
-        // Centralized Update calls for continuous tasks
+        // This is where turn update logic would typically run:
+        // 1. Check for win/loss conditions
+        CheckForGameOver();
+
+        // 2. Continuous visual updates (from original _GameManager.cs)
         if (HandManager != null)
         {
             HandManager.UpdateHandVisuals();
         }
     }
 
-    private void InitializeManagers()
+    private void InitializeManagersAndState()
     {
-        // Initialize DeckManager (as a child/prefab)
+        // Get DeckManager and HandManager (from existing setup logic in _GameManager.cs)
         DeckManager = GetComponentInChildren<DeckManager>();
-        if (DeckManager == null)
-        {
-            // Existing prefab loading logic for DeckManager
-            GameObject prefab = Resources.Load<GameObject>("Prefab/DeckManager");
-            if (prefab == null)
-            {
-                Debug.Log($"DeckManager Prefab not found.");
-            }
-            else
-            {
-                Instantiate(prefab, transform.position, Quaternion.identity, transform);
-                DeckManager = GetComponentInChildren<DeckManager>();
-            }
-        }
+        if (DeckManager == null) Debug.LogError("DeckManager not found.");
 
         HandManager = FindObjectOfType<HandManager>();
-        if (HandManager == null)
-        {
-            Debug.LogError("HandManager not found in scene! Drawing cards will fail.");
-        }
-        else
-        {
-            HandManager.deckManager = DeckManager;
-        }
+        if (HandManager == null) Debug.LogError("HandManager not found.");
 
-        if (DeckManager != null)
-        {
-            DeckManager.SetHandManager(HandManager);
-        }
+        if (DeckManager != null) DeckManager.SetHandManager(HandManager);
+
+        // Get Player and Mana objects (TL2's components)
+        MainPlayer = FindObjectOfType<PlayerClass>();
+        PlayerMana = FindObjectOfType<ManaClass>();
+
     }
 
-    public int Player_health
+    // --- Turn Management Functions ---
+
+    public void StartPlayerTurn()
     {
-        get { return player_health; }
-        set { player_health = value; }
+        IsPlayerTurn = true;
+        // Reset mana and draw cards at the start of the turn
+        PlayerMana.set_amount(PlayerMana.get_max_amount()); // Assuming starting mana is max mana (e.g. 3)
+        Debug.Log($"Player Turn started. Mana restored to {PlayerMana.get_amount()}.");
+
     }
 
-    public int Player_mana
+    public void EndPlayerTurn()
     {
-        get { return player_mana; }
-        set { player_mana = value; }
+        if (!IsPlayerTurn) return;
+
+        IsPlayerTurn = false;
+        Debug.Log("Player Turn ended. Starting Enemy Turn.");
+
+        Invoke(nameof(StartEnemyTurn), 1.0f); // Wait 1 second before enemy turn
     }
+
+    private void StartEnemyTurn()
+    {
+        // Placeholder for enemy actions (e.g., enemy attacks player)
+        Debug.Log("Enemy Turn: Enemy attacks!");
+        MainPlayer.set_health(MainPlayer.get_health() - 10);
+
+        // End enemy turn and start player turn again
+        Invoke(nameof(StartPlayerTurn), 1.0f); // Wait 1 second before player turn
+    }
+
+    public bool TryPlayCard(int manaCost)
+    {
+        if (IsPlayerTurn && PlayerMana.get_amount() >= manaCost)
+        {
+            PlayerMana.set_amount(PlayerMana.get_amount() - manaCost);
+            return true;
+        }
+        return false;
+    }
+
+    // --- Game Over Check ---
+
+    private void CheckForGameOver()
+    {
+        if (MainPlayer.get_health() <= 0)
+        {
+            Debug.Log("Gameover: Player Health reached 0.");
+            // SceneManager.LoadScene("GameOverScene"); // Re-enable once you have a scene named "GameOverScene"
+            // For now, log and freeze the game manager state to prevent further actions
+            isGameReady = false;
+        }
+        // You would also check for Win condition here (e.g., currentEnemy is defeated)
+    }
+
 }

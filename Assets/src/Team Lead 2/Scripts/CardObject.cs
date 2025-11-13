@@ -29,8 +29,8 @@ public class CardObject : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (linkedState.turn == false)
         {
             linkedCard.Play(linkedState);
-            linkedState.mainDeck.DiscardCard(linkedCard);
-            SetCard(linkedState.mainDeck.DrawCardWithReshuffle(), linkedState);
+           // linkedState.mainDeck.DiscardCard(linkedCard);
+            //SetCard(linkedState.mainDeck.DrawCardWithReshuffle(), linkedState);
         }
     }
 
