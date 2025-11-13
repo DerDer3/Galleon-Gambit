@@ -200,7 +200,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65935395}
-  - component: {fileID: 65935394}
   m_Layer: 0
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -208,18 +207,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &65935394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65935393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75e97b5d1717c60993a429e2f0097df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!4 &65935395
 Transform:
   m_ObjectHideFlags: 0
@@ -381,7 +368,7 @@ GameObject:
   - component: {fileID: 175301586}
   - component: {fileID: 175301585}
   m_Layer: 5
-  m_Name: HealthValue
+  m_Name: ManaValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +740,7 @@ GameObject:
   - component: {fileID: 382305753}
   - component: {fileID: 382305752}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HealthTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1271,7 +1258,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831662609}
-  - component: {fileID: 831662607}
   m_Layer: 0
   m_Name: EnemyHealth
   m_TagString: Untagged
@@ -1279,18 +1265,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &831662607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831662606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 280da3ea859ec69dabfb90f97d306914, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
 --- !u!4 &831662609
 Transform:
   m_ObjectHideFlags: 0
@@ -1591,7 +1565,7 @@ GameObject:
   - component: {fileID: 967157472}
   - component: {fileID: 967157471}
   m_Layer: 5
-  m_Name: HealthValue
+  m_Name: EnemyHealthValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3927,7 +3901,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2015942425}
-  - component: {fileID: 2015942424}
   m_Layer: 0
   m_Name: ManaAmount
   m_TagString: Untagged
@@ -3935,18 +3908,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2015942424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015942423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aaf5b069f735c8c3b9841f643cb6e1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mana
 --- !u!4 &2015942425
 Transform:
   m_ObjectHideFlags: 0

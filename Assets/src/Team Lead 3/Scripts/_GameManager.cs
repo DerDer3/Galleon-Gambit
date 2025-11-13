@@ -70,14 +70,14 @@ public class GameManager2 : MonoBehaviour
         DeckManager = GetComponentInChildren<DeckManager>();
         if (DeckManager == null) Debug.LogError("DeckManager not found.");
 
-        HandManager = FindObjectOfType<HandManager>();
+        HandManager = FindAnyObjectByType<HandManager>();
         if (HandManager == null) Debug.LogError("HandManager not found.");
 
         if (DeckManager != null) DeckManager.SetHandManager(HandManager);
 
         // Get Player and Mana objects (TL2's components)
-        MainPlayer = FindObjectOfType<PlayerClass>();
-        PlayerMana = FindObjectOfType<ManaClass>();
+        MainPlayer = FindAnyObjectByType<PlayerClass>();
+        PlayerMana = FindAnyObjectByType<ManaClass>();
 
         if (MainPlayer == null) Debug.LogError("Player (TL2_Player.cs) not found in scene.");
         if (PlayerMana == null) Debug.LogError("Mana (TL2_Mana.cs) not found in scene.");
