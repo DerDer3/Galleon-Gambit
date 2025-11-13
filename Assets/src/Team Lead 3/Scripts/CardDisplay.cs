@@ -27,29 +27,6 @@ public class CardDisplay : MonoBehaviour
         Color.blue //Mana
     };
 
-    public void ApplyCardEffects()
-    {
-        if (cardData == null)
-        {
-            Debug.LogError("Card data is missing!");
-            return;
-        }
-
-        // Apply Heal to the player
-        if (cardData.heal > 0)
-        {
-            GameManager2.Instance.Player_health += cardData.heal;
-            Debug.Log($"Player Healed for {cardData.heal}. New Health: {GameManager2.Instance.Player_health}");
-        }
-
-        // Apply Mana effect
-        if (cardData.mana != 0)
-        {
-            GameManager2.Instance.Player_mana += cardData.mana;
-            Debug.Log($"Player Mana changed by {cardData.mana}. New Mana: {GameManager2.Instance.Player_mana}");
-        }
-
-    }
 
     public void UpdateCardDisplay()
     {
@@ -99,4 +76,19 @@ public class CardDisplay : MonoBehaviour
                 break;
         }
     }
+
+    public CardStats GetCardStats()
+    {
+        if (cardData == null)
+        {
+            Debug.LogError("CardData is missing on CardDisplay.");
+            // Return a default struct to prevent crash
+            return new CardStats();
+        }
+
+        // This is where we create the structure containing all necessary information
+        return new CardStats(cardData);
+    }
 }
+
+

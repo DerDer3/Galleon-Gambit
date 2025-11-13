@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 
 public class Deck
 {
@@ -18,7 +18,6 @@ public class Deck
         GallionGambit.NewCard drawnCard = cards[0];
         cards.RemoveAt(0);
 
-        //Debug.Log($"Drew card: {drawnCard.cardName}. Cards remaining in deck: {cards.Count}");
         return drawnCard;
     }
 

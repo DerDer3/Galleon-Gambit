@@ -26,7 +26,6 @@ public class DeckManager : MonoBehaviour
     {
         if (handManager == null)
         {
-            //Debug.LogError("DeckManager cannot initialize: HandManager reference is missing.");
             return;
         }
 
@@ -92,7 +91,6 @@ public class DeckManager : MonoBehaviour
                 // Transfer discard cards to the player deck
                 PlayerDeck.TransferCardsFrom(DiscardDeck);
                 PlayerDeck.Shuffle();
-                //Debug.Log($"Discard Pile shuffled into Player Deck. New deck size: {PlayerDeck.cards.Count}.");
 
                 // Try drawing again
                 drawnCard = PlayerDeck.DrawCard();

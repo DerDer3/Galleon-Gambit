@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
-
+/*
 public class CardDeck
 {
     public List<Card> cards = new List<Card>();
@@ -73,3 +73,4 @@ public class CardDeck
         return deck.cards.Count;
     }
 }
+*/
