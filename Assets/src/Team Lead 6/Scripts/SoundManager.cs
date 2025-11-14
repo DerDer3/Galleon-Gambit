@@ -18,10 +18,11 @@ public class SoundManager : MonoBehaviour
     [Header("SFX Library Mapping")]
     public List<SFXTrackData> sfxLibrary = new List<SFXTrackData>();
 
-    //private SoundChannel Music;
-    //private SoundChannel SFX;
+    //Dynamic binding occuring
+    private SoundChannelCore Music;
+    private SoundChannelCore SFX;
 
-    void Awake()
+    private void Awake()
     {
         //Singleton Pattern
         if (Instance == null)
@@ -41,102 +42,67 @@ public class SoundManager : MonoBehaviour
             {
                 sfxSource = GetComponent<AudioSource>();
             }
-            if(sfxSource == null)
+            if (sfxSource == null)
             {
                 Debug.LogError("FATAL: SFX Source not assigned in the Inspector!");
             }
-            //play(MusicTracks.Main);
         }
         else
         {
             Destroy(gameObject);
             return;
         }
-       
+
+        Music = new MusicChannelCore(musicSource);
+        SFX = new SFXChannelCore(sfxSource);
+
     }
-    
 
-
-    
     public void play(MusicTracks title)
     {
-        if (musicSource == null) return;
-
-        AudioClip newClip = GetMusic(title);
-
-        if (newClip == null)
+        SoundCue cue = GetMusic(title);
+        if (cue = null)
         {
-            Debug.LogWarning($"Music Track '{title}' not found in the library. Cannot play.");
+            Debug.LogWarning($"Music track '{title}' not found in the library");
             return;
         }
-
-        //Optimization
-        if (musicSource.clip == newClip && musicSource.isPlaying)
-        {
-            return;
-        }
-
-        if (musicSource.isPlaying)
-        {
-            musicSource.Stop();
-        }
-
-        musicSource.clip = newClip;
-        musicSource.loop = true;
-        musicSource.Play();
+        Music.Play(cue);        
     }
 
+     
     public void play(SoundEffects title)
     {
-        if (sfxSource == null)
+        SoundCue cue = GetSFX(title);
+        if (cue == null)
         {
-            Debug.LogError("FATAL: SFX Source is not assigned");
+            Debug.LogWarning($"Sound Effect '{title}' not found in library");
             return;
         }
-        AudioClip sfxClip = GetSFX(title);
-
-        if(sfxClip == null)
-        {
-            Debug.LogWarning($"Sound Effect '{title}' not found in the library. Cannot play.");
-            return;
-        }
-
-        sfxSource.PlayOneShot(sfxClip);
-
-        Debug.Log($"Playing SFX: {title}");
+        SFX.Play(cue);
     }
 
-    private AudioClip GetMusic(MusicTracks title)
+    private SoundCue GetMusic(MusicTracks title)
     {
         foreach (MusicTrackData data in musicLibrary)
         {
-            if (data.track == title)
+        if (data.track == title)
             {
-                return data.clip;
+                return data.cue;
             }
         }
         return null;
     }
 
-    private AudioClip GetSFX(SoundEffects title)
+    private SoundCue GetSFX(SoundEffects title)
     {
         foreach (SFXTrackData data in sfxLibrary)
         {
             if (data.effect == title)
             {
-                return data.clip;
+                return data.cue;
             }
         }
-        return null;
+       return null;
     }
-
-    /*public void SetChannelVolume()
-    {
-        Console.WriteLine("Setting Channel Volume");
-    }
-
-    public void SetChannelMute()
-    {
-        Console.WriteLine("Muting Channel");
-    }*/
 }
+
