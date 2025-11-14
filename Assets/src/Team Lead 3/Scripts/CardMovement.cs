@@ -56,7 +56,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
 
         // Find the HandManager in the scene
-        handManager = FindObjectOfType<HandManager>();
+        handManager = FindAnyObjectByType<HandManager>();
         if (handManager == null)
         {
             Debug.LogError("CardMovement requires a HandManager component in the scene to play cards.");
