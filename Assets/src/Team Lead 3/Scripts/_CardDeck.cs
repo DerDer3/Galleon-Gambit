@@ -1,10 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using GallionGambit; // Ensure this is present if NewCard is in this namespace
 
+// OOP INHERITANCE PATTERN IMPLEMENTATION (Deck Subclasses) ---
+
+// Base Class: Deck
 public class Deck
 {
     // The actual list of cards in this deck (e.g., Draw Pile or Discard Pile)
+    // Protected so subclasses can access it directly, if needed.
     public List<GallionGambit.NewCard> cards = new List<GallionGambit.NewCard>();
 
     public GallionGambit.NewCard DrawCard()
@@ -36,6 +41,7 @@ public class Deck
         }
     }
 
+    // Dynamic: Uses the base Deck type for transfer source
     public void TransferCardsFrom(Deck sourceDeck)
     {
         if (sourceDeck == null || sourceDeck.cards.Count == 0)
@@ -47,3 +53,22 @@ public class Deck
         sourceDeck.cards.Clear();
     }
 }
+
+// Subclass 1: PlayerDeckType
+public class PlayerDeckType : Deck
+{
+    public PlayerDeckType()
+    {
+        Debug.Log("Player Deck Initialized.");
+    }
+}
+
+// Subclass 2: DiscardDeckType
+public class DiscardDeckType : Deck
+{
+    public DiscardDeckType()
+    {
+        Debug.Log("Discard Deck Initialized.");
+    }
+}
+

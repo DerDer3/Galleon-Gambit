@@ -5,13 +5,14 @@ using GallionGambit;
 
 public class DeckManager : MonoBehaviour
 {
-    public List<NewCard> totalCards = new List<NewCard>();
+    // Configuration for starting deck
+    [SerializeField] private int copiesOfEachCard = 3;
 
     [HideInInspector]
     public List<NewCard> CardDatabase = new List<NewCard>();
 
-    public Deck PlayerDeck = new Deck();
-    public Deck DiscardDeck = new Deck();
+    public PlayerDeckType PlayerDeck = new PlayerDeckType();
+    public DiscardDeckType DiscardDeck = new DiscardDeckType();
 
     private HandManager handManager;
 
@@ -24,54 +25,43 @@ public class DeckManager : MonoBehaviour
     {
         if (handManager == null)
         {
+            Debug.LogError("DeckManager cannot initialize: HandManager reference is null.");
             return;
         }
 
+        // Dynamically load all cards from the Resources folder
         NewCard[] cards = Resources.LoadAll<NewCard>("CardData");
         CardDatabase.AddRange(cards);
 
-        //Initial deck is manually populated.
+        // Dynamic Deck Population
         InitializeStartingDeck();
 
-        // Draw initial hand
+        // Draw initial hand based on maxHand count
         for (int i = 0; i < handManager.maxHand; i++)
         {
             DrawCardToHand();
         }
     }
 
-    public void startup()
-    {
-        NewCard[] cards = Resources.LoadAll<NewCard>("CardData");
-        CardDatabase.AddRange(cards);
-
-        //Initial deck is manually populated.
-        InitializeStartingDeck();
-
-        // Get HandManager reference if not set in inspector
-        if (handManager == null)
-        {
-            handManager = FindAnyObjectByType<HandManager>();
-        }
-
-        // Draw initial hand
-        for (int i = 0; i < handManager.maxHand; i++)
-        {
-            DrawCardToHand();
-        }
-    }
-
+    // Dynamic deck creation: adds a fixed number of copies of every card in the database.
     private void InitializeStartingDeck()
     {
+        if (CardDatabase.Count == 0)
+        {
+            Debug.LogError("CardDatabase is empty. Check if 'CardData' ScriptableObjects are in a Resources folder.");
+            return;
+        }
+
         foreach (var card in CardDatabase)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < copiesOfEachCard; i++)
             {
                 PlayerDeck.cards.Add(card);
             }
         }
 
         PlayerDeck.Shuffle();
+        Debug.Log($"Player Deck initialized with {PlayerDeck.cards.Count} cards (x{copiesOfEachCard} of each unique card).");
     }
 
     public void DrawCardToHand()
@@ -86,7 +76,7 @@ public class DeckManager : MonoBehaviour
 
             if (DiscardDeck.cards.Count > 0)
             {
-                // Transfer discard cards to the player deck
+                // Transfer discard cards to the player deck. This uses the base class TransferCardsFrom method.
                 PlayerDeck.TransferCardsFrom(DiscardDeck);
                 PlayerDeck.Shuffle();
 
