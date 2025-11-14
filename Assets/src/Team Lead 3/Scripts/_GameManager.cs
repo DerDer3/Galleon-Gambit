@@ -15,6 +15,10 @@ public class GameManager2 : MonoBehaviour
     public PlayerClass MainPlayer;
     public ManaClass PlayerMana;
 
+    // Added by Autumn - Enemy Loader and Objects
+    public GameObject loader;
+    private EnemyObject currentEnemy;
+
     // Core Game State variables
     private bool isGameReady = false;
     public bool IsPlayerTurn { get; set; } = false; // Player starts turn 0 (false) or maybe needs a StartGame call; still in development/
@@ -46,6 +50,17 @@ public class GameManager2 : MonoBehaviour
         else
         {
             Debug.LogError("GameManager missing critical references (DeckManager, Player, or Mana). Game cannot start.");
+        }
+
+        //Added by Autumn - Enemy Spawner 
+
+        EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
+        spawnEnemy.LoadEnemy();
+        currentEnemy = spawnEnemy.CurrentEnemy;
+
+        if (currentEnemy != null)
+        {
+            Debug.Log($"Enemy Spawned with {currentEnemy.currentHealth} health!");
         }
     }
 
@@ -106,7 +121,11 @@ public class GameManager2 : MonoBehaviour
     {
         // Placeholder for enemy actions (e.g., enemy attacks player)
         Debug.Log("Enemy Turn: Enemy attacks!");
+        /* Commented out by Autumn - replaced with enemy attack
         MainPlayer.set_health(MainPlayer.get_health() - 10);
+        */
+        MainPlayer.set_health(MainPlayer.get_health() - currentEnemy.Attack());
+        
 
         // End enemy turn and start player turn again
         Invoke(nameof(StartPlayerTurn), 1.0f); // Wait 1 second before player turn

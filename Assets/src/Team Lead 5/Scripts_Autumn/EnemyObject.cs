@@ -22,9 +22,10 @@ public abstract class EnemyObject
     }
 
 
-    public virtual void Attack()
+    public virtual int Attack()
     {
         Debug.Log($"Attacked Player for {attackDMG} amt");
+        return 10;
     }
 
     public virtual void TakeDamage(int amt)
