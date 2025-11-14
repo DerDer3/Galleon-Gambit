@@ -1,15 +1,18 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerClass : MonoBehaviour
 {
+    // --- DYNAMIC OBSERVER PATTERN IMPLEMENTATION ---
+    public static Action<int> OnHealthChanged;
+
     // Changed to private fields with properties/getters for controlled access
     private int playerHealth = 100;
     private int maxHealth = 100;
 
     public TextMeshProUGUI healthText;
 
-    // Use PascalCase for public methods in C# convention
     public int get_health() { return playerHealth; }
     public void set_health(int x)
     {
@@ -17,14 +20,28 @@ public class PlayerClass : MonoBehaviour
         // Ensure health doesn't go below zero
         if (playerHealth < 0) playerHealth = 0;
         if (playerHealth > maxHealth) playerHealth = maxHealth;
+
+        OnHealthChanged?.Invoke(playerHealth);
     }
 
-    void Update()
+    // Dynamic addition: Subscription logic to update the local UI text
+    private void OnEnable()
     {
-        // Update the UI text
+        OnHealthChanged += UpdateHealthTextUI;
+        // Initial setup for health text when starting
+        OnHealthChanged?.Invoke(playerHealth);
+    }
+
+    private void OnDisable()
+    {
+        OnHealthChanged -= UpdateHealthTextUI;
+    }
+
+    private void UpdateHealthTextUI(int newHealth)
+    {
         if (healthText != null)
         {
-            healthText.text = "" + playerHealth;
+            healthText.text = "" + newHealth;
         }
     }
 }

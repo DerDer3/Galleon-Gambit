@@ -15,8 +15,6 @@ public class DeckManager : MonoBehaviour
 
     private HandManager handManager;
 
-    private int index = 0;
-
     public void SetHandManager(HandManager manager)
     {
         handManager = manager;
@@ -53,7 +51,7 @@ public class DeckManager : MonoBehaviour
         // Get HandManager reference if not set in inspector
         if (handManager == null)
         {
-            handManager = FindObjectOfType<HandManager>();
+            handManager = FindAnyObjectByType<HandManager>();
         }
 
         // Draw initial hand

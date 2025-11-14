@@ -1,10 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
-using System.Collections;
-using System;
-using System.Runtime.CompilerServices;
-using GallionGambit;
 
 public enum CardState
 {
@@ -35,7 +30,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     [SerializeField] private float selectScale = 1.1f;
     [SerializeField] private Vector3 potentialPlayPosition;
     [SerializeField] private Vector2 cardPlay;
-    [SerializeField] private float lerpFactor = 0.1f;
+    [SerializeField] private float lerpFactor = 0.1f; // Dynamic: Exposed for easy tuning
 
     [SerializeField] private GameObject glowEffect;
     [SerializeField] private GameObject playArrow;
@@ -55,8 +50,12 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
         }
 
-        // Find the HandManager in the scene
-        handManager = FindAnyObjectByType<HandManager>();
+        // Dynamic: Rely on the GameManager Singleton for central reference
+        if (GameManager2.Instance != null)
+        {
+            handManager = GameManager2.Instance.HandManager;
+        }
+
         if (handManager == null)
         {
             Debug.LogError("CardMovement requires a HandManager component in the scene to play cards.");
@@ -150,6 +149,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
     }
 
+    // --- DYNAMIC CARD EFFECT EXECUTION REFACTORING (COMMAND PATTERN PRINCIPLE) ---
     private void PlayCardEffect()
     {
         if (GameManager2.Instance == null)
@@ -171,25 +171,14 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
         if (GameManager2.Instance.TryPlayCard(stats.ManaCost))
         {
+            // Helper methods.
+
             PlayerClass player = GameManager2.Instance.MainPlayer;
             ManaClass playerMana = GameManager2.Instance.PlayerMana;
-            //EnemyClass enemy = GameManager2.Instance.CurrentEnemy;
 
-            // Apply HEAL effect (affects Player Health)
-            if (stats.Heal > 0)
-            {
-                int newHealth = player.get_health() + stats.Heal;
-                player.set_health(newHealth);
-                Debug.Log($"Card applied {stats.Heal} HEAL. Player Health now: {newHealth}");
-            }
-
-            // Apply MANA gain (for cards that generate more than they cost)
-            if (stats.ManaGain > 0)
-            {
-                int newMana = playerMana.get_amount() + stats.ManaGain;
-                playerMana.set_amount(newMana);
-                Debug.Log($"Card applied {stats.ManaGain} MANA gain. Player Mana now: {newMana}");
-            }
+            // Execute effects based on CardStats dynamically
+            ApplyHealEffect(stats, player);
+            ApplyManaGainEffect(stats, playerMana);
 
             //  Discard Card
             if (handManager != null)
@@ -203,6 +192,27 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             // Return card to hand if play failed
             rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
+        }
+    }
+
+    // Dynamic Helper Methods to decouple effect application logic
+    private void ApplyHealEffect(CardStats stats, PlayerClass player)
+    {
+        if (stats.Heal > 0)
+        {
+            int newHealth = player.get_health() + stats.Heal;
+            player.set_health(newHealth);
+            Debug.Log($"Card applied {stats.Heal} HEAL. Player Health now: {newHealth}");
+        }
+    }
+
+    private void ApplyManaGainEffect(CardStats stats, ManaClass playerMana)
+    {
+        if (stats.ManaGain > 0)
+        {
+            int newMana = playerMana.get_amount() + stats.ManaGain;
+            playerMana.set_amount(newMana);
+            Debug.Log($"Card applied {stats.ManaGain} MANA gain. Player Mana now: {newMana}");
         }
     }
 
@@ -234,7 +244,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // Only allow picking up the card if it's the player's turn
+        // Only allow picking up the card if it's the player's turn (Accessing state dynamically via Singleton)
         if (GameManager2.Instance != null && !GameManager2.Instance.IsPlayerTurn) return;
 
         if (currentState == CardState.Hovered || currentState == CardState.Default)
@@ -271,7 +281,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Only allow dragging if it's the player's turn
+        // Only allow dragging if it's the player's turn (Accessing state dynamically via Singleton)
         if (GameManager2.Instance != null && !GameManager2.Instance.IsPlayerTurn) return;
 
         if (currentState == CardState.Dragging)
