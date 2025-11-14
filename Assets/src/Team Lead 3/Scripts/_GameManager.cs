@@ -53,11 +53,11 @@ public class GameManager2 : MonoBehaviour
 
         //Added by Autumn - Enemy Spawner 
 
-        EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
+       EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
         spawnEnemy.LoadEnemy();
         currentEnemy = spawnEnemy.CurrentEnemy;
 
-        if (currentEnemy != null)
+       if (currentEnemy != null)
         {
             Debug.Log($"Enemy Spawned with {currentEnemy.currentHealth} health!");
         }
