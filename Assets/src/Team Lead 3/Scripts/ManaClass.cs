@@ -1,8 +1,12 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class ManaClass : MonoBehaviour
 {
+    // --- DYNAMIC OBSERVER PATTERN IMPLEMENTATION ---
+    public static Action<int> OnManaChanged;
+
     private int maxMana = 100;
     private int manaAmount = 3;
 
@@ -16,16 +20,30 @@ public class ManaClass : MonoBehaviour
         manaAmount = x;
         // Ensure mana doesn't exceed max
         if (manaAmount > maxMana) manaAmount = maxMana;
+
+        // Dynamic addition: Invoke the event whenever mana changes
+        OnManaChanged?.Invoke(manaAmount);
     }
 
     public void set_max_amount(int x) { maxMana = x; }
 
-    void Update()
+    // Dynamic addition: Subscription logic to update the local UI text
+    private void OnEnable()
     {
-        // Update the UI text
+        OnManaChanged += UpdateManaTextUI;
+        OnManaChanged?.Invoke(manaAmount);
+    }
+
+    private void OnDisable()
+    {
+        OnManaChanged -= UpdateManaTextUI;
+    }
+
+    private void UpdateManaTextUI(int newMana)
+    {
         if (manaText != null)
         {
-            manaText.text = "" + manaAmount;
+            manaText.text = "" + newMana;
         }
     }
 }
