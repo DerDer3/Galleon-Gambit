@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class GameManager2 : MonoBehaviour
 {
-    // Singleton Pattern for easy access
+    // Singleton Pattern
     public static GameManager2 Instance { get; private set; }
 
     [Header("Managers")]
     public DeckManager DeckManager;
     public HandManager HandManager;
 
-    // Player and Mana Objects (TL2's responsibilities, now accessible centrally)
     [Header("Game State References")]
     public PlayerClass MainPlayer;
     public ManaClass PlayerMana;
@@ -48,16 +47,16 @@ public class GameManager2 : MonoBehaviour
         }
         else
         {
-           // Debug.LogError("GameManager missing critical references (DeckManager, Player, or Mana). Game cannot start.");
+            // Debug.LogError("GameManager missing critical references (DeckManager, Player, or Mana). Game cannot start.");
         }
 
         //Added by Autumn - Enemy Spawner 
 
-       EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
+        EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
         spawnEnemy.LoadEnemy();
         currentEnemy = spawnEnemy.CurrentEnemy;
 
-       if (currentEnemy != null)
+        if (currentEnemy != null)
         {
             Debug.Log($"Enemy Spawned with {currentEnemy.currentHealth} health!");
         }
@@ -67,11 +66,8 @@ public class GameManager2 : MonoBehaviour
     {
         if (!isGameReady) return;
 
-        // This is where turn update logic would typically run:
-        // 1. Check for win/loss conditions
         CheckForGameOver();
 
-        // 2. Continuous visual updates (from original _GameManager.cs)
         if (HandManager != null)
         {
             HandManager.UpdateHandVisuals();
@@ -80,7 +76,6 @@ public class GameManager2 : MonoBehaviour
 
     private void InitializeManagersAndState()
     {
-        // Get DeckManager and HandManager (from existing setup logic in _GameManager.cs)
         DeckManager = GetComponentInChildren<DeckManager>();
         if (DeckManager == null) Debug.LogError("DeckManager not found.");
 
@@ -89,12 +84,9 @@ public class GameManager2 : MonoBehaviour
 
         if (DeckManager != null) DeckManager.SetHandManager(HandManager);
 
-        // Get Player and Mana objects (TL2's components)
         MainPlayer = FindAnyObjectByType<PlayerClass>();
         PlayerMana = FindAnyObjectByType<ManaClass>();
 
-        //if (MainPlayer == null) Debug.LogError("Player (TL2_Player.cs) not found in scene.");
-        //if (PlayerMana == null) Debug.LogError("Mana (TL2_Mana.cs) not found in scene.");
     }
 
     // --- Turn Management Functions ---
@@ -126,7 +118,7 @@ public class GameManager2 : MonoBehaviour
         MainPlayer.set_health(MainPlayer.get_health() - 10);
         */
         MainPlayer.set_health(MainPlayer.get_health() - currentEnemy.Attack());
-        
+
 
         // End enemy turn and start player turn again
         Invoke(nameof(StartPlayerTurn), 1.0f); // Wait 1 second before player turn
@@ -149,11 +141,8 @@ public class GameManager2 : MonoBehaviour
         if (MainPlayer.get_health() <= 0)
         {
             Debug.Log("Gameover: Player Health reached 0.");
-            // SceneManager.LoadScene("GameOverScene"); // Re-enable once you have a scene named "GameOverScene"
-            // For now, log and freeze the game manager state to prevent further actions
             isGameReady = false;
         }
-        // You would also check for Win condition here (e.g., currentEnemy is defeated)
     }
 
 }
