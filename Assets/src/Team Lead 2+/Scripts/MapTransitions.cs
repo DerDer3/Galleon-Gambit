@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
+// using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,8 +9,9 @@ public class MapTransitions : MonoBehaviour
     public static MapTransitions Instance { get; private set; }
 
     public ScreenTransition ScreenTransition;
+    public string TreasureScene;
+    public string UnknownScene;
     public string MenuScene;
-    private Scene menuScene;
     public string MapScene;
     private Scene mapScene;
     public string GameScene;
@@ -35,10 +36,10 @@ public class MapTransitions : MonoBehaviour
         scenes = new();
 
         mapScene = SceneManager.GetSceneByName(MapScene);
-        Assert.IsNotNull(mapScene);
+        // Assert.IsNotNull(mapScene);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        Assert.IsNotNull(ScreenTransition);
+        // Assert.IsNotNull(ScreenTransition);
     }
 
     public bool Transitioning()
@@ -61,7 +62,15 @@ public class MapTransitions : MonoBehaviour
     public void TransitionLevel(Level level)
     {
         ScreenTransition.ShowTransition();
-        transitioningToScene = GameScene;
+        if (level.Information is Level.Unknown)
+            transitioningToScene = UnknownScene;
+        else if (level.Information is Level.Treasure)
+            transitioningToScene = TreasureScene;
+        else if (level.Information is Level.Boss)
+            transitioningToScene = GameScene; // TODO: transition to boss scene
+        else if (level.Information is Level.Battle)
+            transitioningToScene = GameScene;
+        else transitioningToScene = GameScene;
     }
 
     public void OnTransitionComplete()

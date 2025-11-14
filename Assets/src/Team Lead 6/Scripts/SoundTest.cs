@@ -11,7 +11,7 @@ public class test : MonoBehaviour
         {
             //MusicTracks.[] determines what background music plays
             //Try "Main", "Battle", "Island", or "Boss"
-            SoundManager.Instance.play(MusicTracks.Boss);
+            SoundManager.Instance.play(MusicTracks.Island);
         }
 
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)

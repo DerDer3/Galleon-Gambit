@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/src/Team Lead 3/Scenes/TL3_SampleScene.unity
     guid: 03a9a309050d9744e89f4e45a3ad8ed3
   - enabled: 1
@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/src/Team Lead 3/Scenes/GameOverScene.unity
     guid: 5c00e92188d3f6c47a5c9501b27c0110
+  - enabled: 1
+    path: Assets/src/Team Lead 4/Scenes_Grant/TeasureMemoryGame_Grant.unity
+    guid: 7930137a4ae9ea24e9c3c13a1d54cbf7
+  - enabled: 1
+    path: Assets/src/Team Lead 4/Scenes_Grant/EventMPV_Grant.unity
+    guid: ddf625c86a177c54e839208f58412bf2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -7,9 +7,11 @@ public class BossEnemy : EnemyObject
     {
         attackDMG = data.attack;
     }
-    public override void Attack()
+    public override int Attack()
     {
         Debug.Log($"Player took {attackDMG}");
+
+        return 20;
     }
 
 }

@@ -2,17 +2,22 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
-public class SoundCue
+[CreateAssetMenu(menuName = "Sound Cue")]
+public class SoundCue : ScriptableObject
 {
-    AudioClip clip;
-    float volume;
-    float pitch;
-    bool loop;
-    //ChannelType channel;
+    [SerializeField] private AudioClip[] clips;
+    [SerializeField, Range(0f, 1f)] private float volume = 1f;
+    [SerializeField] private bool loop = false;
 
-    public void Configure()
+    public float Volume => volume;
+    public bool Loop => loop;
+
+    public AudioClip GetRandomClip()
     {
-        Console.WriteLine("Configure");
+        if (clips == null || clips.Length == 0) return null;
+        int index = UnityEngine.Random.Range(0, clips.Length);
+        return clips[index];
     }
 }
