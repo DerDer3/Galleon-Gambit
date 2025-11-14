@@ -1860,7 +1860,7 @@ MonoBehaviour:
   HandManager: {fileID: 1176416751}
   MainPlayer: {fileID: 628420573}
   PlayerMana: {fileID: 997227116}
-  loader: {fileID: 1704783606}
+  loader: {fileID: 864733871}
 --- !u!1 &992255682
 GameObject:
   m_ObjectHideFlags: 0
