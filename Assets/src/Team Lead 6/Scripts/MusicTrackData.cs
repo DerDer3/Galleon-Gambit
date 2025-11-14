@@ -8,5 +8,5 @@ public class MusicTrackData
     public MusicTracks track;
 
     //Specific musicd file to play
-    public AudioClip clip;
+    public SoundCue cue;
 }

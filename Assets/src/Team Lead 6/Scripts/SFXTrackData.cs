@@ -8,5 +8,5 @@ public class SFXTrackData
     public SoundEffects effect;
 
     //Specific musicd file to play
-    public AudioClip clip;
+    public SoundCue cue;
 }
