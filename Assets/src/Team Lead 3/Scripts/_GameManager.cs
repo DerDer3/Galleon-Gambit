@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// This replaces both _GameManager.cs and TL2_GameManager.cs
 public class GameManager2 : MonoBehaviour
 {
     // Singleton Pattern for easy access
