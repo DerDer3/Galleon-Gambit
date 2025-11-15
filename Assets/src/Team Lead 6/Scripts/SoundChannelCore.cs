@@ -4,13 +4,14 @@ using UnityEngine;
 public abstract class SoundChannelCore
 {
     protected readonly AudioSource source;
+    //protected float volumeMultiplier = 1f; //Set by soundManager
     protected SoundChannelCore(AudioSource source)
     {
         this.source = source;
     }
 
     //dynamic binding method
-    public virtual void Play(SoundCue cue)
+    public virtual void Play(SoundCue cue, float effectiveVolume)
     {
         if (cue == null) return;
 
@@ -19,12 +20,19 @@ public abstract class SoundChannelCore
 
         source.loop = cue.Loop;
         source.clip = clip;
-        source.volume = cue.Volume;
+        source.volume = Mathf.Clamp01(effectiveVolume);//cue.Volume * volumeMultiplier;
         source.Play();
     }
 
-    public virtual void SetVolume(float volume)
+    /*public virtual void SetVolume(float volume)
     {
-        source.volume = Mathf.Clamp01(volume);
-    }
+        volume = Mathf.Clamp01(volume);
+        volumeMultiplier = volume;
+
+        //Only adjust volume if music is playing
+        if (source.isPlaying)
+        {
+            source.volume = volumeMultiplier;
+        }
+    }*/
 }
