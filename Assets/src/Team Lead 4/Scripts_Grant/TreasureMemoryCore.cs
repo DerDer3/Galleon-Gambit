@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class TreasureMemoryCore : MonoBehaviour
 {
     [Header("References (assign in inspector)")]
@@ -10,7 +11,7 @@ public class TreasureMemoryCore : MonoBehaviour
     public Sprite cardBack;
     public List<Sprite> faces;        // one sprite per unique face (pairs = faces.Count)
     public Transform boardParent;     // BoardPanel transform with GridLayoutGroup
-    public TextMeshProUGUI winText;              // UI text to show win message
+    public TextMeshProUGUI winText;   // UI text to show win message
 
     [Header("Gameplay")]
     public float mismatchDelay = 0.8f;
@@ -85,7 +86,7 @@ public class TreasureMemoryCore : MonoBehaviour
     {
         IsBusy = true;
 
-        // small pause to let player see second cardT
+        // small pause so player sees second card
         yield return new WaitForSeconds(0.25f);
 
         if (firstCard.MemCardId == secondCard.MemCardId)
@@ -107,6 +108,7 @@ public class TreasureMemoryCore : MonoBehaviour
         secondCard = null;
         IsBusy = false;
 
+        // GAME COMPLETE — transition back to map
         if (pairsFound >= faces.Count)
         {
             ShowWinMessage();
@@ -122,10 +124,11 @@ public class TreasureMemoryCore : MonoBehaviour
         }
     }
 
-    // Optional: call this to restart game
+   // Optional: call this to restart game
     public void Restart()
     {
         if (winText) winText.gameObject.SetActive(false);
         SetupBoard();
     }
 }
+
