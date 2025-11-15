@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 class StoryBlock
@@ -78,7 +79,6 @@ public class EventLevelManager : MonoBehaviour
         StoryBlock e6_block1 = new StoryBlock("A crew member from the crows nest spots a ship in the distance.", "Investigate the Ship", "Ignore It", e6_block2, e6_block3);
 
         eventList.Add(e6_block1);
-
     }
 
     void StartRandomEvent()
@@ -108,7 +108,6 @@ public class EventLevelManager : MonoBehaviour
             option2.GetComponentInChildren<Text>().text = block.option2Text;
         }
     }
-
     public void Button1Clicked()
     {
         if (currentBlock.option1Block != null)
