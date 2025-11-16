@@ -7,15 +7,16 @@ public abstract class EnemyObject
 {
     public string enemyName { get; protected set; }
     public string enemyTitle { get; protected set; }
-    public float maxHealth { get; protected set; }
-    public float currentHealth { get; protected set; }
-    public float attackDMG { get; protected set; }
+    public int maxHealth { get; protected set; }
+    public int currentHealth { get; protected set; }
+    public int attackDMG { get; protected set; }
 
     public EnemyObject(EnemyData data)
     {
         enemyName = data.enemyName;
         enemyTitle = data.enemyTitle;
-        maxHealth = data.health;
+        SetHealth(data);
+        //maxHealth = data.health;
         currentHealth = maxHealth;
         attackDMG = data.attack;
 
@@ -25,7 +26,12 @@ public abstract class EnemyObject
     public virtual int Attack()
     {
         Debug.Log($"Attacked Player for {attackDMG} amt");
-        return 10;
+        return attackDMG;
+    }
+
+    public virtual void SetHealth(EnemyData data)
+    {
+        maxHealth = data.health;
     }
 
     public virtual void TakeDamage(int amt)

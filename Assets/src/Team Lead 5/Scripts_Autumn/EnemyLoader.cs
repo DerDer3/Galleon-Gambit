@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+
 [System.Serializable]
 public class EnemyData
 {
@@ -19,8 +20,6 @@ public class EnemyArray
 }
 public class EnemyLoader : MonoBehaviour
 {
-
-    
     public EnemyHUD enemyHUDPrefab;  // Assign your EnemyHUD prefab
     public Transform uiParent;
 
@@ -29,11 +28,19 @@ public class EnemyLoader : MonoBehaviour
     {
         get { return currentEnemy; }
     }
-    public void LoadEnemy()
+    public void LoadEnemy(int type)
     {
+        //0 for normal enemy, 1 for boss
 
         TextAsset file = Resources.Load("enemies") as TextAsset;
         EnemyArray enemies = JsonUtility.FromJson<EnemyArray>(file.text);
+        int index;
+        if(type == 0)
+            index= Random.Range(0, 4);
+        else
+            index = Random.Range(5, 6);
+
+        
         
 
             if (enemies == null)
@@ -63,11 +70,11 @@ public class EnemyLoader : MonoBehaviour
         */
         //Which we don't want... maybe for testing tho ;)
     
-        currentEnemy = CreateEnemyFromData(enemies.enemies[0]);
+        currentEnemy = CreateEnemyFromData(enemies.enemies[index]);
         EnemyHUD ui = Instantiate(enemyHUDPrefab, uiParent);
         if (ui != null)
         {
-            ui.SetUp(enemies.enemies[0]);
+            ui.SetUp(enemies.enemies[index]);
             ui.SetHUD(currentEnemy);
         }
 
@@ -99,6 +106,8 @@ public class EnemyLoader : MonoBehaviour
             
         }
     }
+
+    
     
 }
 

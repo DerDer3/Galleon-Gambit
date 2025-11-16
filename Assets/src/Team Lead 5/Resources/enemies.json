@@ -1,7 +1,13 @@
 {
 "enemies":
 [
-    {"type": "minor", "enemyName" : "Ghost", "enemyTitle": "Spirit of the Undead", "health": 10, "attack": 5, "imagePath" : "EnemyImages/MinorEnemy" },
-    {"type": "boss", "enemyName" : "Cthlulu", "enemyTitle": "Good Luck Dawg", "health": 100, "attack": 10, "imagePath" : "EnemyImages/BossEnemy" }
+    {"type": "minor", "enemyName" : "Ghost", "enemyTitle": "Spirit of the Undead", "health": 60, "attack": 5, "imagePath" : "EnemyImages/GhostEnemy" },
+    {"type": "minor", "enemyName" : "Bat", "enemyTitle": "What Even is This", "health": 60, "attack": 5, "imagePath" : "EnemyImages/BatEnemy" },
+    {"type": "minor", "enemyName" : "Sea Snake", "enemyTitle": "Smells Really Bad", "health": 80, "attack": 7, "imagePath" : "EnemyImages/SnakeEnemy" },
+    {"type": "minor", "enemyName" : "Skeleton", "enemyTitle": "The Unlucky Sailor", "health": 75, "attack": 3, "imagePath" : "EnemyImages/SkeletonEnemy" },
+    {"type": "minor", "enemyName" : "Siren", "enemyTitle": "The Alluring Temptress", "health": 80, "attack": 8, "imagePath" : "EnemyImages/SirenEnemy" },
+    {"type": "boss", "enemyName" : "Haunted Ship", "enemyTitle": "A... ship?", "health": 100, "attack": 9, "imagePath" : "EnemyImages/ShipEnemy" },
+    {"type": "boss", "enemyName" : "Cthlulu", "enemyTitle": "King of the Depths", "health": 300, "attack": 10, "imagePath" : "EnemyImages/CthluluEnemy" }
+    
 ]
 }

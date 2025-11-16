@@ -53,7 +53,8 @@ public class GameManager2 : MonoBehaviour
         //Added by Autumn - Enemy Spawner 
 
         EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
-        spawnEnemy.LoadEnemy();
+        //if boss level, change value to 1
+        spawnEnemy.LoadEnemy(0);
         currentEnemy = spawnEnemy.CurrentEnemy;
 
         if (currentEnemy != null)
