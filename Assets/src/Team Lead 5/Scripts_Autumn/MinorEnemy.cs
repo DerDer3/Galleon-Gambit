@@ -12,8 +12,10 @@ public class MinorEnemy : EnemyObject
     public override int Attack()
     {
         Debug.Log($"Player took {attackDMG}");
-        return 10;
+        return attackDMG;
     }
+
+
 }
     
 
