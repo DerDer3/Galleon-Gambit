@@ -5,21 +5,22 @@ using GallionGambit; // Ensure this is present if NewCard is in this namespace
 
 // OOP INHERITANCE PATTERN IMPLEMENTATION (Deck Subclasses) ---
 
-// Base Class: Deck
 public class Deck
 {
     // The actual list of cards in this deck (e.g., Draw Pile or Discard Pile)
     // Protected so subclasses can access it directly, if needed.
     public List<GallionGambit.NewCard> cards = new List<GallionGambit.NewCard>();
 
-    public GallionGambit.NewCard DrawCard()
+    // Draws the top card from the deck.
+    // This method is marked 'virtual' so subclasses can change the draw behavior.
+    public virtual GallionGambit.NewCard DrawCard()
     {
         if (cards.Count == 0)
         {
             return null;
         }
 
-        // Draw the top card (index 0)
+        // Draw the top card (index 0) - Base behavior
         GallionGambit.NewCard drawnCard = cards[0];
         cards.RemoveAt(0);
 
@@ -54,7 +55,7 @@ public class Deck
     }
 }
 
-// Subclass 1: PlayerDeckType
+// Subclass for the Player's main draw deck.
 public class PlayerDeckType : Deck
 {
     public PlayerDeckType()
@@ -63,12 +64,26 @@ public class PlayerDeckType : Deck
     }
 }
 
-// Subclass 2: DiscardDeckType
+
+// Subclass for the Discard deck, which might have different rules.
 public class DiscardDeckType : Deck
 {
     public DiscardDeckType()
     {
         Debug.Log("Discard Deck Initialized.");
     }
-}
 
+    // Overrides the base DrawCard method to add custom behavior for the Discard pile.
+    public override GallionGambit.NewCard DrawCard()
+    {
+        GallionGambit.NewCard drawnCard = base.DrawCard(); // Call the base implementation
+
+        if (drawnCard != null)
+        {
+            // Example of custom logic: Log a special message when drawing from discard
+            Debug.Log($"Drawing {drawnCard.name} from the Discard Pile.");
+        }
+
+        return drawnCard;
+    }
+}
