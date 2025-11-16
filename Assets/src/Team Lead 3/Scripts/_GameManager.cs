@@ -36,7 +36,7 @@ public class GameManager2 : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.Instance.play(MusicTracks.Battle);
+       //SoundManager.Instance.play(MusicTracks.Battle);
         if (DeckManager != null && MainPlayer != null && PlayerMana != null)
         {
             DeckManager.InitializeDeckAndDrawHand();
