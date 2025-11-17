@@ -9,8 +9,10 @@ public class SoundManager : MonoBehaviour
 {
 
     public static SoundManager Instance; //{ get; private set; }
-    public AudioSource musicSource;
-    public AudioSource sfxSource;
+
+    [Header("Audio Sources")]
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
 
     [Header("Audio Library Mapping")]
     public List<MusicTrackData> musicLibrary = new List<MusicTrackData>();
@@ -18,55 +20,67 @@ public class SoundManager : MonoBehaviour
     [Header("SFX Library Mapping")]
     public List<SFXTrackData> sfxLibrary = new List<SFXTrackData>();
 
+    [Header("Volume Controls")]
+    [SerializeField, Range(0f, 1f)]
+    private float masterVolume = 1f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float musicVolume = 1f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float sfxVolume = 1f;
+
+    public float MasterVolume => masterVolume;
+    public float MusicVolume  => musicVolume;
+    public float SFXVolume    => sfxVolume;
+
     //Dynamic binding occuring
     private SoundChannelCore Music;
     private SoundChannelCore SFX;
+    private SoundCue currentCue;
 
     private void Awake()
     {
         //Singleton Pattern
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            if (musicSource == null)
-            {
-                musicSource = GetComponent<AudioSource>();
-            }
-            if (musicSource == null)
-            {
-                Debug.LogError("FATAL: Music Source not assigned in the Inspector!");
-            }
-            if (sfxSource == null)
-            {
-                sfxSource = GetComponent<AudioSource>();
-            }
-            if (sfxSource == null)
-            {
-                Debug.LogError("FATAL: SFX Source not assigned in the Inspector!");
-            }
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        if (musicSource == null)
+            musicSource = gameObject.AddComponent<AudioSource>();
+        if (sfxSource == null)
+            sfxSource = gameObject.AddComponent<AudioSource>();
+
+
+
         Music = new MusicChannelCore(musicSource);
         SFX = new SFXChannelCore(sfxSource);
 
+        //UpdateChannelVolumes();
     }
 
     public void play(MusicTracks title)
     {
         SoundCue cue = GetMusic(title);
-        if (cue = null)
+        if (cue == null)
         {
             Debug.LogWarning($"Music track '{title}' not found in the library");
             return;
         }
-        Music.Play(cue);        
+
+        if(Music == null)
+        {
+            Debug.LogError("Music channel doesn't exist");
+        }
+
+        currentCue = cue;
+        float effectiveVolume = Mathf.Clamp01(cue.Volume * masterVolume * musicVolume);
+        Music.Play(cue, effectiveVolume);
     }
 
      
@@ -78,7 +92,11 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning($"Sound Effect '{title}' not found in library");
             return;
         }
-        SFX.Play(cue);
+
+        float effectiveVolume = Mathf.Clamp01(cue.Volume * masterVolume * sfxVolume);
+        SFX.Play(cue, effectiveVolume);
+
+        Debug.Log($"Playing SFX: {title} at volume {effectiveVolume}");
     }
 
     private SoundCue GetMusic(MusicTracks title)
@@ -102,7 +120,51 @@ public class SoundManager : MonoBehaviour
                 return data.cue;
             }
         }
-       return null;
+        return null;
+    }
+
+    public void SetMasterVolume(float value)
+    {
+        masterVolume = Mathf.Clamp01(value);
+        Debug.Log($"[SoundManager] MasterVolume set to {masterVolume}");
+        //UpdateChannelVolumes();
+        ApplyMusicVolume();
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        musicVolume = Mathf.Clamp01(value);
+        Debug.Log($"[SoundManager] MusicVolume set to {musicVolume}");
+        //UpdateChannelVolumes();
+        ApplyMusicVolume();
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        sfxVolume = Mathf.Clamp01(value);
+        Debug.Log($"[SoundManager] SFXVolume set to {sfxVolume}");
+        //UpdateChannelVolumes();
+    }
+    
+    /*public void UpdateChannelVolumes()
+    {
+        float musicMuliplier = masterVolume * musicVolume;
+        float sfxMultiplier = masterVolume * sfxVolume;
+
+        Debug.Log($"[SoundManager] musicMult={musicMuliplier}, sfxMult={sfxMultiplier}");
+
+        Music.SetVolume(musicMuliplier);
+        SFX.SetVolume(sfxMultiplier);
+    }*/
+
+    private void ApplyMusicVolume()
+    {
+        if (currentCue == null || musicSource == null) return;
+        if (!musicSource.isPlaying) return;
+
+        float effectiveVolume = Mathf.Clamp01(currentCue.Volume * masterVolume * musicVolume);
+        musicSource.volume = effectiveVolume;
+
+        Debug.Log($"[SoundManager] Applied music volume = {effectiveVolume}");
     }
 }
-

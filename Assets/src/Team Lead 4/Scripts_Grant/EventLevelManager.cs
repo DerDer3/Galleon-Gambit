@@ -2,24 +2,309 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-class StoryBlock
+// Story node for branching narrative
+public class StoryBlock
 {
     public string story;
     public string option1Text;
     public string option2Text;
+
     public StoryBlock option1Block;
     public StoryBlock option2Block;
 
-    public StoryBlock(string story, string option1Text = "", string option2Text = "", StoryBlock option1Block = null, StoryBlock option2Block = null)
+    public StoryBlock(string story, string option1 = "", string option2 = "",
+                      StoryBlock opt1Block = null, StoryBlock opt2Block = null)
     {
         this.story = story;
-        this.option1Text = option1Text;
-        this.option2Text = option2Text;
-        this.option1Block = option1Block;
-        this.option2Block = option2Block;
+        this.option1Text = option1;
+        this.option2Text = option2;
+        this.option1Block = opt1Block;
+        this.option2Block = opt2Block;
     }
 }
 
+
+//----------------------------
+// TEMPLATE BASE CLASS
+//----------------------------
+public abstract class StoryEventTemplate
+{
+    protected StoryBlock root;
+
+    // Template Method
+    public StoryBlock BuildEvent()
+    {
+        CreateBlocks();
+        LinkBlocks();
+        return root;
+    }
+
+    // Steps subclasses must implement
+    protected abstract void CreateBlocks();
+    protected abstract void LinkBlocks();
+}
+
+//-----------------------------------------
+// 1. Lighthouse Event
+//-----------------------------------------
+
+public class LighthouseEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You steer wide of the lighthouse. As you pass it fills you & the crew with determination." //Copyright, transformative effect, gives new meaning.
+        );
+
+        b2 = new StoryBlock(
+            "You draw closer and discover the lighthouse abandoned, its beacon flickering unevenly."
+        );
+
+        b1 = new StoryBlock(
+            "A looming lighthouse emerges through the heavy fog.",
+            "Approach the Light", "Sail Around It"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+//-----------------------------------------
+// 2. Storm Event
+//-----------------------------------------
+public class StormEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You anchor and wait. The crew shares stories as the storm slowly quiets."
+        );
+
+        b2 = new StoryBlock(
+            "You press on. The winds batter the ship, but eventually the clouds begin to part."
+        );
+
+        b1 = new StoryBlock(
+            "Dark storm clouds gather above.",
+            "Sail Through", "Drop Anchor"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+//-----------------------------------------
+// 3. Bad Food Event
+//-----------------------------------------
+public class BadFoodEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You eat the questionable meal. The crew watches, unsure of your decision."
+        );
+
+        b2 = new StoryBlock(
+            "You skip the meal and stay alert as others dine."
+        );
+
+        b1 = new StoryBlock(
+            "The cook offers you a meal of… uncertain origin.",
+            "Eat It", "Pass"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b3;
+        b1.option2Block = b2;
+    }
+}
+
+//-----------------------------------------
+// 4. Siren Song Event
+//-----------------------------------------
+public class SirenSongEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You turn away from the singing, letting the eerie melody fade behind you."
+        );
+
+        b2 = new StoryBlock(
+            "You move toward the sound and discover smooth stones arranged in strange patterns on the shoreline."
+        );
+
+        b1 = new StoryBlock(
+            "A soft, enchanting singing drifts across the waves.",
+            "Investigate", "Sail Away"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+//-----------------------------------------
+// 5. Ghost Ship Event
+//-----------------------------------------
+public class GhostShipEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You avoid the ghostly silhouette. It drifts silently past before dissolving into mist."
+        );
+
+        b2 = new StoryBlock(
+            "You board the silent ship. Lanterns glow faintly, yet the decks are completely deserted."
+        );
+
+        b1 = new StoryBlock(
+            "A pale ship with tattered sails glides across the water.",
+            "Board It", "Ignore It"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+//-----------------------------------------
+// 6. Kraken Ripples Event
+//-----------------------------------------
+public class KrakenRipplesEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You steer clear of the bubbling section of water, keeping a safe distance."
+        );
+
+        b2 = new StoryBlock(
+            "You draw near and notice massive circular markings on nearby rock formations."
+        );
+
+        b1 = new StoryBlock(
+            "A rhythmic bubbling rises from beneath the waves.",
+            "Approach", "Retreat"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+//-----------------------------------------
+// 7. Message in a Bottle Event
+//-----------------------------------------
+public class BottleEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You ignore the bottle and continue your course."
+        );
+
+        b2 = new StoryBlock(
+            "You retrieve the bottle and find a scrap of parchment with faded markings."
+        );
+
+        b1 = new StoryBlock(
+            "A corked bottle floats alongside the ship.",
+            "Retrieve It", "Ignore"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+//-----------------------------------------
+// 8. Mermaid on the Rocks Event
+//-----------------------------------------
+public class MermaidEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You pass by at a distance. The shimmering figure slips gracefully into the water."
+        );
+
+        b2 = new StoryBlock(
+            "You approach, but she disappears beneath the waves, leaving only ripples behind."
+        );
+
+        b1 = new StoryBlock(
+            "A shimmering figure sits upon a rocky outcrop, singing softly.",
+            "Approach", "Keep Distance"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+
+//==============================================================
+//                 MANAGER — USES TEMPLATE CLASSES
+//==============================================================
 public class EventLevelManager : MonoBehaviour
 {
     public Text mainText;
@@ -27,70 +312,30 @@ public class EventLevelManager : MonoBehaviour
     public Button option2;
 
     StoryBlock currentBlock;
-    List<StoryBlock> eventList = new List<StoryBlock>();
+
+    // Static binding: compile-time event list
+    List<StoryEventTemplate> events = new List<StoryEventTemplate>()
+{
+    new LighthouseEvent(),
+    new StormEvent(),
+    new BadFoodEvent(),
+    new SirenSongEvent(),
+    new GhostShipEvent(),
+    new KrakenRipplesEvent(),
+    new BottleEvent(),
+    new MermaidEvent()
+};
 
     void Start()
     {
-        InitializeEvents();
         StartRandomEvent();
-    }
-
-    void InitializeEvents()
-    {
-        // --- Event 1 (Lighthouse) ---
-        StoryBlock e1_block3 = new StoryBlock("You avoid the lighthouse and find as you make your way around it that a monster waits to ambush you. Avoiding it fills you with determination. Heal 2 damage.");
-        StoryBlock e1_block2 = new StoryBlock("A monster appears from the shadows and gives chase to the ship. Take 2 damage.");
-        StoryBlock e1_block1 = new StoryBlock("A lighthouse shows in the distance of the foggy waters.", "Venture Forth", "Go Around It", e1_block2, e1_block3);
-
-        eventList.Add(e1_block1);
-
-        // --- Event 2 (Storm Gathering) ---
-        StoryBlock e2_block3 = new StoryBlock("You decide to rest and recover some strength. Heal 1 damage.");
-        StoryBlock e2_block2 = new StoryBlock("You push forward into the storm and the mast cracks. Take 1 damage.");
-        StoryBlock e2_block1 = new StoryBlock("Dark storm clouds gather above the sea.", "Press On", "Drop Anchor and Wait", e2_block2, e2_block3);
-
-        eventList.Add(e2_block1);
-
-        // --- Event 3 (Bad Food) ---
-        StoryBlock e3_block3 = new StoryBlock("You decide to eat the food despite its questionable appearance. You feel sick and take 1 damage.");
-        StoryBlock e3_block2 = new StoryBlock("You choose to skip the meal and conserve your strength. Heal 1 damage.");
-        StoryBlock e3_block1 = new StoryBlock("The crew offers you a meal, but it looks unappetizing.", "Eat the Food", "Skip the Meal", e3_block3, e3_block2);
-
-        eventList.Add(e3_block1);
-
-        // --- Event 4 (A Round of Grog) ---
-        StoryBlock e4_block3 = new StoryBlock("You decline the grog and focus on your duties. Heal 1 damage.");
-        StoryBlock e4_block2 = new StoryBlock("You drink the grog and feel invigorated. Heal 2 damage.");
-        StoryBlock e4_block1 = new StoryBlock("The crew offers you a round of grog to boost morale.", "Drink the Grog", "Decline", e4_block2, e4_block3);
-
-        eventList.Add(e4_block1);
-
-        // --- Event 5 (Mysterious Island) ---
-        StoryBlock e5_block3 = new StoryBlock("You decide to avoid the island and continue your journey.");
-        StoryBlock e5_block2 = new StoryBlock("You explore the island and find hidden treasures. Gain 5 gold but loose 2 health.");
-        StoryBlock e5_block1 = new StoryBlock("You spot a mysterious island on the horizon.", "Explore the Island", "Sail Past It", e5_block2, e5_block3);
-
-        eventList.Add(e5_block1);
-
-        // -- Event 6 (Ship in the Distance) ---
-        StoryBlock e6_block3 = new StoryBlock("You ignore the ship and continue on your course.");
-        StoryBlock e6_block2 = new StoryBlock("You investigate the ship and find it abandoned. You take it's treasure. Gain 10 gold.");
-        StoryBlock e6_block1 = new StoryBlock("A crew member from the crows nest spots a ship in the distance.", "Investigate the Ship", "Ignore It", e6_block2, e6_block3);
-
-        eventList.Add(e6_block1);
-
     }
 
     void StartRandomEvent()
     {
-        if (eventList.Count == 0)
-        {
-            Debug.LogError("No events initialized!");
-            return;
-        }
-
-        int index = Random.Range(0, eventList.Count);
-        DisplayBlock(eventList[index]);
+        int index = Random.Range(0, events.Count);
+        StoryBlock start = events[index].BuildEvent();
+        DisplayBlock(start);
     }
 
     void DisplayBlock(StoryBlock block)
@@ -98,7 +343,9 @@ public class EventLevelManager : MonoBehaviour
         currentBlock = block;
         mainText.text = block.story;
 
-        bool hasOptions = !(string.IsNullOrEmpty(block.option1Text) && string.IsNullOrEmpty(block.option2Text));
+        bool hasOptions = !(string.IsNullOrEmpty(block.option1Text) &&
+                            string.IsNullOrEmpty(block.option2Text));
+
         option1.gameObject.SetActive(hasOptions);
         option2.gameObject.SetActive(hasOptions);
 

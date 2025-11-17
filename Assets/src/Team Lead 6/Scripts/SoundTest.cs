@@ -1,28 +1,28 @@
-using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class test : MonoBehaviour
+public class TestAudio : MonoBehaviour
 {
-
     void Update()
     {
-        if (SoundManager.Instance != null)
+        if (SoundManager.Instance == null)
         {
-            //MusicTracks.[] determines what background music plays
-            //Try "Main", "Battle", "Island", or "Boss"
-            SoundManager.Instance.play(MusicTracks.Island);
+            Debug.Log("SoundManager Instance not present!");
+            return;
         }
 
+        // Press space to test Island music
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Debug.Log("Testing: Playing music track");
+            SoundManager.Instance.play(MusicTracks.Battle);
+        }
+
+        // Press left mouse to test a SFX
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            // 3. Play the sound effect using your mapped enum
-            SoundManager.Instance.play(SoundEffects.sword);
-            
-            // Optional: Change/start music here if needed
-            // SoundManager.Instance.play(MusicTracks.Battle);
+            Debug.Log("Testing: Playing SFX Button");
+            SoundManager.Instance.play(SoundEffects.Sword);
         }
-
     }
-    
 }

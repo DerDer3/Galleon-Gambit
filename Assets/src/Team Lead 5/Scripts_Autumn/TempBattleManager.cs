@@ -8,7 +8,7 @@ public class TempBattleManager : MonoBehaviour
     void Start()
     {
         EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
-        spawnEnemy.LoadEnemy();
+        spawnEnemy.LoadEnemy(0);
         currentEnemy = spawnEnemy.CurrentEnemy;
 
         if (currentEnemy != null)

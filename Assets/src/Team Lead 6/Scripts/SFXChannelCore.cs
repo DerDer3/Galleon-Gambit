@@ -8,7 +8,7 @@ public class SFXChannelCore : SoundChannelCore
         source.loop = false;
     }
 
-    public override void Play(SoundCue cue)
+    public override void Play(SoundCue cue, float effectiveVolume)
     {
         if (cue == null) return;
 
@@ -16,6 +16,11 @@ public class SFXChannelCore : SoundChannelCore
         if (clip == null) return;
 
         // Fire-and-forget style
-        source.PlayOneShot(clip, cue.Volume);
+        source.PlayOneShot(clip, Mathf.Clamp01(effectiveVolume));//cue.Volume * volumeMultiplier);
     }
+
+    /*public override void SetVolume(float volume)
+    {
+        volumeMultiplier = Mathf.Clamp01(volume);
+    }*/
 }
