@@ -1,26 +1,134 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
-class StoryBlock
+#region ----- TEMPLATE PATTERN -----
+
+// Story node for branching narrative
+public class StoryBlock
 {
     public string story;
     public string option1Text;
     public string option2Text;
+
     public StoryBlock option1Block;
     public StoryBlock option2Block;
 
-    public StoryBlock(string story, string option1Text = "", string option2Text = "", StoryBlock option1Block = null, StoryBlock option2Block = null)
+    public StoryBlock(string story, string option1 = "", string option2 = "",
+                      StoryBlock opt1Block = null, StoryBlock opt2Block = null)
     {
         this.story = story;
-        this.option1Text = option1Text;
-        this.option2Text = option2Text;
-        this.option1Block = option1Block;
-        this.option2Block = option2Block;
+        this.option1Text = option1;
+        this.option2Text = option2;
+        this.option1Block = opt1Block;
+        this.option2Block = opt2Block;
     }
 }
 
+
+//----------------------------
+// TEMPLATE BASE CLASS
+//----------------------------
+public abstract class StoryEventTemplate
+{
+    protected StoryBlock root;
+
+    // Template Method
+    public StoryBlock BuildEvent()
+    {
+        CreateBlocks();
+        LinkBlocks();
+        return root;
+    }
+
+    // Steps subclasses must implement
+    protected abstract void CreateBlocks();
+    protected abstract void LinkBlocks();
+}
+
+#endregion
+
+#region ----- STATIC EVENT DEFINITIONS -----
+
+// Each event gets its own class.
+// All are statically bound (compile-time known).
+
+public class LighthouseEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock(
+            "You avoid the lighthouse and a monster waits to ambush you. Avoiding it fills you with determination. Heal 2 damage."
+        );
+
+        b2 = new StoryBlock(
+            "A monster appears from the shadows and gives chase to the ship. Take 2 damage."
+        );
+
+        b1 = new StoryBlock(
+            "A lighthouse shows in the distance of the foggy waters.",
+            "Venture Forth", "Go Around It"
+        );
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+public class StormEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks() // Removing override will create a compile-time error, static binding.
+    {
+        b3 = new StoryBlock("You decide to rest. Heal 1 damage.");
+        b2 = new StoryBlock("You push forward and the mast cracks. Take 1 damage.");
+        b1 = new StoryBlock("Dark clouds gather above.", "Press On", "Drop Anchor");
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b2;
+        b1.option2Block = b3;
+    }
+}
+
+public class BadFoodEvent : StoryEventTemplate
+{
+    StoryBlock b1, b2, b3;
+
+    protected override void CreateBlocks()
+    {
+        b3 = new StoryBlock("You eat the food. You feel sick and take 1 damage.");
+        b2 = new StoryBlock("You skip the meal. Heal 1 damage.");
+        b1 = new StoryBlock("The crew offers you a meal.", "Eat the Food", "Skip the Meal");
+
+        root = b1;
+    }
+
+    protected override void LinkBlocks()
+    {
+        b1.option1Block = b3;
+        b1.option2Block = b2;
+    }
+}
+
+// Add more events in same pattern…
+
+#endregion
+
+//==============================================================
+//                 MANAGER — USES TEMPLATE CLASSES
+//==============================================================
 public class EventLevelManager : MonoBehaviour
 {
     public Text mainText;
@@ -28,69 +136,26 @@ public class EventLevelManager : MonoBehaviour
     public Button option2;
 
     StoryBlock currentBlock;
-    List<StoryBlock> eventList = new List<StoryBlock>();
+
+    // Static binding: compile-time event list
+    List<StoryEventTemplate> events = new List<StoryEventTemplate>()
+    {
+        new LighthouseEvent(),
+        new StormEvent(),
+        new BadFoodEvent(),
+        // Add new events here…
+    };
 
     void Start()
     {
-        InitializeEvents();
         StartRandomEvent();
-    }
-
-    void InitializeEvents()
-    {
-        // --- Event 1 (Lighthouse) ---
-        StoryBlock e1_block3 = new StoryBlock("You avoid the lighthouse and find as you make your way around it that a monster waits to ambush you. Avoiding it fills you with determination. Heal 2 damage.");
-        StoryBlock e1_block2 = new StoryBlock("A monster appears from the shadows and gives chase to the ship. Take 2 damage.");
-        StoryBlock e1_block1 = new StoryBlock("A lighthouse shows in the distance of the foggy waters.", "Venture Forth", "Go Around It", e1_block2, e1_block3);
-
-        eventList.Add(e1_block1);
-
-        // --- Event 2 (Storm Gathering) ---
-        StoryBlock e2_block3 = new StoryBlock("You decide to rest and recover some strength. Heal 1 damage.");
-        StoryBlock e2_block2 = new StoryBlock("You push forward into the storm and the mast cracks. Take 1 damage.");
-        StoryBlock e2_block1 = new StoryBlock("Dark storm clouds gather above the sea.", "Press On", "Drop Anchor and Wait", e2_block2, e2_block3);
-
-        eventList.Add(e2_block1);
-
-        // --- Event 3 (Bad Food) ---
-        StoryBlock e3_block3 = new StoryBlock("You decide to eat the food despite its questionable appearance. You feel sick and take 1 damage.");
-        StoryBlock e3_block2 = new StoryBlock("You choose to skip the meal and conserve your strength. Heal 1 damage.");
-        StoryBlock e3_block1 = new StoryBlock("The crew offers you a meal, but it looks unappetizing.", "Eat the Food", "Skip the Meal", e3_block3, e3_block2);
-
-        eventList.Add(e3_block1);
-
-        // --- Event 4 (A Round of Grog) ---
-        StoryBlock e4_block3 = new StoryBlock("You decline the grog and focus on your duties. Heal 1 damage.");
-        StoryBlock e4_block2 = new StoryBlock("You drink the grog and feel invigorated. Heal 2 damage.");
-        StoryBlock e4_block1 = new StoryBlock("The crew offers you a round of grog to boost morale.", "Drink the Grog", "Decline", e4_block2, e4_block3);
-
-        eventList.Add(e4_block1);
-
-        // --- Event 5 (Mysterious Island) ---
-        StoryBlock e5_block3 = new StoryBlock("You decide to avoid the island and continue your journey.");
-        StoryBlock e5_block2 = new StoryBlock("You explore the island and find hidden treasures. Gain 5 gold but loose 2 health.");
-        StoryBlock e5_block1 = new StoryBlock("You spot a mysterious island on the horizon.", "Explore the Island", "Sail Past It", e5_block2, e5_block3);
-
-        eventList.Add(e5_block1);
-
-        // -- Event 6 (Ship in the Distance) ---
-        StoryBlock e6_block3 = new StoryBlock("You ignore the ship and continue on your course.");
-        StoryBlock e6_block2 = new StoryBlock("You investigate the ship and find it abandoned. You take it's treasure. Gain 10 gold.");
-        StoryBlock e6_block1 = new StoryBlock("A crew member from the crows nest spots a ship in the distance.", "Investigate the Ship", "Ignore It", e6_block2, e6_block3);
-
-        eventList.Add(e6_block1);
     }
 
     void StartRandomEvent()
     {
-        if (eventList.Count == 0)
-        {
-            Debug.LogError("No events initialized!");
-            return;
-        }
-
-        int index = Random.Range(0, eventList.Count);
-        DisplayBlock(eventList[index]);
+        int index = Random.Range(0, events.Count);
+        StoryBlock start = events[index].BuildEvent();
+        DisplayBlock(start);
     }
 
     void DisplayBlock(StoryBlock block)
@@ -98,7 +163,9 @@ public class EventLevelManager : MonoBehaviour
         currentBlock = block;
         mainText.text = block.story;
 
-        bool hasOptions = !(string.IsNullOrEmpty(block.option1Text) && string.IsNullOrEmpty(block.option2Text));
+        bool hasOptions = !(string.IsNullOrEmpty(block.option1Text) &&
+                            string.IsNullOrEmpty(block.option2Text));
+
         option1.gameObject.SetActive(hasOptions);
         option2.gameObject.SetActive(hasOptions);
 
@@ -108,6 +175,7 @@ public class EventLevelManager : MonoBehaviour
             option2.GetComponentInChildren<Text>().text = block.option2Text;
         }
     }
+
     public void Button1Clicked()
     {
         if (currentBlock.option1Block != null)
