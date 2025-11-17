@@ -117,6 +117,7 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     public void SelectLevel()
     {
         MapTransitions.Instance.TransitionLevel(this);
+        SoundManager.Instance.play(info.SelectSound());
     }
 
     /// <summary>
@@ -220,6 +221,10 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         public string Name() => GetType().Name;
         /// <summary>Returns the display description of the level type.</summary>
         public virtual string Description() => "Land ho to rest ye pegs.";
+        /// <summary>Returns the sound played upon select.</summary>
+        public virtual SoundEffects SelectSound() => SoundEffects.Button;
+        /// <summary>Returns the music track played upon transitioning to level.</summary>
+        public virtual MusicTracks MusicTrack() => MusicTracks.Main;
     }
 
     /// <summary>A level where the player must battle enemies.</summary>
@@ -230,6 +235,8 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         // Overshadowed method to show dynamic/static binding.
         public new string Name() => "Fight";
         public override string Description() => "There be scallywags to plunder!";
+        public override SoundEffects SelectSound() => SoundEffects.Enter_Battle;
+        public override MusicTracks MusicTrack() => MusicTracks.Battle;
     }
 
     /// <summary>A level where the player must battle the final boss.</summary>
@@ -237,6 +244,8 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     {
         public Boss(int levelId) : base(levelId) { }
         public override string Description() => "A vessel approaches...";
+        public override SoundEffects SelectSound() => SoundEffects.Enter_Battle;
+        public override MusicTracks MusicTrack() => MusicTracks.Boss;
     }
 
     /// <summary>A level where the player finds treasure and awards.</summary>
@@ -244,6 +253,8 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     {
         public Treasure(int levelId) : base(levelId) { }
         public override string Description() => "A bounteous booty.";
+        public override SoundEffects SelectSound() => SoundEffects.Enter_Memory_Game;
+        public override MusicTracks MusicTrack() => MusicTracks.Island;
     }
 
     /// <summary>A level where the player must make choices that lead to unpredicted outcomes.</summary>
@@ -251,6 +262,8 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     {
         public Unknown(int levelId) : base(levelId) { }
         public override string Description() => "Uncharted land for lootin'?";
+        public override SoundEffects SelectSound() => SoundEffects.Button;
+        public override MusicTracks MusicTrack() => MusicTracks.Island;
     }
 
     #endregion

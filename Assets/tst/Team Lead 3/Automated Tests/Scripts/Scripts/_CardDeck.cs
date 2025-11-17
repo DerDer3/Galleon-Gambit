@@ -1,0 +1,89 @@
+using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+using GallionGambit; // Ensure this is present if NewCard is in this namespace
+
+// OOP INHERITANCE PATTERN IMPLEMENTATION (Deck Subclasses) ---
+
+public class Deck
+{
+    // The actual list of cards in this deck (e.g., Draw Pile or Discard Pile)
+    // Protected so subclasses can access it directly, if needed.
+    public List<GallionGambit.NewCard> cards = new List<GallionGambit.NewCard>();
+
+    // Draws the top card from the deck.
+    // This method is marked 'virtual' so subclasses can change the draw behavior.
+    public virtual GallionGambit.NewCard DrawCard()
+    {
+        if (cards.Count == 0)
+        {
+            return null;
+        }
+
+        // Draw the top card (index 0) - Base behavior
+        GallionGambit.NewCard drawnCard = cards[0];
+        cards.RemoveAt(0);
+
+        return drawnCard;
+    }
+
+    public void Shuffle()
+    {
+        System.Random rng = new System.Random();
+        int n = cards.Count;
+
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            GallionGambit.NewCard temp = cards[k];
+            cards[k] = cards[n];
+            cards[n] = temp;
+        }
+    }
+
+    // Dynamic: Uses the base Deck type for transfer source
+    public void TransferCardsFrom(Deck sourceDeck)
+    {
+        if (sourceDeck == null || sourceDeck.cards.Count == 0)
+        {
+            return;
+        }
+
+        cards.AddRange(sourceDeck.cards);
+        sourceDeck.cards.Clear();
+    }
+}
+
+// Subclass for the Player's main draw deck.
+public class PlayerDeckType : Deck
+{
+    public PlayerDeckType()
+    {
+        Debug.Log("Player Deck Initialized.");
+    }
+}
+
+
+// Subclass for the Discard deck, which might have different rules.
+public class DiscardDeckType : Deck
+{
+    public DiscardDeckType()
+    {
+        Debug.Log("Discard Deck Initialized.");
+    }
+
+    // Overrides the base DrawCard method to add custom behavior for the Discard pile.
+    public override GallionGambit.NewCard DrawCard()
+    {
+        GallionGambit.NewCard drawnCard = base.DrawCard(); // Call the base implementation
+
+        if (drawnCard != null)
+        {
+            // Example of custom logic: Log a special message when drawing from discard
+            Debug.Log($"Drawing {drawnCard.name} from the Discard Pile.");
+        }
+
+        return drawnCard;
+    }
+}
