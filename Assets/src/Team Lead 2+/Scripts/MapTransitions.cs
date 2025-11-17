@@ -1,24 +1,24 @@
-using System.Collections.Generic;
-// using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>Manages transitions between levels and the world map.</summary>
 public class MapTransitions : MonoBehaviour
 {
     public static MapTransitions Instance { get; private set; }
 
-    public ScreenTransition ScreenTransition;
-    public string TreasureScene;
-    public string UnknownScene;
-    public string MenuScene;
-    public string MapScene;
-    private Scene mapScene;
-    public string GameScene;
-    private Scene gameScene;
+    [SerializeField] private ScreenTransition ScreenTransition;
 
-    private SceneTransitions scenes;
-    private string transitioningToScene;
+    [Header("Level Transitions")]
+    [SerializeField] private GameObject Menu;
+    [SerializeField] private GameObject Treasure;
+    [SerializeField] private GameObject Unknown;
+    [SerializeField] private GameObject Map;
+    [SerializeField] private GameObject Game;
+
+    /// <summary>The currently active `GameObject`/prefab.</summary>
+    private GameObject current;
+    private GameObject transitioningTo;
+    private MusicTracks transitionSong;
 
     private void Awake()
     {
@@ -33,102 +33,68 @@ public class MapTransitions : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        scenes = new();
-
-        mapScene = SceneManager.GetSceneByName(MapScene);
-        // Assert.IsNotNull(mapScene);
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        // Assert.IsNotNull(ScreenTransition);
+        DetectCurrent();
     }
 
-    public bool Transitioning()
+    private void DetectCurrent()
     {
-        return transitioningToScene != "";
+        if (Menu.activeSelf) current = Menu;
+        else if (Treasure.activeSelf) current = Treasure;
+        else if (Unknown.activeSelf) current = Unknown;
+        else if (Map.activeSelf) current = Map;
+        else if (Game.activeSelf) current = Game;
     }
 
+    /// <summary>Returns `true` if a level transition is happening.</summary>
+    public bool Transitioning() => transitioningTo != null;
+
+    /// <summary>Attempts to transition to the main menu.</summary>
     public void TransitionToMenu()
     {
         ScreenTransition.ShowTransition();
-        transitioningToScene = MenuScene;
+        transitioningTo = Menu;
+        transitionSong = MusicTracks.Main;
     }
 
+    /// <summary>Attempts to transition to the main world map.</summary>
     public void TransitionToMap()
     {
         ScreenTransition.ShowTransition();
-        transitioningToScene = MapScene;
+        transitioningTo = Map;
+        transitionSong = MusicTracks.Island;
     }
 
+    /// <summary>Attempts to transition to the level based on its type.</summary>
     public void TransitionLevel(Level level)
     {
         ScreenTransition.ShowTransition();
         if (level.Information is Level.Unknown)
-            transitioningToScene = UnknownScene;
+            transitioningTo = Unknown;
         else if (level.Information is Level.Treasure)
-            transitioningToScene = TreasureScene;
+            transitioningTo = Treasure;
         else if (level.Information is Level.Boss)
-            transitioningToScene = GameScene; // TODO: transition to boss scene
+            transitioningTo = Game; // TODO: transition to boss scene
         else if (level.Information is Level.Battle)
-            transitioningToScene = GameScene;
-        else transitioningToScene = GameScene;
+            transitioningTo = Game;
+        else transitioningTo = Game;
+        transitionSong = level.Information.MusicTrack();
     }
 
+    /// <summary>Attempts to apply the transition level.</summary>
     public void OnTransitionComplete()
     {
-        scenes.LoadInAdditionAndSetActive(transitioningToScene);
-        transitioningToScene = "";
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == GameScene)
-            gameScene = scene;
-    }
-
-    /// <summary>Scene adding/switching functionality. Maintains scene state between transitions.</summary>
-    private class SceneTransitions
-    {
-        private Dictionary<string, Scene> loadedScenes = new();
-
-        public SceneTransitions()
+        if (transitioningTo == null)
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            Debug.LogWarning("Attempted to transition to a `null` level. Transition cannot complete. Ensure the level transition fields are correct.");
+            return;
         }
 
-        public void LoadInAdditionAndSetActive(string sceneName)
-        {
-            if (!loadedScenes.ContainsKey(sceneName))
-            {
-                SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
-            }
-            else
-            {
-                var scene = loadedScenes[sceneName];
-                Disable(SceneManager.GetActiveScene());
-                SceneManager.SetActiveScene(scene);
-                Enable(scene);
-            }
-        }
+        current.SetActive(false);
+        transitioningTo.SetActive(true);
+        current = transitioningTo;
+        transitioningTo = null;
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            loadedScenes.Add(scene.name, scene);
-            if (loadedScenes.Count > 1)
-            {
-                Disable(SceneManager.GetActiveScene());
-                SceneManager.SetActiveScene(scene);
-            }
-        }
-
-        private static void SetObjectsActive(Scene scene, bool active)
-        {
-            if (scene == null) return;
-            foreach (var obj in scene.GetRootGameObjects())
-            {
-                obj.SetActive(active);
-            }
-        }
-        private static void Disable(Scene scene) => SetObjectsActive(scene, false);
-        private static void Enable(Scene scene) => SetObjectsActive(scene, true);
+        SoundManager.Instance.play(transitionSong);
+        transitionSong = MusicTracks.Main;
     }
 }

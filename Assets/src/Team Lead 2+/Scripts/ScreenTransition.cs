@@ -6,7 +6,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class ScreenTransition : MonoBehaviour
 {
+    /// <summary>Invoked halfway through the transition when the screen is black.</summary>
     public UnityEvent TransitionComplete;
+    
     private Image blackScreen;
     private State state = State.Transparent;
     private float alpha;
@@ -17,6 +19,7 @@ public class ScreenTransition : MonoBehaviour
         UpdateAlpha();
     }
 
+    /// <summary>Updates the transition based on the current state.</summary>
     private void Update()
     {
         switch (state)
@@ -46,11 +49,13 @@ public class ScreenTransition : MonoBehaviour
         }
     }
 
+    /// <summary>Starts transitioning to black.</summary>
     public void ShowTransition()
     {
         state = State.FadingToBlack;
     }
 
+    /// <summary>Applies the current transparency of the black screen.</summary>
     private void UpdateAlpha()
     {
         var c = blackScreen.color;
@@ -60,6 +65,7 @@ public class ScreenTransition : MonoBehaviour
         blackScreen.raycastTarget = alpha != 0f;
     }
 
+    /// <summary>The state of the transition.</summary>
     private enum State
     {
         FadingToBlack,
