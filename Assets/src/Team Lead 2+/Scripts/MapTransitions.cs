@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>Manages transitions between levels and the world map.</summary>
@@ -17,6 +18,7 @@ public class MapTransitions : MonoBehaviour
     /// <summary>The currently active `GameObject`/prefab.</summary>
     private GameObject current;
     private GameObject transitioningTo;
+    private MusicTracks transitionSong;
 
     private void Awake()
     {
@@ -51,6 +53,7 @@ public class MapTransitions : MonoBehaviour
     {
         ScreenTransition.ShowTransition();
         transitioningTo = Menu;
+        transitionSong = MusicTracks.Main;
     }
 
     /// <summary>Attempts to transition to the main world map.</summary>
@@ -58,6 +61,7 @@ public class MapTransitions : MonoBehaviour
     {
         ScreenTransition.ShowTransition();
         transitioningTo = Map;
+        transitionSong = MusicTracks.Island;
     }
 
     /// <summary>Attempts to transition to the level based on its type.</summary>
@@ -73,6 +77,7 @@ public class MapTransitions : MonoBehaviour
         else if (level.Information is Level.Battle)
             transitioningTo = Game;
         else transitioningTo = Game;
+        transitionSong = level.Information.MusicTrack();
     }
 
     /// <summary>Attempts to apply the transition level.</summary>
@@ -88,5 +93,8 @@ public class MapTransitions : MonoBehaviour
         transitioningTo.SetActive(true);
         current = transitioningTo;
         transitioningTo = null;
+
+        SoundManager.Instance.play(transitionSong);
+        transitionSong = MusicTracks.Main;
     }
 }
