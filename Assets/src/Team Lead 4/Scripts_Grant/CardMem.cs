@@ -106,7 +106,7 @@ public class CardMem : MonoBehaviour
 
     void ShowBackInstant() => ShowBack();
 
-    public void MarkMatched()
+    public void MarkMatched_Grant()
     {
         isMatched = true;
         var btn = GetComponent<Button>();

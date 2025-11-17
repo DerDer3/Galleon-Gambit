@@ -92,8 +92,8 @@ public class TreasureMemoryCore : MonoBehaviour
         if (firstCard.MemCardId == secondCard.MemCardId)
         {
             // Match
-            firstCard.MarkMatched();
-            secondCard.MarkMatched();
+            firstCard.MarkMatched_Grant();
+            secondCard.MarkMatched_Grant();
             pairsFound++;
         }
         else
@@ -125,10 +125,9 @@ public class TreasureMemoryCore : MonoBehaviour
     }
 
    // Optional: call this to restart game
-    public void Restart()
+    public void Restart_Grant()
     {
         if (winText) winText.gameObject.SetActive(false);
         SetupBoard();
     }
 }
-
