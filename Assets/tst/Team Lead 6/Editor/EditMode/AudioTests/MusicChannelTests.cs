@@ -9,8 +9,6 @@ public class MusicChannelCoreTests
         var clip = AudioClip.Create("music_clip", 44100, 1, 44100, false);
         cue.SetClipsForTesting(new[] { clip });
 
-        // We can't set private volume directly, but effectiveVolume is passed separately,
-        // so here we focus on how Play affects the AudioSource.
         return cue;
     }
 

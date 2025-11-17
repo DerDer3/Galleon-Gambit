@@ -47,8 +47,7 @@ public class SoundCueTests
     {
         var cue = ScriptableObject.CreateInstance<SoundCue>();
 
-        // hacky but works: use SerializedObject to modify private field if you want,
-        // or just assume default volume is 1f.
+        // Use SerializedObject to modify private field or just assume default volume is 1f.
         Assert.That(cue.Volume, Is.InRange(0f, 1f), "Volume should be clamped between 0 and 1.");
     }
 }
