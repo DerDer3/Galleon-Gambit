@@ -1891,7 +1891,6 @@ GameObject:
   m_Component:
   - component: {fileID: 987956380}
   - component: {fileID: 987956381}
-  - component: {fileID: 987956382}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: Untagged
@@ -1936,18 +1935,6 @@ MonoBehaviour:
   MainPlayer: {fileID: 628420573}
   PlayerMana: {fileID: 997227116}
   loader: {fileID: 864733871}
---- !u!114 &987956382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 987956379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a278e69e62a50a4ea9d4d113b894d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestAudio
 --- !u!1 &992255682
 GameObject:
   m_ObjectHideFlags: 0
