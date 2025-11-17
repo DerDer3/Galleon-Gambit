@@ -146,6 +146,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     // --- DYNAMIC CARD EFFECT EXECUTION REFACTORING (COMMAND PATTERN PRINCIPLE) ---
     private void PlayCardEffect()
     {
+
         if (GameManager2.Instance == null)
         {
             Debug.LogError("Cannot play card: GameManager2 not initialized.");
@@ -192,6 +193,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     // Dynamic Helper Methods to decouple effect application logic
     private void ApplyHealEffect(CardStats stats, PlayerClass player)
     {
+        SoundManager.Instance.play(SoundEffects.Recover);
+
         if (stats.Heal > 0)
         {
             int newHealth = player.get_health() + stats.Heal;
@@ -200,8 +203,19 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
     }
 
+
+    private void AppplyDamageEffect(CardStats stats, PlayerClass player)
+    {
+        //play damage sound
+
+        //...
+        SoundManager.Instance.play(SoundEffects.Sword);
+    }
+
     private void ApplyManaGainEffect(CardStats stats, ManaClass playerMana)
     {
+
+        SoundManager.Instance.play(SoundEffects.Regenerate);
         if (stats.ManaGain > 0)
         {
             int newMana = playerMana.get_amount() + stats.ManaGain;
