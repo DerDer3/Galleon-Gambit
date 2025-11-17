@@ -42,7 +42,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         // Get CardDisplay component to access the loaded card's data
         cardDisplay = GetComponent<CardDisplay>();
         if (cardDisplay == null)
-            Debug.LogError("CardMovement requires a CardDisplay component to access card data!");
+           // Debug.LogError("CardMovement requires a CardDisplay component to access card data!");
 
         if (rootCanvas == null)
         {
@@ -57,7 +57,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
         if (handManager == null)
         {
-            Debug.LogError("CardMovement requires a HandManager component in the scene to play cards.");
+            //Debug.LogError("CardMovement requires a HandManager component in the scene to play cards.");
         }
 
         originalScale = rTrans.localScale;
@@ -149,14 +149,14 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
         if (GameManager2.Instance == null)
         {
-            Debug.LogError("Cannot play card: GameManager2 not initialized.");
+            //Debug.LogError("Cannot play card: GameManager2 not initialized.");
             TransitionToState(CardState.Default);
             return;
         }
 
         if (cardDisplay == null || cardDisplay.cardData == null)
         {
-            Debug.LogError("Card is missing CardDisplay component or cardData to determine cost/effect.");
+            //Debug.LogError("Card is missing CardDisplay component or cardData to determine cost/effect.");
             rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
             return;
@@ -183,7 +183,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
         else
         {
-            Debug.LogWarning($"Cannot play card: Insufficient Mana. Required: {stats.ManaCost}, Available: {GameManager2.Instance.PlayerMana.get_amount()}.");
+            //Debug.LogWarning($"Cannot play card: Insufficient Mana. Required: {stats.ManaCost}, Available: {GameManager2.Instance.PlayerMana.get_amount()}.");
             // Return card to hand if play failed
             rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
@@ -199,7 +199,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         {
             int newHealth = player.get_health() + stats.Heal;
             player.set_health(newHealth);
-            Debug.Log($"Card applied {stats.Heal} HEAL. Player Health now: {newHealth}");
+            //Debug.Log($"Card applied {stats.Heal} HEAL. Player Health now: {newHealth}");
         }
     }
 
@@ -220,7 +220,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         {
             int newMana = playerMana.get_amount() + stats.ManaGain;
             playerMana.set_amount(newMana);
-            Debug.Log($"Card applied {stats.ManaGain} MANA gain. Player Mana now: {newMana}");
+            //Debug.Log($"Card applied {stats.ManaGain} MANA gain. Player Mana now: {newMana}");
         }
     }
 

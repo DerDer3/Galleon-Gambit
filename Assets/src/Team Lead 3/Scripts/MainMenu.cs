@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Request to quit succesful.");
+       // Debug.Log("Request to quit succesful.");
         Application.Quit();
     }
 }

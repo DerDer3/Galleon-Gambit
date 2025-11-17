@@ -25,7 +25,7 @@ public class DeckManager : MonoBehaviour
     {
         if (handManager == null)
         {
-            Debug.LogError("DeckManager cannot initialize: HandManager reference is null.");
+            //Debug.LogError("DeckManager cannot initialize: HandManager reference is null.");
             return;
         }
 
@@ -48,7 +48,7 @@ public class DeckManager : MonoBehaviour
     {
         if (CardDatabase.Count == 0)
         {
-            Debug.LogError("CardDatabase is empty. Check if 'CardData' ScriptableObjects are in a Resources folder.");
+            //Debug.LogError("CardDatabase is empty. Check if 'CardData' ScriptableObjects are in a Resources folder.");
             return;
         }
 
@@ -61,7 +61,7 @@ public class DeckManager : MonoBehaviour
         }
 
         PlayerDeck.Shuffle();
-        Debug.Log($"Player Deck initialized with {PlayerDeck.cards.Count} cards (x{copiesOfEachCard} of each unique card).");
+        //Debug.Log($"Player Deck initialized with {PlayerDeck.cards.Count} cards (x{copiesOfEachCard} of each unique card).");
     }
 
     public void DrawCardToHand()
@@ -72,7 +72,7 @@ public class DeckManager : MonoBehaviour
         // Check if a card was drawn, and if not, reshuffle
         if (drawnCard == null)
         {
-            Debug.Log("Player Deck empty. Checking Discard Pile...");
+            //Debug.Log("Player Deck empty. Checking Discard Pile...");
 
             if (DiscardDeck.cards.Count > 0)
             {

@@ -81,7 +81,7 @@ public class DiscardDeckType : Deck
         if (drawnCard != null)
         {
             // Example of custom logic: Log a special message when drawing from discard
-            Debug.Log($"Drawing {drawnCard.name} from the Discard Pile.");
+            //Debug.Log($"Drawing {drawnCard.name} from the Discard Pile.");
         }
 
         return drawnCard;
