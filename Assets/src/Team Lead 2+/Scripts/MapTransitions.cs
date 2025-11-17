@@ -14,6 +14,7 @@ public class MapTransitions : MonoBehaviour
     [SerializeField] private GameObject Map;
     [SerializeField] private GameObject Game;
 
+    /// <summary>The currently active `GameObject`/prefab.</summary>
     private GameObject current;
     private GameObject transitioningTo;
 
@@ -42,23 +43,24 @@ public class MapTransitions : MonoBehaviour
         else if (Game.activeSelf) current = Game;
     }
 
-    public bool Transitioning()
-    {
-        return transitioningTo != null;
-    }
+    /// <summary>Returns `true` if a level transition is happening.</summary>
+    public bool Transitioning() => transitioningTo != null;
 
+    /// <summary>Attempts to transition to the main menu.</summary>
     public void TransitionToMenu()
     {
         ScreenTransition.ShowTransition();
         transitioningTo = Menu;
     }
 
+    /// <summary>Attempts to transition to the main world map.</summary>
     public void TransitionToMap()
     {
         ScreenTransition.ShowTransition();
         transitioningTo = Map;
     }
 
+    /// <summary>Attempts to transition to the level based on its type.</summary>
     public void TransitionLevel(Level level)
     {
         ScreenTransition.ShowTransition();
@@ -73,6 +75,7 @@ public class MapTransitions : MonoBehaviour
         else transitioningTo = Game;
     }
 
+    /// <summary>Attempts to apply the transition level.</summary>
     public void OnTransitionComplete()
     {
         if (transitioningTo == null)
