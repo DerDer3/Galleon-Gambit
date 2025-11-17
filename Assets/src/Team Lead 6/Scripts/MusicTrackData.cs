@@ -7,6 +7,6 @@ public class MusicTrackData
     //Value from MusicTracks enum
     public MusicTracks track;
 
-    //Specific musicd file to play
+    //Specific music cue to play
     public SoundCue cue;
 }

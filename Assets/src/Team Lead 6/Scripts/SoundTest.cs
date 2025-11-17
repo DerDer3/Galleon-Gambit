@@ -17,7 +17,7 @@ public class test : MonoBehaviour
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             // 3. Play the sound effect using your mapped enum
-            SoundManager.Instance.play(SoundEffects.sword);
+            SoundManager.Instance.play(SoundEffects.Button);
             
             // Optional: Change/start music here if needed
             // SoundManager.Instance.play(MusicTracks.Battle);

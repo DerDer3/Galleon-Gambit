@@ -4,9 +4,9 @@ using System;
 [Serializable]
 public class SFXTrackData
 {
-    //Value from MusicTracks enum
+    //Value from SoundEffects enum
     public SoundEffects effect;
 
-    //Specific musicd file to play
+    //Specific SFX cue to play
     public SoundCue cue;
 }
