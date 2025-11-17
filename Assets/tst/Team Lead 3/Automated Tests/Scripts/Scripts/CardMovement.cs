@@ -42,7 +42,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         // Get CardDisplay component to access the loaded card's data
         cardDisplay = GetComponent<CardDisplay>();
         if (cardDisplay == null)
-            //.LogError("CardMovement requires a CardDisplay component to access card data!");
+            Debug.LogError("CardMovement requires a CardDisplay component to access card data!");
 
         if (rootCanvas == null)
         {
@@ -57,7 +57,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
         if (handManager == null)
         {
-            //Debug.LogError("CardMovement requires a HandManager component in the scene to play cards.");
+            Debug.LogError("CardMovement requires a HandManager component in the scene to play cards.");
         }
 
         originalScale = rTrans.localScale;
@@ -149,14 +149,14 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
         if (GameManager2.Instance == null)
         {
-            Debug.LogError("[CRASH POINT] Cannot play card: GameManager2 not initialized.");
+            Debug.LogError("Cannot play card: GameManager2 not initialized.");
             TransitionToState(CardState.Default);
             return;
         }
 
         if (cardDisplay == null || cardDisplay.cardData == null)
         {
-            Debug.LogError("[CRASH POINT] Card is missing CardDisplay component or cardData to determine cost/effect.");
+            Debug.LogError("Card is missing CardDisplay component or cardData to determine cost/effect.");
             rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
             return;
@@ -164,15 +164,10 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
         CardStats stats = cardDisplay.GetCardStats();
 
-        int currentMana = GameManager2.Instance.PlayerMana?.get_amount() ?? -1;
-        Debug.Log($"[DEBUG] PlayCardEffect: Card '{stats.Name}' Cost: {stats.ManaCost}. Available Mana (pre-check): {currentMana}.");
-
-
         if (GameManager2.Instance.TryPlayCard(stats.ManaCost))
         {
-            Debug.Log($"[DEBUG] PlayCardEffect: Card played successfully. Mana remaining: {GameManager2.Instance.PlayerMana.get_amount()}.");
-
             // Helper methods.
+
             PlayerClass player = GameManager2.Instance.MainPlayer;
             ManaClass playerMana = GameManager2.Instance.PlayerMana;
 
@@ -188,9 +183,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
         else
         {
-            //Debug.LogWarning($"Cannot play card: Insufficient Mana. Required: {stats.ManaCost}, Available: {currentMana}. Returning card to hand.");
+            Debug.LogWarning($"Cannot play card: Insufficient Mana. Required: {stats.ManaCost}, Available: {GameManager2.Instance.PlayerMana.get_amount()}.");
             // Return card to hand if play failed
-            // CRASH POINT: If handManager is null, this line will crash (Test Edit_10, Play_26)
             rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
         }
@@ -199,19 +193,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     // Dynamic Helper Methods to decouple effect application logic
     private void ApplyHealEffect(CardStats stats, PlayerClass player)
     {
-        // Check for null dependency (Test Play_19)
-        if (player == null)
-        {
-            Debug.LogError("[CRASH POINT] ApplyHealEffect: PlayerClass is null. Cannot apply heal.");
-            return;
-        }
+        //SoundManager.Instance.play(SoundEffects.Recover);
 
-        // SoundManager.Instance.play(SoundEffects.Recover); // Assuming SoundManager exists
         if (stats.Heal > 0)
         {
             int newHealth = player.get_health() + stats.Heal;
             player.set_health(newHealth);
-            Debug.Log($"[DEBUG] Card applied {stats.Heal} HEAL. Player Health now: {newHealth}");
+            Debug.Log($"Card applied {stats.Heal} HEAL. Player Health now: {newHealth}");
         }
     }
 
@@ -221,24 +209,18 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         //play damage sound
 
         //...
-        // SoundManager.Instance.play(SoundEffects.Sword);
+        //SoundManager.Instance.play(SoundEffects.Sword);
     }
 
     private void ApplyManaGainEffect(CardStats stats, ManaClass playerMana)
     {
-        // Check for null dependency
-        if (playerMana == null)
-        {
-            Debug.LogError("[CRASH POINT] ApplyManaGainEffect: ManaClass is null. Cannot apply mana gain.");
-            return;
-        }
 
-        // SoundManager.Instance.play(SoundEffects.Regenerate);
+        //SoundManager.Instance.play(SoundEffects.Regenerate);
         if (stats.ManaGain > 0)
         {
             int newMana = playerMana.get_amount() + stats.ManaGain;
             playerMana.set_amount(newMana);
-            Debug.Log($"[DEBUG] Card applied {stats.ManaGain} MANA gain. Player Mana now: {newMana}");
+            Debug.Log($"Card applied {stats.ManaGain} MANA gain. Player Mana now: {newMana}");
         }
     }
 
@@ -271,12 +253,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     public void OnPointerDown(PointerEventData eventData)
     {
         // Only allow picking up the card if it's the player's turn (Accessing state dynamically via Singleton)
-        // CRASH POINT: If GameManager2.Instance is null, the check below will crash (Test Play_18)
-        if (GameManager2.Instance != null && !GameManager2.Instance.IsPlayerTurn)
-        {
-            Debug.Log("[DEBUG] OnPointerDown: Not player's turn, blocking card pickup.");
-            return;
-        }
+        if (GameManager2.Instance != null && !GameManager2.Instance.IsPlayerTurn) return;
 
         if (currentState == CardState.Hovered || currentState == CardState.Default)
         {
@@ -305,12 +282,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         else if (currentState == CardState.Dragging)
         {
             // If the card was dragged but not released in the play zone, return it to the hand parent
-            // CRASH POINT: If handManager is null, this line will crash (Test Edit_10, Play_26)
-            if (handManager == null)
-            {
-                Debug.LogError("[CRASH POINT] OnPointerUp: HandManager is null. Cannot return card to hand.");
-                return;
-            }
             rTrans.SetParent(handManager.handTransform, true);
             TransitionToState(CardState.Default);
         }

@@ -20,27 +20,21 @@ public class Deck
             return null;
         }
 
-        Debug.Log($"[DEBUG] Deck.DrawCard: Drawing card. Deck count before: {cards.Count}.");
         // Draw the top card (index 0) - Base behavior
         GallionGambit.NewCard drawnCard = cards[0];
         cards.RemoveAt(0);
-        Debug.Log($"[DEBUG] Deck.DrawCard: Card drawn: {drawnCard.cardName}. Deck count after: {cards.Count}.");
-
 
         return drawnCard;
     }
 
     public void Shuffle()
     {
-        Debug.Log($"[DEBUG] Deck.Shuffle: Shuffling deck of size {cards.Count}.");
-
         System.Random rng = new System.Random();
         int n = cards.Count;
 
         while (n > 1)
         {
             n--;
-            // CRASH POINT: rng.Next(n + 1) will throw if n+1 overflows past int.MaxValue (Test 30)
             int k = rng.Next(n + 1);
             GallionGambit.NewCard temp = cards[k];
             cards[k] = cards[n];
@@ -56,8 +50,6 @@ public class Deck
             return;
         }
 
-        Debug.Log($"[DEBUG] Deck.TransferCardsFrom: Transferring {sourceDeck.cards.Count} cards.");
-
         cards.AddRange(sourceDeck.cards);
         sourceDeck.cards.Clear();
     }
@@ -68,7 +60,7 @@ public class PlayerDeckType : Deck
 {
     public PlayerDeckType()
     {
-        //Debug.Log("Player Deck Initialized.");
+        Debug.Log("Player Deck Initialized.");
     }
 }
 
@@ -78,7 +70,7 @@ public class DiscardDeckType : Deck
 {
     public DiscardDeckType()
     {
-        //Debug.Log("Discard Deck Initialized.");
+        Debug.Log("Discard Deck Initialized.");
     }
 
     // Overrides the base DrawCard method to add custom behavior for the Discard pile.
@@ -89,7 +81,7 @@ public class DiscardDeckType : Deck
         if (drawnCard != null)
         {
             // Example of custom logic: Log a special message when drawing from discard
-            //Debug.Log($"Drawing {drawnCard.name} from the Discard Pile.");
+            Debug.Log($"Drawing {drawnCard.name} from the Discard Pile.");
         }
 
         return drawnCard;

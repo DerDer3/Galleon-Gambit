@@ -1,15 +1,13 @@
 {
-    "name": "TL3_EditMode",
+    "name": "TL3PlayMode",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "TL3_Scripts",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "TL3_Scripts"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

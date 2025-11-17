@@ -16,7 +16,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text manaText;
     public TMP_Text damageText;
-    
+
     public Image[] typeImages;
     //0 - Heal; 1 - Mana; 2 - Damage;
 
@@ -81,7 +81,7 @@ public class CardDisplay : MonoBehaviour
     {
         if (cardData == null)
         {
-            //Debug.LogError("CardData is missing on CardDisplay.");
+            Debug.LogError("CardData is missing on CardDisplay.");
             // Return a default struct to prevent crash
             return new CardStats();
         }
