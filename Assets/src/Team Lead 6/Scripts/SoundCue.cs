@@ -20,4 +20,13 @@ public class SoundCue : ScriptableObject
         int index = UnityEngine.Random.Range(0, clips.Length);
         return clips[index];
     }
+
+    #if UNITY_EDITOR
+    // Editor-only helper to set clips in tests
+        public void SetClipsForTesting(AudioClip[] newClips)
+        {
+            clips = newClips;
+        }
+    #endif
+
 }
