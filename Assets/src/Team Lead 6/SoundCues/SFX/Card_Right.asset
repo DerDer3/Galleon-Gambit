@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Card_Right
   m_EditorClassIdentifier: Assembly-CSharp::SoundCue
   clips:
-  - {fileID: 8300000, guid: 8ee2aad57da5d4c489672d5db6e67162, type: 3}
+  - {fileID: 8300000, guid: cb7bf1e9d6b44c940b497a0fc8572459, type: 3}
   volume: 1
   loop: 0

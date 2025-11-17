@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapTransitions
       objectReference: {fileID: 0}
+    - target: {fileID: 5139041660121937258, guid: 64e634fe298c7f44b87ac3852d189d9c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5199378051514559870, guid: 64e634fe298c7f44b87ac3852d189d9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 632.1268
@@ -811,10 +815,11 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &244939391 stripped
+--- !u!114 &244939391
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
-  m_PrefabInstance: {fileID: 8809903527518419951}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334736990}
   m_Enabled: 1
@@ -822,6 +827,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86262a15376f6d94cabf44115e031669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  musicSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  musicLibrary: []
+  sfxLibrary: []
+  masterVolume: 1
+  musicVolume: 1
+  sfxVolume: 1
 --- !u!114 &389793045 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8434987845981098988, guid: 64e634fe298c7f44b87ac3852d189d9c, type: 3}
@@ -4270,6 +4282,118 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[0].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: b6adf379c931376449b8d4c23b3b93c7, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[1].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: baa023f5472848a4592bb341b648d2cb, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[2].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: c27d33db8fc3e9c4082e0c0847f33a5c, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[3].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: ec654c2a0c2efd548ac30188fda25115, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[4].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: 649d3244bf1a8e146a57ba989db1c172, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[5].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ebfc1edbed9bd145af3a5b78d571e63, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[6].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: 15ab836e11b590b46a85ae1a9bd11372, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[7].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: dce1a62fe95c72044b406cb7e4a6b2a5, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[8].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: cf9b1ca2c984a974495bae9bda1502dc, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[9].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: cb150d35344a25449b6ece26da41ca74, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[10].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: 0dca40585d00b7441a275d30444cf072, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[11].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: 0489a1fd35e06ab4da059657322a4883, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[12].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: ec654c2a0c2efd548ac30188fda25115, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[13].cue
+      value: 
+      objectReference: {fileID: 11400000, guid: efb2f5fe3a3215a49a8e9e7abf7f3b41, type: 2}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[1].effect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[2].effect
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[3].effect
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[4].effect
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[5].effect
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[6].effect
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[7].effect
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[8].effect
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[9].effect
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[10].effect
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[11].effect
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[12].effect
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665448921767229895, guid: 7fad2e0a95a27a24d92b84908512a7bf, type: 3}
+      propertyPath: sfxLibrary.Array.data[13].effect
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4285,3 +4409,4 @@ SceneRoots:
   - {fileID: 866373622}
   - {fileID: 56501293}
   - {fileID: 8809903527518419951}
+  - {fileID: 1334736992}

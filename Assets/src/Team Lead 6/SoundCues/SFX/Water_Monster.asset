@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Water_Monster
   m_EditorClassIdentifier: Assembly-CSharp::SoundCue
   clips:
-  - {fileID: 8300000, guid: 8ee2aad57da5d4c489672d5db6e67162, type: 3}
+  - {fileID: 8300000, guid: bd957cd84e91e4542883e214c51c46aa, type: 3}
   volume: 1
   loop: 0

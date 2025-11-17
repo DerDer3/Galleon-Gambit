@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy_Die
   m_EditorClassIdentifier: Assembly-CSharp::SoundCue
   clips:
-  - {fileID: 8300000, guid: 8ee2aad57da5d4c489672d5db6e67162, type: 3}
+  - {fileID: 8300000, guid: 8fab9df8164d1ca448a7fb49e0d0e533, type: 3}
   volume: 1
   loop: 0

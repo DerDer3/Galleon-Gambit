@@ -67,10 +67,15 @@ public class SoundManager : MonoBehaviour
     public void play(MusicTracks title)
     {
         SoundCue cue = GetMusic(title);
-        if (cue = null)
+        if (cue == null)
         {
             Debug.LogWarning($"Music track '{title}' not found in the library");
             return;
+        }
+
+        if(Music == null)
+        {
+            Debug.LogError("Music channel doesn't exist");
         }
 
         currentCue = cue;
