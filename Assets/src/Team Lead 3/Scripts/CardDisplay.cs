@@ -81,7 +81,7 @@ public class CardDisplay : MonoBehaviour
     {
         if (cardData == null)
         {
-            //Debug.LogError("CardData is missing on CardDisplay.");
+            Debug.LogError("CardData is missing on CardDisplay.");
             // Return a default struct to prevent crash
             return new CardStats();
         }

@@ -41,7 +41,7 @@ public class GameManager2 : MonoBehaviour
         {
             DeckManager.InitializeDeckAndDrawHand();
             isGameReady = true;
-            //Debug.Log("Game initialized. Starting turn setup.");
+            Debug.Log("Game initialized. Starting turn setup.");
 
             // Start the first turn
             StartPlayerTurn();
@@ -60,7 +60,7 @@ public class GameManager2 : MonoBehaviour
 
         if (currentEnemy != null)
         {
-            //Debug.Log($"Enemy Spawned with {currentEnemy.currentHealth} health!");
+            Debug.Log($"Enemy Spawned with {currentEnemy.currentHealth} health!");
         }
     }
 
@@ -79,10 +79,10 @@ public class GameManager2 : MonoBehaviour
     private void InitializeManagersAndState()
     {
         DeckManager = GetComponentInChildren<DeckManager>();
-        if (DeckManager == null) //Debug.LogError("DeckManager not found.");
+        if (DeckManager == null) Debug.LogError("DeckManager not found.");
 
         HandManager = FindAnyObjectByType<HandManager>();
-        if (HandManager == null) //Debug.LogError("HandManager not found.");
+        if (HandManager == null) Debug.LogError("HandManager not found.");
 
         if (DeckManager != null) DeckManager.SetHandManager(HandManager);
 
@@ -98,7 +98,7 @@ public class GameManager2 : MonoBehaviour
         IsPlayerTurn = true;
         // Reset mana and draw cards at the start of the turn
         PlayerMana.set_amount(PlayerMana.get_max_amount()); // Assuming starting mana is max mana (e.g. 3)
-        //Debug.Log($"Player Turn started. Mana restored to {PlayerMana.get_amount()}.");
+        Debug.Log($"Player Turn started. Mana restored to {PlayerMana.get_amount()}.");
 
     }
 
@@ -107,7 +107,7 @@ public class GameManager2 : MonoBehaviour
         if (!IsPlayerTurn) return;
 
         IsPlayerTurn = false;
-        //Debug.Log("Player Turn ended. Starting Enemy Turn.");
+        Debug.Log("Player Turn ended. Starting Enemy Turn.");
 
         Invoke(nameof(StartEnemyTurn), 1.0f); // Wait 1 second before enemy turn
     }
@@ -115,7 +115,7 @@ public class GameManager2 : MonoBehaviour
     private void StartEnemyTurn()
     {
         // Placeholder for enemy actions (e.g., enemy attacks player)
-        //Debug.Log("Enemy Turn: Enemy attacks!");
+        Debug.Log("Enemy Turn: Enemy attacks!");
         /* Commented out by Autumn - replaced with enemy attack
         MainPlayer.set_health(MainPlayer.get_health() - 10);
         */
@@ -142,7 +142,7 @@ public class GameManager2 : MonoBehaviour
     {
         if (MainPlayer.get_health() <= 0)
         {
-           // Debug.Log("Gameover: Player Health reached 0.");
+            Debug.Log("Gameover: Player Health reached 0.");
             isGameReady = false;
         }
     }

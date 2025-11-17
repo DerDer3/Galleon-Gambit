@@ -1575,7 +1575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
   m_sharedMaterial: {fileID: -2307297028499637102, guid: 64a0bebc4ea4d9d49a4be2362c77f843, type: 2}
@@ -2211,8 +2211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4de577c35d85a46b2e750774ef6618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseScreen
-  freezeState: 0
-  resumeGame: 0
 --- !u!1 &1122465050
 GameObject:
   m_ObjectHideFlags: 0
@@ -4447,8 +4445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4de577c35d85a46b2e750774ef6618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseScreen
-  freezeState: 0
-  resumeGame: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

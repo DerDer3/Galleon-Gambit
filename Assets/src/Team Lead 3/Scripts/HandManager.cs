@@ -41,12 +41,12 @@ public class HandManager : MonoBehaviour
             if (deckManager != null)
             {
                 deckManager.DiscardDeck.cards.Add(cardData);
-                //Debug.Log($"Discarded card: {cardData.cardName}. Discard Pile size: {deckManager.DiscardDeck.cards.Count}");
+                Debug.Log($"Discarded card: {cardData.cardName}. Discard Pile size: {deckManager.DiscardDeck.cards.Count}");
 
                 if (cardsInHand.Count < maxHand)
                 {
                     deckManager.DrawCardToHand();
-                    //Debug.Log("Card Play Cycle Initiated");
+                    Debug.Log("Card Play Cycle Initiated");
                 }
             }
 
