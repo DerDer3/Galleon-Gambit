@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class TreasureMemoryCore : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class TreasureMemoryCore : MonoBehaviour
 
     [Header("Gameplay")]
     public float mismatchDelay = 0.8f;
+
+    public UnityEvent<int> GameWon;
 
     CardMem firstCard = null;
     CardMem secondCard = null;
@@ -112,6 +115,10 @@ public class TreasureMemoryCore : MonoBehaviour
         if (pairsFound >= faces.Count)
         {
             ShowWinMessage();
+
+            yield return new WaitForSeconds(3f); // let's the win message stay for 3 seconds
+
+            GameWon.Invoke(5);  // Invoke the event, passing the reward (optional, but consistent)
         }
     }
 
@@ -124,10 +131,11 @@ public class TreasureMemoryCore : MonoBehaviour
         }
     }
 
-   // Optional: call this to restart game
+    // Optional: call this to restart game
     public void Restart_Grant()
     {
         if (winText) winText.gameObject.SetActive(false);
         SetupBoard();
     }
 }
+
