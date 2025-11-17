@@ -2,22 +2,39 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public static class CardCreator
+public class CardCreator
 {
-    private static List<Func<Card>> cardConstructors = new()
+    // ---------------- Singleton Pattern ----------------
+    private static CardCreator _instance;
+    public static CardCreator Instance
     {
-        () => new Slash(),
-        () => new ShipRepair(),
-        () => new PistolShot(),
-        () => new TwinBlades(),
-        () => new BoardingCharge(),
-        () => new BackStab(),
-        () => new WhispersBelow()
-    };
+        get
+        {
+            if (_instance == null)
+                _instance = new CardCreator();
+            return _instance;
+        }
+    }
 
-    private static System.Random rng = new System.Random();
+    private CardCreator()
+    {
+        rng = new System.Random();
+        cardConstructors = new List<Func<Card>>
+        {
+            () => new Slash(),
+            () => new ShipRepair(),
+            () => new PistolShot(),
+            () => new TwinBlades(),
+            () => new BoardingCharge(),
+            () => new BackStab(),
+            () => new WhispersBelow()
+        };
+    }
 
-    public static Card CreateRandomCard()
+    private List<Func<Card>> cardConstructors;
+    private System.Random rng;
+
+    public Card CreateRandomCard()
     {
         int index = rng.Next(cardConstructors.Count);
         return cardConstructors[index]();

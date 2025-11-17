@@ -2511,7 +2511,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e747baadd827e263af22102e33ffd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  cardPrefab: {fileID: 3897994148469069111, guid: 40d8402279986774fa87a886b039a6b6, type: 3}
+  cardCanvas: {fileID: 1873413071}
+  cardPrefab: {fileID: 3819948590552443159, guid: 1bdfc87ada8409e009c24915de514ef7, type: 3}
   mainGame: {fileID: 887453513}
 --- !u!114 &1240081242
 MonoBehaviour:
@@ -3514,16 +3515,16 @@ MonoBehaviour:
   sfxSource: {fileID: 1766099535}
   musicLibrary:
   - track: 0
-    clip: {fileID: 8300000, guid: cf9dcd9c7b587bb4e87f97c543a4e396, type: 3}
+    cue: {fileID: 0}
   - track: 1
-    clip: {fileID: 8300000, guid: 45b1cd39c120fbd4cb082c6e5ff29c66, type: 3}
+    cue: {fileID: 0}
   - track: 2
-    clip: {fileID: 8300000, guid: e1cfe0a911e762d4f91685f9ee6a1964, type: 3}
+    cue: {fileID: 0}
   - track: 3
-    clip: {fileID: 8300000, guid: 215ee773f8e6cdd45b1063926d5dcbfb, type: 3}
+    cue: {fileID: 0}
   sfxLibrary:
   - effect: 0
-    clip: {fileID: 8300000, guid: 8ee2aad57da5d4c489672d5db6e67162, type: 3}
+    cue: {fileID: 0}
 --- !u!1 &1873413067
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,10 @@ public abstract class Card
     this.cardLevel = cardLevel;
   }
 
-  public abstract void Play(GameState state);
+  public virtual void Play(GameState state)
+  {
+    Debug.Log("Card Played");
+  }
   public void Upgrade()
   {
     this.cardLevel += 1;
