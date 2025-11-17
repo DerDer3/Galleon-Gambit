@@ -33,7 +33,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     [SerializeField] private float lerpFactor = 0.1f; // Dynamic: Exposed for easy tuning
 
     [SerializeField] private GameObject glowEffect;
-    [SerializeField] private GameObject playArrow;
 
 
     void Awake()
@@ -94,7 +93,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 if (handManager != null) { handManager.UpdateHandVisuals(); }
                 // Check if components exist before accessing
                 if (glowEffect != null) glowEffect.SetActive(false);
-                if (playArrow != null) playArrow.SetActive(false);
                 break;
 
             case CardState.Hovered:
@@ -102,7 +100,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 HandleDragState();
 
                 if (glowEffect != null) glowEffect.SetActive(true);
-                if (playArrow != null) playArrow.SetActive(false);
                 rTrans.localRotation = Quaternion.identity;
                 break;
 
@@ -110,7 +107,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 rTrans.localPosition = potentialPlayPosition;
                 rTrans.localRotation = Quaternion.identity;
                 if (glowEffect != null) glowEffect.SetActive(true);
-                if (playArrow != null) playArrow.SetActive(true);
                 break;
 
             case CardState.Played:
@@ -122,7 +118,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                     TransitionToState(CardState.Default);
                 }
                 if (glowEffect != null) glowEffect.SetActive(false);
-                if (playArrow != null) playArrow.SetActive(false);
                 break;
         }
 
@@ -145,7 +140,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         if (Input.mousePosition.y < cardPlay.y)
         {
             currentState = CardState.Dragging;
-            if (playArrow != null) playArrow.SetActive(false);
         }
     }
 
