@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.Events;
+using System.Collections;
+
+
 
 // Story node for branching narrative
 public class StoryBlock
@@ -313,6 +317,8 @@ public class EventLevelManager : MonoBehaviour
 
     StoryBlock currentBlock;
 
+    public UnityEvent Completed;
+
     // Static binding: compile-time event list
     List<StoryEventTemplate> events = new List<StoryEventTemplate>()
 {
@@ -354,6 +360,9 @@ public class EventLevelManager : MonoBehaviour
             option1.GetComponentInChildren<Text>().text = block.option1Text;
             option2.GetComponentInChildren<Text>().text = block.option2Text;
         }
+
+        
+        if (!hasOptions) StartCoroutine(OnCompleted());
     }
 
     public void Button1Clicked()
@@ -367,4 +376,12 @@ public class EventLevelManager : MonoBehaviour
         if (currentBlock.option2Block != null)
             DisplayBlock(currentBlock.option2Block);
     }
+
+    IEnumerator OnCompleted()
+    {
+        // five seconds for the last message to show
+        yield return new WaitForSeconds(5f);
+        Completed.Invoke();
+    }
 }
+
