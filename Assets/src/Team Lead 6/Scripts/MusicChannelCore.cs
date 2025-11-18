@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class MusicChannelCore : SoundChannelCore
 {
-    private SoundCue currentCue;
+    //private const float FadeDuration = 1.5f; //Seconds
     public MusicChannelCore(AudioSource source) : base(source)
     {
         //Music specific setup
@@ -10,34 +11,58 @@ public class MusicChannelCore : SoundChannelCore
         source.priority = 0; //Highest priority
     }
 
-    public override void Play(SoundCue cue, float effectiveVolume)
+    //Dynamic: Fade in instead of instant play
+    /*public override void Play(SoundCue cue, float effectiveVolume)
     {
+        Debug.Log("MusicChannelCore override Play()");
+
         if (cue == null) return;
-
-        /*if (currentCue == cue && source.isPlaying)
-            return;
-
-        currentCue = cue;*/
 
         AudioClip clip = cue.GetRandomClip();
         if (clip == null) return;
 
-        //Crossfade logic here
         source.loop = true;
         source.clip = clip;
-        source.volume = cue.Volume;
+        source.pitch = 0.5f; //Lower pitch
+        source.volume = Mathf.Clamp01(effectiveVolume * 0.5f); //Half volume
         source.Play();
-
-        //Maybe add system logs
     }
 
-    /*public override void SetVolume(float volume)
-    {
-        volumeMultiplier = Mathf.Clamp01(volume);
 
-        if (currentCue != null && source.isPlaying)
+
+    /*Scrapped Dynamic fade-in
+    public override void Play(SoundCue cue, float effectiveVolume)
+    {
+        if (SoundManager.Instance == null)
         {
-            source.volume = currentCue.Volume * volumeMultiplier;
+            base.Play(cue, effectiveVolume);
+            return;
+        }
+
+        SoundManager.Instance.StartCoroutine(FadeInMusic());
+
+        IEnumerator FadeInMusic()
+        {
+            if (cue == null) yield break;
+
+            AudioClip clip = cue.GetRandomClip();
+            if (clip == null) yield break;
+
+            source.loop = true;
+            source.clip = clip;
+            source.volume = 0f;
+            source.Play();
+
+            float t = 0f;
+            while (t < FadeDuration)
+            {
+                t += Time.deltaTime;
+                float normalized = Mathf.Clamp01(t / FadeDuration);
+                source.volume = Mathf.Lerp(0f, effectiveVolume, normalized);
+                yield return null;
+            }
+
+            source.volume = effectiveVolume;
         }
     }*/
 }
