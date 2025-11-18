@@ -4,7 +4,6 @@ using UnityEngine;
 public abstract class SoundChannelCore
 {
     protected readonly AudioSource source;
-    //protected float volumeMultiplier = 1f; //Set by soundManager
     protected SoundChannelCore(AudioSource source)
     {
         this.source = source;
@@ -20,19 +19,13 @@ public abstract class SoundChannelCore
 
         source.loop = cue.Loop;
         source.clip = clip;
+        source.pitch = 1f; //normal pitch
         source.volume = Mathf.Clamp01(effectiveVolume);//cue.Volume * volumeMultiplier;
         source.Play();
     }
 
-    /*public virtual void SetVolume(float volume)
+    public void SetVolume(float value)
     {
-        volume = Mathf.Clamp01(volume);
-        volumeMultiplier = volume;
-
-        //Only adjust volume if music is playing
-        if (source.isPlaying)
-        {
-            source.volume = volumeMultiplier;
-        }
-    }*/
+        source.volume = Mathf.Clamp01(value);
+    }
 }
