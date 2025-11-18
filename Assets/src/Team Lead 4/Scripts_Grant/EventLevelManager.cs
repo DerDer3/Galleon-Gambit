@@ -337,7 +337,7 @@ public class EventLevelManager : MonoBehaviour
         StartRandomEvent();
     }
 
-    void StartRandomEvent()
+    public void StartRandomEvent()
     {
         int index = Random.Range(0, events.Count);
         StoryBlock start = events[index].BuildEvent();

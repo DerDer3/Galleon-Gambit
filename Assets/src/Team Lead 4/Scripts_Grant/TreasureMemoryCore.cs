@@ -30,7 +30,7 @@ public class TreasureMemoryCore : MonoBehaviour
         SetupBoard();
     }
 
-    void SetupBoard()
+    public void SetupBoard()
     {
         // Clear parent
         foreach (Transform child in boardParent) Destroy(child.gameObject);
