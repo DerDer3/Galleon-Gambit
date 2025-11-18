@@ -70,6 +70,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         var boss = CreateLevel(0f, currentY);
+        boss.isSelectable = false;
         boss.Information = new Level.Boss(0);
 
         // Connect previous levels to boss
