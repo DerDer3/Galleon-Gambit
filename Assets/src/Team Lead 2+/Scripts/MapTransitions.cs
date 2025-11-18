@@ -64,14 +64,30 @@ public class MapTransitions : MonoBehaviour
         transitionSong = MusicTracks.Island;
     }
 
+    public void TransitionToUnknown()
+    {
+        ScreenTransition.ShowTransition();
+        transitioningTo = Unknown;
+        Unknown.GetComponentInChildren<EventLevelManager>()?.StartRandomEvent();
+    }
+
+    public void TransitionToTreasure()
+    {
+        ScreenTransition.ShowTransition();
+        transitioningTo = Treasure;
+        var treasure = Treasure.GetComponentInChildren<TreasureMemoryCore>();
+        treasure?.winText?.gameObject.SetActive(false);
+        treasure?.SetupBoard();
+    }
+
     /// <summary>Attempts to transition to the level based on its type.</summary>
     public void TransitionLevel(Level level)
     {
         ScreenTransition.ShowTransition();
         if (level.Information is Level.Unknown)
-            transitioningTo = Unknown;
+            TransitionToUnknown();
         else if (level.Information is Level.Treasure)
-            transitioningTo = Treasure;
+            TransitionToTreasure();
         else if (level.Information is Level.Boss)
             transitioningTo = Game; // TODO: transition to boss scene
         else if (level.Information is Level.Battle)
