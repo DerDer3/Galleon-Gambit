@@ -12,8 +12,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private MapCamera cam;
     /// <summary>The text that displays the currently focused level.</summary>
     [SerializeField] private TextMeshProUGUI LevelNameText;
+    /// <summary>Unlocks all levels if `true`.</summary>
+    [SerializeField] private bool BCMode;
 
-    /// <summary>The separation between level rows and columsn.</summary>
+    /// <summary>The separation between level rows and columns.</summary>
     private readonly Vector2 separation = new(3f, 4f);
     /// <summary>The random variation of position (for x and y) for each level.</summary>
     private readonly float variation = 0.25f;
@@ -21,6 +23,11 @@ public class MapGenerator : MonoBehaviour
     void Start()
     {
         GenerateMap();
+    }
+
+    public void ToggleBCMode() {
+        BCMode = !BCMode;
+        SoundManager.Instance.play(BCMode ? SoundEffects.Card_Win : SoundEffects.Card_Wrong);
     }
 
     /// <summary>Generates the game map by creating levels and connecting them.</summary>
@@ -39,7 +46,7 @@ public class MapGenerator : MonoBehaviour
             {
                 var x = j * separation.x - (cols - 1) * separation.x / 2f;
                 var level = CreateLevel(x + Variation(), currentY + Variation());
-                level.isSelectable = (i == 0);
+                level.isSelectable = (i == 0) || BCMode;
                 if (i == 0)
                     level.Information = new Level.Battle(0);
                 else level.RandomizeInformation();
@@ -70,7 +77,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         var boss = CreateLevel(0f, currentY);
-        boss.isSelectable = false;
+        boss.isSelectable = BCMode;
         boss.Information = new Level.Boss(0);
 
         // Connect previous levels to boss
