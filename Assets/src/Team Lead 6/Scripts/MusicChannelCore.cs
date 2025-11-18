@@ -11,8 +11,8 @@ public class MusicChannelCore : SoundChannelCore
         source.priority = 0; //Highest priority
     }
 
-    //Dynamic: Fade in instead of instant play
-    /*public override void Play(SoundCue cue, float effectiveVolume)
+    //Dynamic function
+    public override void Play(SoundCue cue, float effectiveVolume)
     {
         Debug.Log("MusicChannelCore override Play()");
 
@@ -23,8 +23,12 @@ public class MusicChannelCore : SoundChannelCore
 
         source.loop = true;
         source.clip = clip;
-        source.pitch = 0.5f; //Lower pitch
-        source.volume = Mathf.Clamp01(effectiveVolume * 0.5f); //Half volume
+
+        source.pitch = 1f;
+        source.volume = Mathf.Clamp01(effectiveVolume);
+        //source.pitch = 0.5f; //Lower pitch
+        //source.volume = Mathf.Clamp01(effectiveVolume * 0.5f); //Half volume
+
         source.Play();
     }
 
