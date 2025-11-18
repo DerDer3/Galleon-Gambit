@@ -7908,7 +7908,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1769329373}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1867987698}
+        m_TargetAssemblyTypeName: MapGenerator, Assembly-CSharp
+        m_MethodName: ToggleBCMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1769329373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8466,6 +8478,7 @@ MonoBehaviour:
   LevelPrefab: {fileID: 7721170189910374307, guid: 480fb9b806310a94492d9b723f704a00, type: 3}
   cam: {fileID: 1578461015}
   LevelNameText: {fileID: 1770923326}
+  BCMode: 0
 --- !u!4 &1867987699
 Transform:
   m_ObjectHideFlags: 0
