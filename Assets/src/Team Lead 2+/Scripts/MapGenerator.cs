@@ -39,6 +39,7 @@ public class MapGenerator : MonoBehaviour
             {
                 var x = j * separation.x - (cols - 1) * separation.x / 2f;
                 var level = CreateLevel(x + Variation(), currentY + Variation());
+                level.isSelectable = (i == 0);
                 if (i == 0)
                     level.Information = new Level.Battle(0);
                 else level.RandomizeInformation();

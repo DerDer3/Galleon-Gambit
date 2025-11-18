@@ -10,12 +10,12 @@ using UnityEngine.EventSystems;
 public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     [Header("Level Details")]
+    /// <summary>Is `true` if this level may be selected (not beaten, predecessor beaten, etc.)</summary>
+    [SerializeField] public bool isSelectable = true;
     /// <summary>The prefab object for making connections between levels.</summary>
     [SerializeField] private GameObject LevelConnectionPrefab;
     /// <summary>The list of levels that proceed this level.</summary>
     [SerializeField] private List<GameObject> nextLevels = new();
-    /// <summary>Is `true` if this level may be selected (not beaten, predecessor beaten, etc.)</summary>
-    [SerializeField] private bool isSelectable = true;
     /// <summary>Is `true` if the level has been completed.</summary>
     [SerializeField] private bool IsDone { set => SetIsDone(value); get => isDone; }
 
@@ -84,6 +84,8 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         {
             IsDone = true;
             SelectLevel();
+            foreach (var lvl in nextLevels)
+                lvl.GetComponent<Level>().isSelectable = true;
         }
     }
 
