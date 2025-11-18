@@ -10,12 +10,12 @@ using UnityEngine.EventSystems;
 public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     [Header("Level Details")]
+    /// <summary>Is `true` if this level may be selected (not beaten, predecessor beaten, etc.)</summary>
+    [SerializeField] public bool isSelectable = true;
     /// <summary>The prefab object for making connections between levels.</summary>
     [SerializeField] private GameObject LevelConnectionPrefab;
     /// <summary>The list of levels that proceed this level.</summary>
     [SerializeField] private List<GameObject> nextLevels = new();
-    /// <summary>Is `true` if this level may be selected (not beaten, predecessor beaten, etc.)</summary>
-    [SerializeField] private bool isSelectable = true;
     /// <summary>Is `true` if the level has been completed.</summary>
     [SerializeField] private bool IsDone { set => SetIsDone(value); get => isDone; }
 
@@ -66,24 +66,32 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     /// <summary>Enters the level into hover mode.</summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        HoverEntered.Invoke(this);
-        isHovering = true;
+        if (isSelectable)
+        {
+            HoverEntered.Invoke(this);
+            isHovering = true;
+        }
     }
 
     /// <summary>Exits the level from hover mode.</summary>
     public void OnPointerExit(PointerEventData eventData)
     {
-        HoverExited.Invoke();
-        isHovering = false;
+        if (isSelectable)
+        {
+            HoverExited.Invoke();
+            isHovering = false;
+        }
     }
 
     /// <summary>Handles switching levels if current level can be played.</summary>
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isHovering && !IsDone)
+        if (isHovering && !IsDone && isSelectable)
         {
             IsDone = true;
             SelectLevel();
+            foreach (var lvl in nextLevels)
+                lvl.GetComponent<Level>().isSelectable = true;
         }
     }
 
@@ -160,17 +168,19 @@ public class Level : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
         UpdateScaleAnimation();
         UpdateTextAppearAnimation();
         UpdateSelectableAnimation();
+        GetComponent<SpriteRenderer>().color = isSelectable ? Color.white : Color.black;
     }
 
     private void UpdateScaleAnimation()
     {
         var targetScale = (isHovering && !IsDone) ? hoverScale : initialScale;
+        targetScale = isSelectable ? targetScale : initialScale * 0.75f;
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
     }
 
     private void UpdateTextAppearAnimation()
     {
-        float target = (isHovering && !IsDone) ? 1f : 0f;
+        float target = (isHovering && !IsDone && isSelectable) ? 1f : 0f;
         Color color = LevelNameText.color;
         color.a = Mathf.Lerp(color.a, target, Time.deltaTime * scaleSpeed);
         LevelDescriptionText.color = color;
