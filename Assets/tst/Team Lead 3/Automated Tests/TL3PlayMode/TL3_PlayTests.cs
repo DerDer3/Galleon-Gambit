@@ -12,7 +12,7 @@ using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using UnityEngine.SceneManagement;
 
-public class FailingCardDeckTests
+public class TL3_PlayTests
 {
 
     [UnitySetUp]

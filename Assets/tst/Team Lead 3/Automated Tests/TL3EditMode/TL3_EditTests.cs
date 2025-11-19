@@ -17,7 +17,7 @@ using UnityEngine.SceneManagement;
 // which are normally captured by Unity Test Runner but should cause a crash/fail if run without proper error handling.
 // LogAssert.Expect is used here to explicitly confirm the expected error message for clarity.
 
-public class FailingCardDeckTests
+public class TL3_EditTests
 {
     [UnitySetUp]
     public IEnumerator LoadScene()
