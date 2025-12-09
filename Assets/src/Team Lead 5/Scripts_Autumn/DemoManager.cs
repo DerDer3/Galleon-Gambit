@@ -1,14 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class DemoManager : MonoBehaviour
 {
-    //public DeckManager DeckManager;
-    //public HandManager HandManager;
 
+    public static DemoManager Instance { get; private set; }
+
+    public DeckManager DeckManager;
+    public HandManager HandManager;
+    private CardMovement CardMovement;
 
     public PlayerClass MainPlayer;
-    //public ManaClass PlayerMana;
+    public ManaClass PlayerMana;
 
     public GameObject loader;
     private EnemyObject currentEnemy;
@@ -18,7 +22,16 @@ public class DemoManager : MonoBehaviour
 
     private void Awake()
     {
-        
+       if (Instance == null)
+        {
+            Instance = this;
+            InitializeManagersAndState();
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
 
 
@@ -29,6 +42,19 @@ public class DemoManager : MonoBehaviour
        MainPlayer = FindAnyObjectByType<PlayerClass>();
        spawnEnemy.LoadEnemy(0);
        currentEnemy = spawnEnemy.CurrentEnemy;
+
+       if (DeckManager != null && MainPlayer != null && PlayerMana != null)
+        {
+            DeckManager.InitializeDeckAndDrawHand();
+            Debug.Log("Game initialized. Starting turn setup.");
+           
+        }
+        else
+        {
+            // Debug.LogError("GameManager missing critical references (DeckManager, Player, or Mana). Game cannot start.");
+        }
+
+
        
     }
 
@@ -41,7 +67,10 @@ public class DemoManager : MonoBehaviour
     public void PlayerTurn(){
         Debug.Log("Player taking turn!");
         Debug.Log(MainPlayer.get_health());
-        spawnEnemy.DamageEnemy(5);
+        Debug.Log(HandManager.cardsInHand[0]);
+        HandManager.PlayCard(HandManager.cardsInHand[0]);
+
+        //spawnEnemy.DamageEnemy(5);
     }
 
     public void EnemyTurn(){
@@ -53,10 +82,6 @@ public class DemoManager : MonoBehaviour
         Debug.Log("Started Demo!!");
         
         StartCoroutine(Turns());
-
-        
-        
-         
 
     }
 
@@ -72,6 +97,23 @@ public class DemoManager : MonoBehaviour
             yield return new WaitForSeconds(4);
         }
         
+    }
+
+    private void InitializeManagersAndState()
+    {
+        DeckManager = FindAnyObjectByType<DeckManager>();
+        if (DeckManager == null) Debug.LogError("DeckManager not found.");
+
+        HandManager = FindAnyObjectByType<HandManager>();
+        if (HandManager == null) Debug.LogError("HandManager not found.");
+
+        if (DeckManager != null) DeckManager.SetHandManager(HandManager);
+
+        CardMovement = FindAnyObjectByType<CardMovement>();
+        if (CardMovement == null) Debug.LogError("CardManager not found.");
+
+        MainPlayer = FindAnyObjectByType<PlayerClass>();
+        PlayerMana = FindAnyObjectByType<ManaClass>();
 
     }
 

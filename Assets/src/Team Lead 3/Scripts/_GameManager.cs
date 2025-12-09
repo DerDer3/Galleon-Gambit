@@ -47,6 +47,7 @@ public class GameManager2 : MonoBehaviour
             demoMode.StartDemo();
             return;
        }
+       
         if (DeckManager != null && MainPlayer != null && PlayerMana != null)
         {
             DeckManager.InitializeDeckAndDrawHand();

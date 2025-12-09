@@ -1061,7 +1061,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bd19a9b4a946e439879961482baf3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DemoManager
+  DeckManager: {fileID: 1512522916}
+  HandManager: {fileID: 1176416751}
   MainPlayer: {fileID: 625689817}
+  PlayerMana: {fileID: 1509481169}
   loader: {fileID: 1872070862}
 --- !u!4 &519492265
 Transform:
@@ -1890,7 +1893,7 @@ MonoBehaviour:
   PlayerMana: {fileID: 1509481169}
   loader: {fileID: 1872070862}
   demoMode: {fileID: 519492264}
-  isDemoMode: 0
+  isDemoMode: 1
 --- !u!1 &992255682
 GameObject:
   m_ObjectHideFlags: 0
