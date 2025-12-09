@@ -34,6 +34,7 @@ public class GameManager2 : MonoBehaviour
         else if (Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
 
     }
