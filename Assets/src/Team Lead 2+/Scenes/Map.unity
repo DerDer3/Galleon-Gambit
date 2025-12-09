@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLoader
   enemyHUDPrefab: {fileID: 9143880658728118006, guid: 1f5f39de99ca0014388d6e0120fb9a8b, type: 3}
-  uiParent: {fileID: 0}
+  uiParent: {fileID: 1557397820}
 --- !u!1 &393217057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3828,6 +3828,7 @@ Transform:
   - {fileID: 1730884933}
   - {fileID: 2130200206}
   - {fileID: 2133028221}
+  - {fileID: 1176497693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929203488
@@ -4960,9 +4961,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1111117532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75e97b5d1717c60993a429e2f0097df, type: 3}
+  m_Script: {fileID: 11500000, guid: fd6f5d0ecb77cf24e83a236b6fad9ee0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerClass
   healthText: {fileID: 1944187520}
 --- !u!1 &1121830287
 GameObject:
@@ -5102,6 +5103,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121830287}
   m_CullTransparentMesh: 1
+--- !u!1 &1176497692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1176497693}
+  - component: {fileID: 1176497694}
+  m_Layer: 0
+  m_Name: DemoManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1176497693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176497692}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 917790044}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176497694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176497692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bd19a9b4a946e439879961482baf3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DemoManager
+  MainPlayer: {fileID: 1730884934}
+  loader: {fileID: 390937074}
 --- !u!1 &1177020838
 GameObject:
   m_ObjectHideFlags: 0
@@ -5521,9 +5568,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1388674942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aaf5b069f735c8c3b9841f643cb6e1e, type: 3}
+  m_Script: {fileID: 11500000, guid: ee157341422d2334f9d78eeb4b05e820, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mana
+  m_EditorClassIdentifier: Assembly-CSharp::ManaClass
   manaText: {fileID: 1762407005}
 --- !u!1 &1400320213 stripped
 GameObject:
@@ -7463,6 +7510,8 @@ MonoBehaviour:
   MainPlayer: {fileID: 1730884934}
   PlayerMana: {fileID: 1284041434}
   loader: {fileID: 390937074}
+  demoMode: {fileID: 1176497694}
+  isDemoMode: 1
 --- !u!1 &1730436714
 GameObject:
   m_ObjectHideFlags: 0
