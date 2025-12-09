@@ -70,7 +70,7 @@ public class DemoManager : MonoBehaviour
         Debug.Log(HandManager.cardsInHand[0]);
         HandManager.PlayCard(HandManager.cardsInHand[0]);
 
-        //spawnEnemy.DamageEnemy(5);
+        spawnEnemy.DamageEnemy(5);
     }
 
     public void EnemyTurn(){
