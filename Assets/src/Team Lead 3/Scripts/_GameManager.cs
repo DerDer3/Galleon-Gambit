@@ -16,6 +16,9 @@ public class GameManager2 : MonoBehaviour
     // Added by Autumn - Enemy Loader and Objects
     public GameObject loader;
     private EnemyObject currentEnemy;
+    private EnemyLoader spawnEnemy;
+    public DemoManager demoMode;
+    public bool isDemoMode;
 
     // Core Game State variables
     private bool isGameReady = false;
@@ -32,11 +35,17 @@ public class GameManager2 : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
     private void Start()
     {
        //SoundManager.Instance.play(MusicTracks.Battle);
+
+       if(isDemoMode == true){
+            demoMode.StartDemo();
+            return;
+       }
         if (DeckManager != null && MainPlayer != null && PlayerMana != null)
         {
             DeckManager.InitializeDeckAndDrawHand();
@@ -53,7 +62,7 @@ public class GameManager2 : MonoBehaviour
 
         //Added by Autumn - Enemy Spawner 
 
-        EnemyLoader spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
+        spawnEnemy = loader.GetComponent<EnemyLoader>(); //adjust spawn enemy health
         //if boss level, change value to 1
         spawnEnemy.LoadEnemy(0);
         currentEnemy = spawnEnemy.CurrentEnemy;
