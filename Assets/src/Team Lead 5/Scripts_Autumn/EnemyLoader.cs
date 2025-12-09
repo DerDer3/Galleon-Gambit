@@ -69,6 +69,11 @@ public class EnemyLoader : MonoBehaviour
         }
         */
         //Which we don't want... maybe for testing tho ;)
+
+        foreach (Transform child in uiParent)
+        {
+            Destroy(child.gameObject);
+        }
     
         currentEnemy = CreateEnemyFromData(enemies.enemies[index]);
         EnemyHUD ui = Instantiate(enemyHUDPrefab, uiParent);

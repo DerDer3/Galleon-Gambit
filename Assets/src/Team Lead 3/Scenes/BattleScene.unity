@@ -3611,6 +3611,7 @@ GameObject:
   - component: {fileID: 1896065192}
   - component: {fileID: 1896065191}
   - component: {fileID: 1896065190}
+  - component: {fileID: 1896065194}
   m_Layer: 5
   m_Name: MainCanvas
   m_TagString: Untagged
@@ -3706,6 +3707,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1896065194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896065189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccea3d7b324d3fe4bafdc29b237344ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheckIdle
+  idleThreshold: 10
 --- !u!1 &1897199716
 GameObject:
   m_ObjectHideFlags: 0

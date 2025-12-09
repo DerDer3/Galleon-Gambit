@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/src/Team Lead 4/Scenes_Grant/EventMPV_Grant.unity
     guid: ddf625c86a177c54e839208f58412bf2
+  - enabled: 1
+    path: Assets/src/Team Lead 3/Scenes/BattleScene.unity
+    guid: 163504cf6ff2bd84bb0f5941e5844f67
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

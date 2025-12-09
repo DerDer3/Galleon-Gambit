@@ -18,8 +18,7 @@ public class GameManager2 : MonoBehaviour
     private EnemyObject currentEnemy;
     private EnemyLoader spawnEnemy;
     public DemoManager demoMode;
-    public bool isDemoMode;
-
+    public bool isDemoMode = StaticClass.CrossSceneInformation;
     // Core Game State variables
     private bool isGameReady = false;
     public bool IsPlayerTurn { get; set; } = false; // Player starts turn 0 (false) or maybe needs a StartGame call; still in development/
@@ -47,7 +46,7 @@ public class GameManager2 : MonoBehaviour
             demoMode.StartDemo();
             return;
        }
-       
+
         if (DeckManager != null && MainPlayer != null && PlayerMana != null)
         {
             DeckManager.InitializeDeckAndDrawHand();
