@@ -5,6 +5,12 @@ using UnityEngine;
 using System.Collections.Generic; //Required for List<>
 
 [RequireComponent(typeof(AudioSource))]
+
+/*
+ * CDA Game
+ * QR For desktop/ mobile
+ * Teammates know attendance expectations
+*/ 
 public class SoundManager : MonoBehaviour
 {
 
@@ -60,8 +66,6 @@ public class SoundManager : MonoBehaviour
 
         Music = new MusicChannelCore(musicSource);
         SFX = new SFXChannelCore(sfxSource);
-
-        //UpdateChannelVolumes();
     }
 
     public void play(MusicTracks title)
@@ -145,17 +149,6 @@ public class SoundManager : MonoBehaviour
         Debug.Log($"[SoundManager] SFXVolume set to {sfxVolume}");
         //UpdateChannelVolumes();
     }
-    
-    /*public void UpdateChannelVolumes()
-    {
-        float musicMuliplier = masterVolume * musicVolume;
-        float sfxMultiplier = masterVolume * sfxVolume;
-
-        Debug.Log($"[SoundManager] musicMult={musicMuliplier}, sfxMult={sfxMultiplier}");
-
-        Music.SetVolume(musicMuliplier);
-        SFX.SetVolume(sfxMultiplier);
-    }*/
 
     private void ApplyMusicVolume()
     {
