@@ -170,7 +170,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
             PlayerClass player = GameManager2.Instance.MainPlayer;
             ManaClass playerMana = GameManager2.Instance.PlayerMana;
-            EnemyObject currentEnemy = GameManager2.Instance.currentEnemy;
+            EnemyLoader currentEnemy = GameManager2.Instance.spawnEnemy;
 
             // Execute effects based on CardStats dynamically
             ApplyHealEffect(stats, player);
@@ -206,11 +206,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
 
-    private void ApplyDamageEffect(CardStats stats, EnemyObject enemy)
+    private void ApplyDamageEffect(CardStats stats, EnemyLoader enemy)
     {
         if(stats.Damage > 0)
         {
-          enemy.TakeDamage(stats.Damage);
+          enemy.DamageEnemy(stats.Damage);
         }
         //play damage sound
 

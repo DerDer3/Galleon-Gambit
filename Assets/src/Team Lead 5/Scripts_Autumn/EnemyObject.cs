@@ -47,6 +47,7 @@ public abstract class EnemyObject
     public void Die()
     {
         Debug.Log("Enemy Died! Player won!");
+        MapTransitions.Instance.TransitionToMap();
         
     }
     

@@ -15,8 +15,8 @@ public class GameManager2 : MonoBehaviour
 
     // Added by Autumn - Enemy Loader and Objects
     public GameObject loader;
-    public EnemyObject currentEnemy; // Derek Switched to Public so cards can use it
-    private EnemyLoader spawnEnemy;
+    private EnemyObject currentEnemy; // Derek Switched to Public so cards can use it
+    public EnemyLoader spawnEnemy;
     public DemoManager demoMode;
     public bool isDemoMode = StaticClass.CrossSceneInformation;
     // Core Game State variables
