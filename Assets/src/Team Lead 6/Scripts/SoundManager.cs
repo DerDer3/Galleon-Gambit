@@ -5,6 +5,12 @@ using UnityEngine;
 using System.Collections.Generic; //Required for List<>
 
 [RequireComponent(typeof(AudioSource))]
+
+/*
+ * CDA Game
+ * QR For desktop/ mobile
+ * Teammates know attendance expectations
+*/ 
 public class SoundManager : MonoBehaviour
 {
 
@@ -14,21 +20,21 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 
+
     [Header("Audio Library Mapping")]
     public List<MusicTrackData> musicLibrary = new List<MusicTrackData>();
+
 
     [Header("SFX Library Mapping")]
     public List<SFXTrackData> sfxLibrary = new List<SFXTrackData>();
 
+
     [Header("Volume Controls")]
-    [SerializeField, Range(0f, 1f)]
-    private float masterVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float masterVolume = 1f;
 
-    [SerializeField, Range(0f, 1f)]
-    private float musicVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float musicVolume = 1f;
 
-    [SerializeField, Range(0f, 1f)]
-    private float sfxVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
 
     public float MasterVolume => masterVolume;
     public float MusicVolume  => musicVolume;
@@ -56,12 +62,21 @@ public class SoundManager : MonoBehaviour
         if (sfxSource == null)
             sfxSource = gameObject.AddComponent<AudioSource>();
 
-
+        musicSource.volume = 1f;
+        sfxSource.volume = 1f;
 
         Music = new MusicChannelCore(musicSource);
         SFX = new SFXChannelCore(sfxSource);
+    }
 
-        //UpdateChannelVolumes();
+    private void Update()
+    {
+        if(musicSource != null)
+        {
+            float cueVol = currentCue != null ? currentCue.Volume : 1f;
+            float effectiveVolume = Mathf.Clamp01(cueVol * masterVolume * musicVolume);
+            musicSource.volume = effectiveVolume;
+        }
     }
 
     public void play(MusicTracks title)
@@ -81,6 +96,11 @@ public class SoundManager : MonoBehaviour
         currentCue = cue;
         float effectiveVolume = Mathf.Clamp01(cue.Volume * masterVolume * musicVolume);
         Music.Play(cue, effectiveVolume);
+
+        if (musicSource != null)
+        {
+            musicSource.volume = effectiveVolume;
+        }
     }
 
      
@@ -93,7 +113,20 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
+        AudioClip clip = cue.GetRandomClip();
+        if(clip = null)
+        {
+            Debug.LogWarning($"SFX '{title}' has no clips assigned.");
+            return;
+        }
+
         float effectiveVolume = Mathf.Clamp01(cue.Volume * masterVolume * sfxVolume);
+        
+        if(sfxSource == null)
+        {
+            Debug.LogError("SFX Source is not assigned.");
+            return;
+        }
         SFX.Play(cue, effectiveVolume);
 
         Debug.Log($"Playing SFX: {title} at volume {effectiveVolume}");
@@ -127,16 +160,26 @@ public class SoundManager : MonoBehaviour
     {
         masterVolume = Mathf.Clamp01(value);
         Debug.Log($"[SoundManager] MasterVolume set to {masterVolume}");
-        //UpdateChannelVolumes();
-        ApplyMusicVolume();
+
+        if(musicSource != null)
+        {
+            float cueVol = currentCue != null ? currentCue.Volume : 1f;
+            float effectiveVolume = Mathf.Clamp01(cueVol * masterVolume * musicVolume);
+            musicSource.volume = effectiveVolume;
+        }                
     }
 
     public void SetMusicVolume(float value)
     {
         musicVolume = Mathf.Clamp01(value);
         Debug.Log($"[SoundManager] MusicVolume set to {musicVolume}");
-        //UpdateChannelVolumes();
-        ApplyMusicVolume();
+        
+        if(musicSource != null)
+        {
+            float cueVol = currentCue != null ? currentCue.Volume : 1f;
+            float effectiveVolume = Mathf.Clamp01(cueVol * masterVolume * musicVolume);
+            musicSource.volume = effectiveVolume;
+        }
     }
 
     public void SetSFXVolume(float value)
@@ -145,22 +188,18 @@ public class SoundManager : MonoBehaviour
         Debug.Log($"[SoundManager] SFXVolume set to {sfxVolume}");
         //UpdateChannelVolumes();
     }
-    
-    /*public void UpdateChannelVolumes()
-    {
-        float musicMuliplier = masterVolume * musicVolume;
-        float sfxMultiplier = masterVolume * sfxVolume;
-
-        Debug.Log($"[SoundManager] musicMult={musicMuliplier}, sfxMult={sfxMultiplier}");
-
-        Music.SetVolume(musicMuliplier);
-        SFX.SetVolume(sfxMultiplier);
-    }*/
 
     private void ApplyMusicVolume()
     {
-        if (currentCue == null || musicSource == null) return;
-        if (!musicSource.isPlaying) return;
+        if (musicSource == null) return;
+
+        if (currentCue == null)
+        {
+            musicSource.volume = Mathf.Clamp01(masterVolume * musicVolume);
+            return;
+        }
+        /*if (currentCue == null || musicSource == null) return;
+        if (!musicSource.isPlaying) return;*/
 
         float effectiveVolume = Mathf.Clamp01(currentCue.Volume * masterVolume * musicVolume);
         musicSource.volume = effectiveVolume;

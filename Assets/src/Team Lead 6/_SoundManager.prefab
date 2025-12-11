@@ -87,7 +87,7 @@ MonoBehaviour:
     cue: {fileID: 11400000, guid: efb2f5fe3a3215a49a8e9e7abf7f3b41, type: 2}
   masterVolume: 1
   musicVolume: 1
-  sfxVolume: 1
+  sfxVolume: 0
 --- !u!82 &535118784655920484
 AudioSource:
   m_ObjectHideFlags: 0
